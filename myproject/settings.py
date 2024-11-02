@@ -123,10 +123,11 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'staticfiles_build','static')
 # Include the EMS static directory
-STATICFILES_DIRS = [
-    BASE_DIR / 'EMS/static',  # Adjust the path as necessary
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'static',  # Adjust the path as necessary
+# ]
 
 LOGIN_REDIRECT_URL = '/'  # Redirect after login
 LOGOUT_REDIRECT_URL = '/'  # Redirect after logout
