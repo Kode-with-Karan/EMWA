@@ -1,0 +1,236 @@
+{% extends 'base/base.html' %}
+{% block title %}Home{% endblock title %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+<!-- ***** Main Banner Area Start ***** -->
+<div class="main-banner">
+    
+    <div class="container" style="top: -150px; position: relative;">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-content">
+                    <h4 style="color: white;">Your Event, Your Invitation, Your Way!</h4>
+                    <h2>Create. Celebrate...</h2>
+                    <div class="main-white-button">
+                        <a href="{% url 'event_create' %}">Create Now!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+<!-- *** Owl Carousel Items ***-->
+<div class="show-events-carousel">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="owl-show-events owl-carousel">
+                    <div class="item">
+                        <img src="{% static 'EMS/images/event-01.jpg' %}" alt=" ">
+                    </div>
+                    <div class="item">
+                        <img src="{% static 'EMS/images/event-02.jpg' %}" alt=" ">
+                    </div>
+                    <div class="item">
+                        <img src="{% static 'EMS/images/event-03.jpg' %}" alt=" ">
+                    </div>
+                    <div class="item">
+                        <img src="{% static 'EMS/images/event-01.jpg' %}" alt=" ">
+                    </div>
+                    <div class="item">
+                        <img src="{% static 'EMS/images/event-02.jpg' %}" alt=" ">
+                    </div>
+                    <div class="item">
+                        <img src="{% static 'EMS/images/event-03.jpg' %}" alt=" ">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- *** Amazing Venus ***-->
+<div class="amazing-venues">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="left-content">
+                    <h4 style="margin: 10px 0;">Welcome to <a href="{% url 'event_list' %}">Huppsi</a> — </h4> <h4> Your Eco-Friendly Event Companion!</h4>
+                    <p>At Huppsi, we believe in celebrating life's moments without compromising the environment. That's why we've created a platform where you can plan, share, and enjoy events without the need to cut down trees for paper schedules or leaflets. Everything you need is right at your fingertips.
+                    </p>
+                    <br>
+                    <!-- <p>You can use this event template for your commercial or business website. You are not permitted to
+                        redistribute this template ZIP file on any template download website. If you need the latest
+                        HTML templates, you may visit <a href="https://www.toocss.com/" target="_blank">Too CSS</a>
+                        website that features a great collection of templates in different categories.</p> -->
+                </div>
+            </div>
+            <!-- <div class="col-lg-3">
+                <div class="right-content">
+                    <h5><i class="fa fa-map-marker"></i> Visit Us</h5>
+                    <span>5 College St NW, <br>Norcross, GA 30071<br>United States</span>
+                    <div class="text-button"><a href="show-events-details.html">Need Directions? <i
+                                class="fa fa-arrow-right"></i></a></div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- *** Amazing Venus ***-->
+<div class="amazing-venues">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="left-content">
+                    <h4>Our Mission</h4>
+                    <p>Our mission is to revolutionize event planning and promotion by making it more sustainable and accessible. We aim to provide a space where organizers and attendees can connect, share information, and create unforgettable experiences—all while minimizing environmental impact.
+                    </p>
+                    <br>
+                    <!-- <p>You can use this event template for your commercial or business website. You are not permitted to
+                        redistribute this template ZIP file on any template download website. If you need the latest
+                        HTML templates, you may visit <a href="https://www.toocss.com/" target="_blank">Too CSS</a>
+                        website that features a great collection of templates in different categories.</p> -->
+                </div>
+            </div>
+            <!-- <div class="col-lg-3">
+                <div class="right-content">
+                    <h5><i class="fa fa-map-marker"></i> Visit Us</h5>
+                    <span>5 College St NW, <br>Norcross, GA 30071<br>United States</span>
+                    <div class="text-button"><a href="show-events-details.html">Need Directions? <i
+                                class="fa fa-arrow-right"></i></a></div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+
+<!-- *** Map ***-->
+<div class="map-image">
+    <img src="{% static 'EMS/images/map-image.jpg' %}" alt="Maps of 3 Venues">
+</div>
+
+
+
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>Our Venues & Tickets</h2>
+                </div>
+            </div>
+
+            {% for event in events %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 9px; overflow: hidden;">
+                    <div class="thumb">
+                        <img src="{{ event.image.url }}" alt="">
+                    </div>
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4> <br>
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}} </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <ul>
+                                <li><i class="fa fa-sitemap"></i>250</li>
+                                <li><i class="fa fa-user"></i>500</li>
+                            </ul> -->
+                            <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+
+<!-- *** Coming Events ***-->
+<div class="coming-events">
+    <div class="left-button">
+        <div class="main-white-button">
+            <a href="{% url 'event_show' %}">Discover More</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            {% for event in events_detail %}
+            <div class="col-lg-3">
+                <div class="event-item">
+                    <div class="thumb">
+                        <a href="{% url 'event_detail' event.id %}"><img src="{{ event.image.url }}" alt=""></a>
+                    </div>
+                    <div class="down-content">
+                        <a href="{% url 'event_detail' event.id %}">
+                            <h4>{{event.name|name_shorter}}</h4>
+                        </a>
+                        <ul>
+                            <li><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}}</li>
+                            <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+           
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .main-live-button{
+        /* display: inline-block; */
+        font-size: 14px;
+        padding: 3px 9px;
+        background-color: red;
+        color: #2a2a2a;
+        text-align: center;
+        font-weight: 500;
+        text-transform: capitalize;
+        transition: all .3s;
+        border-radius: 5px;
+    }
+    .main-live-button>span{
+        color: white;
+    }
+</style>
+
+<script>
+
+    let datetime = document.getElementsByClassName("datetime");
+
+    Array.prototype.forEach.call(datetime, function(data){
+        let sdatetime = (data.innerHTML.split('<i class="fa fa-clock-o"></i>')[1].split('<span')[0].split("-"))
+
+        // const targetDate = new Date(sdatetime[0]+sdatetime[1]);
+        targetDateString = (sdatetime[0]+sdatetime[1]).replace("  ", " ").replace("p.m.","PM").replace("a.m.","AM")
+        const targetDate = new Date(targetDateString);
+
+        // Get the current date and time
+        const currentDate = new Date();
+
+        if (currentDate >= targetDate) {
+            console.log("The date and time have been reached.");
+            data.innerHTML += '<div class="main-live-button" style="margin: 20px 0;position: absolute;top: 38px;"><span>Live</span></div>'
+        } else {
+            console.log("The date and time have not been reached yet.");
+        }
+    })
+
+</script>
+
+{% endblock content %}

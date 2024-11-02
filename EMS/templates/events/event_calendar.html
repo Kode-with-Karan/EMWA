@@ -1,0 +1,135 @@
+{% extends 'base/base.html' %}
+{% block link %}
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+{% endblock link %}
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+{% endblock js %}
+{% block title %}Event Calendar{% endblock title %}
+{% load custom_filters %}
+{% load static %}
+{% block content %}
+
+
+<div class="row" style="align-items: center;flex-wrap: nowrap;justify-content: center;width: fit-content;margin: auto;">
+    <div class="col-lg-12">
+        <fieldset>
+            <input style="outline: none; border: 1px solid green; border-radius: 20px; padding: 8px;width: 100%;
+" id="location" name="search" type="search" placeholder="Location" aria-label="Search">
+        </fieldset>
+    </div>
+    <div class="col-lg-0">
+        <fieldset>
+            <button type="submit" onclick="fetchEvents()"
+                style="outline: none;background: green; color: white; border: none; border-radius: 20px; padding: 7px 12px;"
+                class="main-dark-button"><i class="fa fa-search"></i></button>
+        </fieldset>
+    </div>
+</div>
+
+    <div class="canva_showing" id="canva">
+        <div class="canva_body">
+            <div class="close" id="close_canva">
+                <i class="fa fa-times"></i>
+            </div>
+            <div class="canva_frame" style="overflow-x: hidden;">
+                <!-- <iframe id="canva_frame" src="#" frameborder="0" width="100%" height="100%"></iframe> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JSON representation of events -->
+    <script type="application/json" id="event-data">
+        [
+            {% for event in events %}
+            {
+                "title": "{{ event.name|short10|escapejs }}",
+                "start": "{{ event.start_date|date:"Y-m-d" }}",
+                "location": "{{ event.place_info|escapejs }}",
+                "id": "{{ event.id|escapejs }}",
+                "description": "{{ event.description|escapejs }}"
+            }
+            {% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ]
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var events = JSON.parse(document.getElementById('event-data').textContent);
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: events,
+                eventClick: function (info) {
+                    // alert(info.event.title + '\n' + info.event.start + '\n' + info.event.extendedProps.description);
+                    // console.log(info)
+                    let canva_frame_cal = document.getElementsByClassName("canva_frame")[0];
+                    document.getElementById("canva").style.display = 'flex';
+                    canva_frame_cal.innerHTML = " "
+                    // Create a message with the events
+                    canva_frame_cal.innerHTML += `<div class="cal_card"><h3>${info.event.title}</h3><p>${info.event.extendedProps.location}</p><p>${info.event.start}</p><a href="/event/${info.event.id}" class="login_btn">Visit</a></div>`
+                    
+                },
+                dateClick: function (info) {
+                    // Filter events for the clicked date
+                    var clickedDate = info.dateStr; // YYYY-MM-DD format
+                    var eventsOnDate = events.filter(event => event.start === clickedDate);
+                    let canva_frame_cal = document.getElementsByClassName("canva_frame")[0];
+                    document.getElementById("canva").style.display = 'flex';
+                    canva_frame_cal.innerHTML = " "
+                    // Create a message with the events
+                    if (eventsOnDate.length > 0) {
+                        // var message = "Events on " + clickedDate + ":\n";
+                        eventsOnDate.forEach(event => {
+                            // message += `\nTitle: ${event.title}\nDescription: ${event.description}\n`;
+                            canva_frame_cal.innerHTML += `<div class="cal_card"><h3>${event.title}</h3><p>${event.location}</p><p>${event.start}</p><a href="/event/${event.id}" class="login_btn">Visit</a></div>`
+                        });
+                    } else {
+                        message = "No events on " + clickedDate;
+                    }
+
+                    // Display in a popup alert
+                    alert(message);
+                },
+            });
+            calendar.render();
+        });
+    </script>
+
+    <script>
+        function fetchEvents() {
+            document.getElementById("canva").style.display = 'flex';
+            const location = document.getElementById('location').value;
+            const url = `/api/events/?location=${encodeURIComponent(location)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(events => {
+                    const eventList = document.getElementsByClassName('canva_frame')[0];
+                    eventList.innerHTML = '';
+
+                    if (events.length === 0) {
+                        eventList.innerHTML = '<li style="text-align : center">No events found.</li>';
+                    } else {
+                        events.forEach(event => {
+                            eventList.innerHTML += `<div class="cal_card"><h3>${event.name}...</h3><p>${event.location}</p><p>${event.date}</p><a href="/event/${event.id}" class="login_btn">Visit</a></div>`
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching events:', error);
+                });
+        }
+    </script>
+    {% endblock content %}

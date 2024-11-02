@@ -1,0 +1,92 @@
+{% extends 'base/base.html' %}
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+
+<div class="rent-venue-application" style="margin:  0;">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="col-lg-6">
+            <div class="heading-text text-center mb-4">
+                <h1>Registration</h1>
+            </div>
+            <div class="contact-form">
+                <form id="contact" method="post">
+                    <div class="row">
+                        {% csrf_token %}
+                        <!-- Username Field -->
+                        <div class="col-12 mb-3">
+                            <fieldset>
+                                <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                <ul class="text-danger">
+                                    {% for error in form.username.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </fieldset>
+                        </div>
+                        <!-- Password Field -->
+                        <div class="col-12 mb-3">
+                            <fieldset>
+                                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                <ul class="text-danger">
+                                    {% for error in form.email.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            </fieldset>
+                        </div>
+                        <!-- Password Field -->
+                        <div class="col-12 mb-3">
+                            <fieldset>
+                                <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                                {{ form.password1 }}
+                                {% if form.password1.errors %}
+                                <ul class="text-danger">
+                                    {% for error in form.password1.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </fieldset>
+                        </div>
+                        <!-- Password Field -->
+                        <div class="col-12 mb-3">
+                            <fieldset>
+                                <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                                {{ form.password2 }}
+                                {% if form.password2.errors %}
+                                <ul class="text-danger">
+                                    {% for error in form.password2.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </fieldset>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <fieldset>
+                                {{ form.ul }}
+                            </fieldset>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="col-12 text-center">
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="main-dark-button">Registor</button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+                <p style="text-align: center;" class="mt-4">If You have an account. <a
+                        href="{% url 'login' %}">Login</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

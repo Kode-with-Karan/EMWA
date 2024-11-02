@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+
+<div class="rent-venue-application" style="margin:  0;">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="col-lg-6">
+            <div class="heading-text text-center mb-4">
+                <h1>Login</h1>
+            </div>
+            <div class="contact-form">
+                <form id="contact" method="post">
+                    <div class="row">
+                        {% csrf_token %}
+                        <!-- Username Field -->
+                        <div class="col-12 mb-3">
+                            <fieldset>
+                                <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                                {{ form.username }}
+                            </fieldset>
+                        </div>
+                        <!-- Password Field -->
+                        <div class="col-12 mb-3">
+                            <fieldset>
+                                <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                                {{ form.password }}
+                            </fieldset>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="col-12 text-center">
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="main-dark-button">Login</button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+                <p style="text-align: center;" class="mt-4">If You Don't have an account. <a href="{% url 'register' %}">Registration</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
