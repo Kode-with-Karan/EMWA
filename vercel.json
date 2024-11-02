@@ -8,7 +8,7 @@
       }
     ],
     "routes": [
-        { "src": "/staticfiles/(.*)", "dest": "/staticfiles/$1" },
+        { "src": "/EMS/static/(.*)", "dest": "/EMS/static/$1" },
       { "src": "/(.*)", "dest": "myproject/wsgi.py" }
     ]
   }
