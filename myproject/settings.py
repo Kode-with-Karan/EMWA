@@ -27,8 +27,8 @@ SECRET_KEY = 'django-insecure-vqd(z#29#d@i&e-)5b2leajo10eo7tafv^1+$r#j8=i@fgxmcd
 # DEBUG = False
 DEBUG = True
 
-ALLOWED_HOSTS = [".vercel.app"]
-# ALLOWED_HOSTS = ["*"]
+# ALLOWED_HOSTS = [".vercel.app"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -127,13 +127,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 # STATICFILES_DIRS = os.path.join(BASE_DIR, 'staticfiles_build','static')
 # Include the EMS static directory
-STATICFILES_DIRS = [
-    BASE_DIR / 'EMS/static',  # Adjust the path as necessary
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'EMS/static',  # Adjust the path as necessary
+# ]
 
 LOGIN_REDIRECT_URL = '/'  # Redirect after login
 LOGOUT_REDIRECT_URL = '/'  # Redirect after logout
