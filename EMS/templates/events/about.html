@@ -1,0 +1,138 @@
+{% extends 'base/base.html' %}
+{% block title %}Home{% endblock title %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+<!-- ***** Main Banner Area Start ***** -->
+<div class="main-banner">
+
+    <div class="container" style="top: -150px; position: relative;">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-content">
+                    <h4 style="color: white;">Your Event, Your Invitation, Your Way!</h4>
+                    <h2>Create. Celebrate...</h2>
+                    <div class="main-white-button">
+                        <a href="{% url 'event_create' %}">Create Now!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+<!-- *** Owl Carousel Items ***-->
+<div class="show-events-carousel">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="owl-show-events owl-carousel">
+                    <div class="item">
+                        <img src="{% static 'EMS/images/event-01.jpg' %}" alt=" ">
+                    </div>
+                    <div class="item">
+                        <img src="{% static 'EMS/images/event-02.jpg' %}" alt=" ">
+                    </div>
+                    <div class="item">
+                        <img src="{% static 'EMS/images/event-03.jpg' %}" alt=" ">
+                    </div>
+                    <div class="item">
+                        <img src="{% static 'EMS/images/event-01.jpg' %}" alt=" ">
+                    </div>
+                    <div class="item">
+                        <img src="{% static 'EMS/images/event-02.jpg' %}" alt=" ">
+                    </div>
+                    <div class="item">
+                        <img src="{% static 'EMS/images/event-03.jpg' %}" alt=" ">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- *** Amazing Venus ***-->
+<div class="amazing-venues">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="left-content">
+                    <h4 style="margin: 10px 0;">Welcome to <a href="/">Huppsi.com</a> — </h4> <h4> Your Eco-Friendly Event Companion!</h4>
+                    <p>At Huppsi, we believe in celebrating life's moments without compromising the environment. That's
+                        why we've created a platform where you can plan, share, and enjoy events without the need to cut
+                        down trees for paper schedules or leaflets. Everything you need is right at your fingertips.
+                    </p>
+                    <br>
+                    <!-- <p>You can use this event template for your commercial or business website. You are not permitted to
+                        redistribute this template ZIP file on any template download website. If you need the latest
+                        HTML templates, you may visit <a href="https://www.toocss.com/" target="_blank">Too CSS</a>
+                        website that features a great collection of templates in different categories.</p> -->
+                    <h4>Our Mission</h4>
+                    <p>Our mission is to revolutionize event planning and promotion by making it more sustainable and
+                        accessible. We aim to provide a space where organizers and attendees can connect, share
+                        information, and create unforgettable experiences—all while minimizing environmental impact.
+                    </p>
+                    <br>
+                    <h4>What We Offer</h4>
+                    <ul>
+                        <li style="padding: 10px;">
+                            <p>
+                            <span style="font-size: 18px;font-weight: 600;">
+                                Create Public or Personal Events:
+                            </span>
+                                Whether you're organizing a community festival or a private gathering, Huppsi gives you the tools to make it happen seamlessly.
+                            </p>
+                        </li>
+                        <li style="padding: 10px;">
+                            <p>
+                            <span style="font-size: 18px;font-weight: 600;">
+                                Send Invitations: 
+                            </span>
+                                Easily invite guests and keep them informed about event details, updates, and changes.
+                            </p>
+                        </li>
+                        <li style="padding: 10px;">
+                            <p>
+                            <span style="font-size: 18px;font-weight: 600;">
+                                Media Sharing:
+                            </span>
+                                Access and share the best moments through photos and videos. Relive the highlights and see the event from different perspectives.
+                            </p>
+                        </li>
+                        <li style="padding: 10px;">
+                            <p>
+                            <span style="font-size: 18px;font-weight: 600;">
+                                Comments and Feedback:
+                            </span>
+                                Leave messages, greetings, or best wishes on the event page. For private events, this feature adds a personal touch that everyone can see and appreciate.
+                            </p>
+                        </li>
+                        <li style="padding: 10px;">
+                            <p>
+                            <span style="font-size: 18px;font-weight: 600;">
+                                Seating Plan or Event Map:
+                            </span>
+                                Help your guests navigate the event with customized seating plans and interactive maps.
+                            </p>
+                        </li>
+                        <li style="padding: 10px;">
+                            <p>
+                            <span style="font-size: 18px;font-weight: 600;">
+                                Environmental Impact:
+                            </span>
+                                By going digital, we reduce the need for printed materials, saving trees and reducing waste.
+                            </p>
+                        </li>
+                    </ul>
+                    <br>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,206 @@
+{% extends 'base/base.html' %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<div class="rent-venue-application">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="heading-text">
+                    <h4>Create Event</h4>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form id="contact" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        {% csrf_token %}
+                        <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                                <label for="{{ form.name.id_for_label }}"> Event name </label>
+                                {{ form.name }}
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                                <label for="{{ form.category.id_for_label }}"> {{ form.category.label }} (Public/private) </label>
+                                {{ form.category }}
+                            </fieldset>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <fieldset>
+                                <label for="{{ form.place_info.id_for_label }}"> Location </label>
+                                {{ form.place_info}}
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                                <label for="{{ form.start_date.id_for_label }}"> {{ form.start_date.label }} </label>
+                                {{ form.start_date}}
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                                <label for="{{ form.end_date.id_for_label }}"> {{ form.end_date.label }} </label>
+                                {{ form.end_date}}
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                                <label for="{{ form.start_time.id_for_label }}"> {{ form.start_time.label }} </label>
+                                {{ form.start_time}}
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                                <label for="{{ form.end_time.id_for_label }}"> {{ form.end_time.label }} </label>
+                                {{ form.end_time}}
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <label for="{{ form.description.id_for_label }}">Description</label>
+
+                                {{ form.description }}
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <label for="{{ form.link.id_for_label }}">Link</label>
+
+                                {{ form.link }}
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <label for="{{ form.instructions.id_for_label }}">Instructions</label>
+
+                                {{ form.instructions }}
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <label for="images">Upload Images (Multiple):</label>
+                                <input type="file" name="image" multiple required>
+                            </fieldset>
+                        </div>
+                        <!-- <div class="col-lg-12">
+                            <fieldset>
+                                <label for="{{ form.image.id_for_label }}"> {{ form.image.label }} </label>
+                                {{ form.image }}
+                            </fieldset>
+                        </div> -->
+                        
+                        
+                        
+                        <!-- <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                                {{ form.venue}}
+                            </fieldset>
+                        </div> -->
+                        
+
+                        
+                        
+                        
+                        <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                                <div class="col-lg-12">
+                                    <fieldset>
+                                        <label for="sitting_plans">Upload Seating Plan (Multiple):</label>
+                                        <input type="file" name="sitting_plan" multiple >
+                                    </fieldset>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                                <div class="col-lg-12">
+                                    <fieldset>
+                                        <label for="schedule_plans">Upload Schedule Plan (Multiple):</label>
+                                        <input type="file" name="schedule_plan" multiple >
+                                    </fieldset>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-10 col-sm-12">
+                            <fieldset>
+                                <label for="{{ form.geast_list.id_for_label }}"> Guests lists </label>
+
+                                {{ form.geast_list }}
+                            </fieldset>
+                        </div>
+                        <div class="col-md-1 col-sm-12">
+                            <fieldset>
+                                <a href="#id_geast_list" id="email_btn" class="main-dark-button" >Add</a>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-1 col-sm-12">
+                            <fieldset>
+                                <a href="#id_geast_list" id="final_btn" class="main-dark-button" >Final</a>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                           <ul id="email_list">
+                            
+                           </ul>
+                        </div>
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="main-dark-button">Save</button>
+                            </fieldset>
+                        </div>
+                        <!-- {{ form.as_p }} -->
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    document.getElementById("email_btn").addEventListener('click', function(){
+        
+        document.getElementById("email_list").innerHTML += '<li>'+ document.getElementById("id_geast_list").value +' </li>'
+        document.getElementById("id_geast_list").value = ""
+    })
+
+    let email_list = [];
+    document.getElementById("final_btn").addEventListener('click', function(){
+        
+        
+        let emails = document.getElementById("email_list").getElementsByTagName("li")
+        console.log(emails)
+
+        Array.from(emails).forEach(email => {
+            email_list.push(email.textContent);
+        });
+
+        document.getElementById("id_geast_list").value = email_list
+        document.getElementById("email_list").innerHTML = ''
+        
+    })
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const startDateInput = document.getElementById("id_start_date");
+        const endDateInput = document.getElementById("id_end_date");
+    
+        // When the start date changes, update the minimum end date
+        startDateInput.addEventListener("change", function () {
+            const startDate = startDateInput.value;
+            
+            // If a start date is selected, set it as the minimum for the end date
+            if (startDate) {
+                endDateInput.min = startDate;
+            } else {
+                // Reset the min if no start date is selected
+                endDateInput.min = '';
+            }
+        });
+    });
+</script>
+
+{% endblock content %}

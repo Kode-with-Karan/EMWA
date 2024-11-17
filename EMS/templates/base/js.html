@@ -1,0 +1,196 @@
+{% load static %}
+
+
+<script>
+    let close = document.getElementById("close_canva");
+    let canva = document.getElementById("canva");
+    
+
+
+    let media_close = document.getElementById("close_media_canva");
+    let media_canva = document.getElementById("media_canva");
+    let canva_thumb = document.getElementById("canva_thumb");
+    let media_cont_span = document.getElementById("media_cont_span");
+    let media_cont_p = document.getElementById("media_cont_p");
+    let dump;
+
+    close.addEventListener("click", function () {
+        canva.style.display = "none";
+        try {
+            let canva_frame_cal = document.getElementsByClassName("canva_frame")[0];
+            canva_frame_cal.innerHTML = '<img id="canva_frame" src="#" width="100%" height="100%" alt="">';
+        } catch (error) {
+            
+        }
+    });
+
+    let seating = document.getElementsByClassName("sitting_plan");
+    Array.prototype.forEach.call(seating, function (seat) {
+        seat.addEventListener('click', function () {
+            let img_url = (seat.getElementsByTagName("div")[0].getElementsByTagName("img")[0]);
+            canva.style.display = "flex";
+            canva_frame.src = img_url.getAttribute("src");
+
+        })
+    });
+
+    let schedulei = document.getElementsByClassName("schedule_plan");
+    Array.prototype.forEach.call(schedulei, function (seat) {
+        seat.addEventListener('click', function () {
+            let img_url = (seat.getElementsByTagName("div")[0].getElementsByTagName("img")[0]);
+            canva.style.display = "flex";
+            canva_frame.src = img_url.getAttribute("src");
+
+        })
+    });
+
+    // let sitting = document.getElementById("sitting_plan")
+    // let sitting_image = document.getElementById("sitting_image")
+    // // console.log(sitting_image.getAttribute("src"))
+    // sitting.addEventListener('click', function (parameters) {
+    //     let canva_frame = document.getElementById("canva_frame");
+    //     console.log(sitting_image.getAttribute("src"))
+    //     canva.style.display = "flex";
+    //     canva_frame.src = sitting_image.getAttribute("src");
+    // })
+
+    // let schedule = document.getElementById("schedule_plan")
+    // let schedule_image = document.getElementById("schedule_image")
+    // // console.log(schedule_image.getAttribute("src"))
+    // schedule.addEventListener('click', function (parameters) {
+    //     let canva_frame = document.getElementById("canva_frame");
+    //     console.log(schedule_image.getAttribute("src"))
+    //     canva.style.display = "flex";
+    //     canva_frame.src = schedule_image.getAttribute("src");
+    // })
+
+
+
+    media_close.addEventListener("click", function () {
+        media_canva.style.display = "none";
+        dump.appendChild(canva_thumb.getElementsByClassName("icons")[0])
+
+        try {
+            
+            let element = document.getElementById("media_img")
+            element.remove()
+        } catch (error) {
+            let element = document.getElementById("media_video")
+            element.remove()
+        }
+    });
+
+    let media_grid = document.getElementsByClassName("media_grid")[0]
+    let media_item = media_grid.getElementsByClassName("like-item")
+
+    
+    Array.prototype.forEach.call(media_item, function (el) {
+        el.addEventListener('click', function () {
+            media_canva.style.display = "flex";
+            let thumb = el.getElementsByClassName("thumb")[0]
+            let content = el.getElementsByClassName("down-content")[0]
+            try {
+                let element = thumb.getElementsByTagName("img")[0]
+                canva_thumb.innerHTML += '<img src="' + thumb.getElementsByTagName("img")[0].getAttribute("src") + '" id = "media_img" alt="Comment image">'
+            } catch (error) {
+                canva_thumb.innerHTML += '<video src="' + thumb.getElementsByTagName("video")[0].getAttribute("src") + '" id = "media_video" controls alt="Comment video">'
+
+            }
+
+            console.log(content.getElementsByTagName("span")[0].innerHTML)
+            media_cont_span.innerHTML = content.getElementsByTagName("span")[0].innerHTML
+            media_cont_p.innerHTML = content.getElementsByTagName("p")[0].innerHTML
+            
+            dump = thumb;
+            thumb.getElementsByClassName("icons")[0].style.display = "flex"
+            canva_thumb.appendChild(thumb.getElementsByClassName("icons")[0])
+
+        })
+    });
+
+    // let sitting = document.getElementById("sitting_plan")
+    // let sitting_image = document.getElementById("sitting_image")
+    // // console.log(sitting_image.getAttribute("src"))
+    // sitting.addEventListener('click', function (parameters) {
+    //     let canva_frame = document.getElementById("canva_frame");
+    //     console.log(sitting_image.getAttribute("src"))
+    //     canva.style.display = "flex";
+    //     canva_frame.src = sitting_image.getAttribute("src");
+    // })
+
+    // let schedule = document.getElementById("schedule_plan")
+    // let schedule_image = document.getElementById("schedule_image")
+    // // console.log(schedule_image.getAttribute("src"))
+    // schedule.addEventListener('click', function (parameters) {
+    //     let canva_frame = document.getElementById("canva_frame");
+    //     console.log(schedule_image.getAttribute("src"))
+    //     canva.style.display = "flex";
+    //     canva_frame.src = schedule_image.getAttribute("src");
+    // })
+
+
+
+    // media_close.addEventListener("click", function () {
+    //     media_canva.style.display = "none";
+    //     dump.appendChild(canva_thumb.getElementsByClassName("icons")[0])
+
+    //     try {
+            
+    //         let element = document.getElementById("media_img")
+    //         element.remove()
+    //     } catch (error) {
+    //         let element = document.getElementById("media_video")
+    //         element.remove()
+    //     }
+    // });
+
+    // let media_grid = document.getElementsByClassName("media_grid")[0]
+    // let media_item = media_grid.getElementsByClassName("like-item")
+
+    
+    // Array.prototype.forEach.call(media_item, function (el) {
+    //     el.addEventListener('click', function () {
+    //         media_canva.style.display = "flex";
+    //         let thumb = el.getElementsByClassName("thumb")[0]
+    //         let content = el.getElementsByClassName("down-content")[0]
+    //         try {
+    //             let element = thumb.getElementsByTagName("img")[0]
+    //             canva_thumb.innerHTML += '<img src="' + thumb.getElementsByTagName("img")[0].getAttribute("src") + '" id = "media_img" alt="Comment image">'
+    //         } catch (error) {
+    //             canva_thumb.innerHTML += '<video src="' + thumb.getElementsByTagName("video")[0].getAttribute("src") + '" id = "media_video" controls alt="Comment video">'
+
+    //         }
+
+    //         console.log(content.getElementsByTagName("span")[0].innerHTML)
+    //         media_cont_span.innerHTML = content.getElementsByTagName("span")[0].innerHTML
+    //         media_cont_p.innerHTML = content.getElementsByTagName("p")[0].innerHTML
+            
+    //         dump = thumb;
+    //         thumb.getElementsByClassName("icons")[0].style.display = "flex"
+    //         canva_thumb.appendChild(thumb.getElementsByClassName("icons")[0])
+
+    //     })
+    // });
+
+</script>
+
+<!-- jQuery -->
+<script src="{% static 'EMS/js/jquery-2.1.0.min.js' %}"></script>
+
+<!-- Bootstrap -->
+<script src="{% static 'EMS/js/popper.js' %}"></script>
+<script src="{% static 'EMS/js/bootstrap.min.js' %}"></script>
+
+<!-- Plugins -->
+<script src="{% static 'EMS/js/scrollreveal.min.js' %}"></script>
+<script src="{% static 'EMS/js/waypoints.min.js' %}"></script>
+<script src="{% static 'EMS/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'EMS/js/imgfix.min.js' %}"></script>
+<script src="{% static 'EMS/js/mixitup.js' %}"></script>
+<script src="{% static 'EMS/js/accordions.js' %}"></script>
+<script src="{% static 'EMS/js/owl-carousel.js' %}"></script>
+
+<!-- Global Init -->
+<script src="{% static 'EMS/js/custom.js' %}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>

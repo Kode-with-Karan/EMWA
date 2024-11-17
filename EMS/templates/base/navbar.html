@@ -1,0 +1,73 @@
+{% load static %}
+
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="{% url 'event_list' %}" class="logo">
+                        <img style="width: 87px;" src="{% static 'EMS/images/logo.png' %}" alt="">
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li><!-- *** Subscribe *** -->
+                            <form id="subscribe" action="{% url 'search_private_event' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="row" style="align-items: center;flex-wrap: nowrap;width: 100%;">
+                                    <div class="col-sm-8">
+                                        <fieldset>
+                                            <input style="outline: none; border: 1px solid green; border-radius: 20px; padding: 8px;width: 238px;
+" id="email" name="search" type="search" placeholder="Search via Secret Code"
+                                                aria-label="Search">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-0">
+                                        <fieldset>
+                                            <button type="submit" id="form-submit" style="outline: none;background: green; color: white; border: none; border-radius: 20px; padding: 7px 12px;"
+                                                class="main-dark-button"><i class="fa fa-search"></i></button>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </li>
+                        <li><a href="{% url 'event_list' %}" class="{% if active_page == 'home' %}active{% endif %}">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="{% if active_page == 'about' %}active{% endif %}">About Us</a></li>
+                        <li><a href="{% url 'event_show' %}" class="{% if active_page == 'show' %}active{% endif %}">All Events</a></li>
+                        <li><a href="{% url 'calendar' %}" class="{% if active_page == 'calendar' %}active{% endif %}">Event Calendar</a></li>
+                        <li><a href="{% url 'event_create' %}" class="{% if active_page == 'create' %}active{% endif %}">Create Event</a></li>
+
+                        {% if user.is_authenticated %}
+
+                        {% if request.resolver_match.url_name == "dashboard" %}
+                        <li><a class="login_btn" style="color: white;">
+                                <form action="{% url 'logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="main-dark-button"
+                                        style="background: none;padding: 0;border: none; color: white;">Logout
+                                    </button>
+                                </form>
+                            </a></li>
+
+
+                        {% else %}
+                        <li><a class="login_btn" href="{% url 'dashboard' %}">DashBoard</a></li>
+                        {% endif %}
+                        {% else %}
+                        <li><a class="login_btn" href="{% url 'login' %}">Login</a></li>
+                        {% endif %}
+                    </ul>
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<hr>
+<!-- ***** Header Area End ***** -->

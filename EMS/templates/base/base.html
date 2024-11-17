@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link
+    href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+    rel="stylesheet">
+
+  {% block link %} {% endblock link %}
+  {% block js %} {% endblock js %}
+  <title>{% block title %} {% endblock title %}</title>
+
+  {% include 'base/header.html' %}
+
+  {% block extrahead %}
+
+  {% endblock extrahead %}
+</head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+
+  <!-- Navbar -->
+  {% include 'base/navbar.html' %}
+  <!-- /.navbar -->
+
+  {% block content %}
+
+  {% endblock content %}
+
+  <!-- Main Footer -->
+  {% include 'base/footer.html' %}
+  </div>
+  <!-- ./wrapper -->
+  
+  {% include 'base/js.html' %}
+  {% block extrascript %}
+
+  {% endblock extrascript %}
+
+</body>
+
+</html>

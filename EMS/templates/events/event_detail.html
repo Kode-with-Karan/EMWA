@@ -1,0 +1,687 @@
+{% extends 'base/base.html' %}
+{% block title %}Home{% endblock title %}
+{% load custom_filters %}
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success mb-0" role="alert" id="alert-message">
+    {{ message }}
+</div>
+{% endfor %}
+</div>
+{% endif %}
+<div class="page-heading-about">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12"
+                style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                <h2>{{ event.name|short10 }}</h2>
+                <div class="shortcuts">
+                    <ul>
+                        <li><a href="#DescSection">Info</a></li>
+                        <li><a href="#MediaSection">Media</a></li>
+                        <li><a href="#ScheduleSection">Schedule</a></li>
+                        <li><a href="#MapSection">Map</a></li>
+                    </ul>
+                </div>
+                <span class="datetime" style="display: none;">{{ event.start_date }} - {{ event.start_time }} </span>
+                <span id="timmer">{{ event.end_date }} - {{ event.end_time }} </span>
+                <span> {{ event.place_info }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if images|length == 1 %}
+<div class="about-item">
+    <div class="container" style="display: flex;">
+        <div class="col-lg-6" style="margin: auto;">
+            <div class="left-image">
+                <div class="about-map-image">
+                    {% for image in images %}
+                    <img src="{{image.image.url}}" alt="party time" style="border-radius: 20px;">
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="show-events-carousel">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="owl-show-events owl-carousel">
+                    {% for image in images %}
+                    <div class="item">
+                        <img src="{{ image.image.url }}" alt="Image for {{ event.name }}">
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div id="DescSection" class="about-upcoming-shows">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <h2>Event Name</h2>
+                <h4>{{ event.name }}</h4>
+                <h2>Description</h2>
+                <p> {{ event.description }}</p>
+                <h4>Instructions</h4>
+                <ul>
+                    <p>{{ event.instructions }}</p>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <div class="next-shows">
+                    <h4><i class="fa fa-map-marker"></i> Location </h4>
+                    <ul>
+                        <li>
+                            {{ event.place_info }}
+                        </li>
+                    </ul>
+
+                </div>
+                <br>
+                <div class="next-shows">
+                    <h4><i class="fa fa-ticket"></i> Link </h4>
+                    <div class="down-content">
+                        <span> Event Ticket Link</span> <br> <br>
+                        <div class="main-dark-button">
+                            <a href="{{event.link}}" style="color: white;border-radius: 9px;overflow: hidden;"
+                                target="_blank">Click for ticket </a>
+                            <!-- <form class="form-inline ml-3" action="{% url 'search-event' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control form-control-navbar" name="search" type="hidden"
+                                        value="{{ event.user }}" placeholder="Search" aria-label="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-navbar" type="submit">
+                                            <a style="color: white;border-radius: 9px;overflow: hidden;">All Events by
+                                                {{ event.user }}</a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 
+<div class="also-like">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>You Might Also Like...</h2>
+            </div>
+
+            {% for event in event_related %}
+            <div class="col-lg-4">
+                <div class="like-item" style="border-radius: 20px;overflow: hidden;">
+                    <div class="thumb">
+                        <a href="{%url 'event_detail' event.id %}"><img src="{{ event.image.url }}" alt=""></a>
+                        <div class="icons">
+                            <ul>
+                                <li><a href="{%url 'event_detail' event.id %}"><i class="fa fa-arrow-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="down-content">
+                        <span>{{ event.start_date }}</span>
+                        <a href="{%url 'event_detail' event.id %}">
+                            <h4>{{ event.name }}</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div> -->
+
+
+
+
+<div class="canva_showing" id="canva">
+    <div class="canva_body">
+        <div class="close" id="close_canva">
+            <i class="fa fa-times"></i>
+        </div>
+        <div class="canva_frame">
+            <!-- <iframe id="canva_frame" src="#" frameborder="0" width="100%" height="100%"></iframe> -->
+            <img id="canva_frame" src="#" width="100%" height="100%" alt="">
+        </div>
+    </div>
+</div>
+
+
+<!-- End SHOING PAGE -->
+{% if event.sitting_plan %}
+<div id="MapSection" class="also-like">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Seating Plan</h2>
+            </div>
+
+            {% for sitting_plan in sitting_plans %}
+            <div class="col-lg-4">
+                <div class="like-item sitting_plan">
+                    <div class="thumb">
+                        <img src="{{sitting_plan.image.url}}" alt="">
+                        <div class="icons">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-arrow-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if event.schedule_plan %}
+<div id="ScheduleSection" class="also-like">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Schedule Plan</h2>
+            </div>
+
+            {% for schedule_plan in schedule_plans %}
+            <div class="col-lg-4">
+                <div class="like-item schedule_plan">
+                    <div class="thumb">
+                        <img src="{{schedule_plan.image.url}}" alt="">
+                        <div class="icons">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-arrow-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+
+
+<div class="media_canva_showing" id="media_canva">
+    <div class="media_canva_body">
+        <div class="close" id="close_media_canva">
+            <i class="fa fa-times"></i>
+        </div>
+        <div class="also-like" style="background: transparent;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12" style="margin-bottom: 20px;">
+                        <div class="like-item" id="media_like">
+                            <div class="thumb" id="canva_thumb">
+                                <!-- <div class="icons">
+                                    <ul>
+                                        <li><a onclick="likeComment('{{ comment.id }}')"><i class="fa fa-thumbs-up"></i>
+                                                <span id="like-count-{{ comment.id }}">{{ comment.like_count }}</span>
+                                            </a>
+                                        </li>
+                                        <li><a onclick="heartComment('{{ comment.id }}')"><i class="fa fa-heart"></i>
+                                                <span id="heart-count-{{ comment.id }}">{{ comment.heart_count }}</span>
+                                            </a>
+                                        </li>
+                                        <li> &nbsp; &nbsp;
+                                        </li>
+                                        <li><a href="{% url 'download_file' event.image.name|replace_slash  %}"><i
+                                                    class="fa fa-download"></i></a>
+                                        </li>
+                                    </ul>
+                                </div> -->
+
+                            </div>
+                            <div class="down-content">
+                                <span id="media_cont_span"> </span>
+                                <p id="media_cont_p"> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div id="MediaSection" class="also-like">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Media... <a href="#CommentMediaSection"><i style="color: #40d621;"
+                            class="fa fa-plus-circle"></i></a>
+                </h2>
+            </div>
+            <div class="media_grid">
+
+
+                {% for comment in comments %}
+                {% if comment.image %}
+                <div class="col-xl-auto">
+                    <div class="like-item">
+                        <div class="thumb">
+                            <img src="{{ comment.image.url }}" alt="Comment image">
+                            <div class="icons">
+                                <ul>
+                                    <li><a onclick="likeComment('{{ comment.id }}')"><i class="fa fa-thumbs-up"></i>
+                                            <span id="like-count-{{ comment.id }}">{{ comment.like_count }}</span> </a>
+                                    </li>
+                                    <li><a onclick="heartComment('{{ comment.id }}')"><i class="fa fa-heart"></i>
+                                            <span id="heart-count-{{ comment.id }}">{{ comment.heart_count }}</span>
+                                        </a>
+                                    </li>
+                                    <li> &nbsp; &nbsp;
+                                    </li>
+                                    <li><a href="{% url 'download_file' event.image.name|replace_slash  %}"><i
+                                                class="fa fa-download"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="down-content" style="display: none;">
+                            <span>Posted on: {{ comment.created_at }}</span>
+                            <p><strong>{{ comment.name }}:<br></strong>{{ comment.text }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                {% for comment in comments %}
+                {% if comment.video %}
+                <div class="col-lg-4">
+                    <div class="like-item">
+                        <div class="thumb">
+                            <video src="{{ comment.video.url }}" alt="Comment image">
+                                <div class="icons">
+                                    <ul>
+                                        <li><a onclick="likeComment('{{ comment.id }}')"><i class="fa fa-thumbs-up"></i>
+                                                <span id="like-count-{{ comment.id }}">{{ comment.like_count }}</span>
+                                            </a>
+                                        </li>
+                                        <li><a onclick="heartComment('{{ comment.id }}')"><i class="fa fa-heart"></i>
+                                                <span id="heart-count-{{ comment.id }}">{{ comment.heart_count }}</span>
+                                            </a>
+                                        </li>
+                                        <li> &nbsp; &nbsp;
+                                        </li>
+                                        <li><a href="{% url 'download_file' event.image.name|replace_slash  %}"><i
+                                                    class="fa fa-download"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                        </div>
+                        <div class="down-content" style="display: none;">
+                            <span>Posted on: {{ comment.created_at }}</span>
+                            <p><strong>{{ comment.name }}:<br></strong>{{ comment.text }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% if showComment %}
+<div class="also-like">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Greatings board... <a href="#CommentSection"><i style="color: #40d621;"
+                            class="fa fa-plus-circle"></i></a></h2>
+            </div>
+
+            {% for comment in comments %}
+            {% if not comment.image %}
+            {% if not comment.video %}
+            <div class="col-lg-4">
+                <div class="like-item">
+                    <div class="down-content">
+                        <span>Posted on: {{ comment.created_at }}</span>
+                        <p><strong>{{ comment.name }}:<br></strong>{{ comment.text }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endif %}
+            {% empty %}
+            <p>No greatings yet.</p>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+
+<div id="CommentMediaSection" class="rent-venue-application">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="heading-text">
+                    <h4>Add a Media...</h4>
+                </div>
+                <div class="contact-form">
+                    <form method="post" id="contact" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <fieldset>
+                                    {{ form.email }}
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <fieldset>
+                                    {{ form.name }}
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <fieldset>
+                                    <label for="{{ form.image.id_for_label }}"> {{ form.image.label }} </label>
+                                    {{ form.image }}
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <fieldset>
+                                    <label for="{{ form.video.id_for_label }}"> {{ form.video.label }} </label>
+                                    {{ form.video }}
+                                    {% if form.video.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.video.errors %}
+                                        <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    {{ form.text }}
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <button type="submit" id="form-submit" class="main-dark-button">Submit
+                                        Comment</button>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% if not showComment %}
+
+<div id="CommentSection" class="rent-venue-application">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="heading-text">
+                    <h4>Feedback...</h4>
+                </div>
+                <div class="contact-form">
+                    <form method="post" id="contact" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <fieldset>
+                                    {{ form.email }}
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <fieldset>
+                                    {{ form.name }}
+                                </fieldset>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    {{ form.text }}
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <button type="submit" id="form-submit" class="main-dark-button">Submit
+                                        Comment</button>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if showComment %}
+
+<div id="CommentSection" class="rent-venue-application">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="heading-text">
+                    <h4>Add a Greating...</h4>
+                </div>
+                <div class="contact-form">
+                    <form method="post" id="contact" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <fieldset>
+                                    {{ form.email }}
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <fieldset>
+                                    {{ form.name }}
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    {{ form.text }}
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <button type="submit" id="form-submit" class="main-dark-button">Submit
+                                        Comment</button>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+<!-- <h2></h2>
+    <div>
+        {% for comment in comments %}
+        <div>
+            <p><strong>{{ comment.user.username }}:</strong> {{ comment.text }}</p>
+            {% if comment.image %}
+            <img src="{{ comment.image.url }}" alt="Comment image">
+            {% endif %}
+            <p>Email: {{ comment.email }}</p>
+            <p>Posted on: {{ comment.created_at }}</p>
+        </div>
+        {% empty %}
+        <p>No comments yet.</p>
+        {% endfor %}
+    </div> -->
+
+
+
+<script>
+
+    let data = document.getElementsByClassName("datetime")[0];
+
+
+    let sdatetime = (data.innerHTML.split('<span')[0].split("-"))
+
+    // const targetDate = new Date(sdatetime[0]+sdatetime[1]);
+    console.log(sdatetime)
+    targetDateString = (sdatetime[0] + sdatetime[1]).replace("  ", " ").replace("p.m.", "PM").replace("a.m.", "AM")
+    const targetDate1 = new Date(targetDateString);
+
+    console.log('hnn yaha tak to poncha hai')
+    // Get the current date and time
+    const currentDate = new Date();
+
+    if (currentDate >= targetDate1) {
+        let data = document.getElementById("timmer");
+        let edatetime = (data.innerHTML.split('<span')[0].split("-")[0] + data.innerHTML.split('<span')[0].split("-")[1]).replace("  ", " ").replace("p.m.", "PM").replace("a.m.", "AM")
+        console.log("The date and time have been reached.");
+        const targetDate = new Date(edatetime);
+        console.log("target" + targetDate)
+        function startCountdown() {
+            const timerElement = document.getElementById("timmer");
+            const messageElement = document.getElementById("message");
+
+            const countdownInterval = setInterval(() => {
+                const currentDate = new Date();
+                const distance = targetDate - currentDate;
+
+                // Calculate days, hours, minutes, and seconds
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result in the timer element
+                timerElement.innerHTML = `Ends in ${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+                // If the countdown is finished, display a message
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    timerElement.innerHTML = "EXPIRED";
+                    messageElement.innerHTML = "The date and time have been reached.";
+                }
+            }, 1000); // Update every second
+        }
+
+        // Start the countdown when the window loads
+        window.onload = startCountdown;
+    } else {
+        console.log("The date and time have not been reached yet.");
+    }
+
+
+</script>
+<!-- 
+<script>
+    // Target date and time in 12-hour format
+    const targetDateString = "Nov. 9, 2024 4:30 PM";
+    const targetDate = new Date(targetDateString);
+
+    function startCountdown() {
+        const timerElement = document.getElementById("timmer");
+        const messageElement = document.getElementById("message");
+
+        const countdownInterval = setInterval(() => {
+            const currentDate = new Date();
+            const distance = targetDate - currentDate;
+
+            // Calculate days, hours, minutes, and seconds
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the timer element
+            timerElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            // If the countdown is finished, display a message
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                timerElement.innerHTML = "EXPIRED";
+                messageElement.innerHTML = "The date and time have been reached.";
+            }
+        }, 1000); // Update every second
+    }
+
+    // Start the countdown when the window loads
+    window.onload = startCountdown;
+</script> -->
+
+<script>
+
+    function likeComment(commentId) {
+        fetch(`/like_comment/${commentId}/`)
+            .then(response => response.json())
+            .then(data => {
+                // console.log("like"+document.querySelector(`#like-count-${commentId}`))
+                document.querySelector(`#like-count-${commentId}`).innerText = `${data.like_count}`;
+            });
+    }
+
+    function heartComment(commentId) {
+        fetch(`/heart_comment/${commentId}/`)
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector(`#heart-count-${commentId}`).innerText = `${data.heart_count}`;
+            });
+    }
+</script>
+
+
+
+<script>
+    // Hide the alert after 3 seconds
+    setTimeout(function () {
+        var alertMessage = document.getElementById('alert-message');
+        if (alertMessage) {
+            alertMessage.style.display = 'none';
+        }
+    }, 3000); // 3000 ms = 3 seconds
+</script>
+{% endblock content %}
