@@ -239,7 +239,7 @@ body {
 }
 
 .section-heading {
-  text-align: center;
+  /* text-align: center; */
   margin-top: 40px;
   margin-bottom: 40px;
 }
@@ -567,10 +567,19 @@ header
 
 .login_btn{
   /* background: #2a2a2a; */
-  background: #41d622;
+  background: #41d622 !important;
   color: white !important;
   padding: 0 20px;
   border-radius: 5px
+}
+
+.outline_login_btn{
+  /* background: #2a2a2a; */
+  border: 1px solid #41d622 !important;
+  color: #41d622 !important;
+  padding: 0 20px;
+  border-radius: 5px;
+  width: fit-content;
 }
 
 @media (max-width: 1200px) {
@@ -992,12 +1001,20 @@ Venues & Tickets
 ---------------------------------------------
 */
 
+.venue-tickets:nth-child(even) {
+  margin: 0px 15px;
+  background: #8080801a;
+  border-radius: 20px;
+}
 .venue-tickets {
   margin: 0px 15px;
 }
 
 .venue-tickets .venue-item {
   margin-bottom: 23px;
+}
+.venue-item:hover {
+  box-shadow: 0px 2px 8px rgba(30, 10, 60, 0.06), 0px 4px 12px rgba(30, 10, 60, 0.08);
 }
 
 .venue-item .thumb img {
@@ -1006,11 +1023,12 @@ Venues & Tickets
 }
 
 .venue-item .down-content {
-  background-color: #07421b;
+  background-color: white;
   position: relative;
   display: inline-block;
   z-index: 1;
   width: 100%;
+  color: black;
 }
 
 .venue-item .down-content .left-content {
@@ -1041,13 +1059,13 @@ Venues & Tickets
 
 .venue-item .down-content .right-content h4 {
   font-size: 22px;
-  color: #fff;
+  color: black;
   font-weight: 700;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .venue-item .down-content .right-content p {
-  color: #fff;
+  color: black;
   margin-top: 20px;
   font-weight: 300;
   padding-right: 30px;
@@ -1056,7 +1074,7 @@ Venues & Tickets
 
 .venue-item .down-content .right-content ul li { 
   display: inline-block;
-  color: #fff;
+  color: black;
   font-size: 16px;
   margin-right: 20px;;
 }
@@ -1459,7 +1477,7 @@ About Us Page
 }
 
 .about-upcoming-shows {
-  margin-top: 120px;
+  margin-top: 20px;
 }
 
 .about-upcoming-shows h2 {
@@ -1889,7 +1907,7 @@ Shows Events Page
 */
 
 .page-heading-shows-events {
-  background-image: url(../images/shows_events_bg.jpg);
+  background-image: url(../images/all_event_bg.png);
   background-size: cover;
   background-repeat: no-repeat;
   padding: 110px 0px;
@@ -1897,7 +1915,11 @@ Shows Events Page
   width: 94%;
   margin: auto;
   height: 70vh;
-  border-radius: 30px 30px 0 0;
+  border-radius: 30px;
+  margin: 50px;
+
+  
+  
 }
 
 .page-heading-shows-events h2 {

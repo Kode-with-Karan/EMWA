@@ -1,10 +1,19 @@
 {% extends 'base/base.html' %}
 {% block title %}Home{% endblock title %}
+{% block link %}
+<style>
+    .venue-tickets {
+    margin: 0px 15px;
+    max-height: 917px;
+    overflow: hidden;
+}
+</style>
+{% endblock %}
 {% load custom_filters %}
 {% block content %}
 <!-- ***** About Us Page ***** -->
 <div class="page-heading-shows-events">
-    <div class="container">
+    <div class="container" style="background: rgb(247 247 247 / 10%);backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(10px);border-radius: 10px;display: flex;align-items: center;justify-content: center;overflow: hidden;padding: 10px;">
         <div class="row">
             <div class="col-lg-12">
                 <h2>Our Shows & Events</h2>
@@ -14,7 +23,524 @@
     </div>
 </div>
 
-<div class="shows-events-tabs">
+
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets" >
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>Popular Public events</h2>
+                </div>
+            </div>
+
+            {% for event in events %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="{{ event.image.url }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}} </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>This Weekend</h2>
+                </div>
+            </div>
+
+            {% for event in weekend_events %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="{{ event.image.url }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}} </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <form action="{% url 'search_by_category' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" name="search" type="hidden"
+                                value="music" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
+                                    <h2>Musical Events</h2>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+
+            {% for event in events %}
+            {% if event.art_category == 'music' %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="{{ event.image.url }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}} </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <form action="{% url 'search_by_category' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" name="search" type="hidden"
+                                value="nightlife" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
+                                    <h2>Nightlife Events</h2>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            {% for event in events %}
+            {% if event.art_category == 'nightlife' %}
+
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="{{ event.image.url }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}} </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <form action="{% url 'search_by_category' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" name="search" type="hidden"
+                                value="performingVisualArts" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
+                                    <h2>Performing & Visual Arts Events</h2>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+
+            {% for event in events %}
+            {% if event.art_category == 'performingVisualArts' %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="{{ event.image.url }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}} </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <form action="{% url 'search_by_category' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" name="search" type="hidden"
+                                value="holidays" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
+                                    <h2>Holidays Events</h2>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+
+            {% for event in events %}
+            {% if event.art_category == 'holidays' %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="{{ event.image.url }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}} </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <form action="{% url 'search_by_category' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" name="search" type="hidden"
+                                value="dating" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
+                                    <h2>Dating Events</h2>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+
+            {% for event in events %}
+            {% if event.art_category == 'dating' %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="{{ event.image.url }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}} </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <form action="{% url 'search_by_category' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" name="search" type="hidden"
+                                value="hobbies" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
+                                    <h2>Hobbies Events</h2>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+
+            {% for event in events %}
+            {% if event.art_category == 'hobbies' %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="{{ event.image.url }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}} </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <form action="{% url 'search_by_category' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" name="search" type="hidden"
+                                value="business" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
+                                    <h2>Business Events</h2>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+
+            {% for event in events %}
+            {% if event.art_category == 'business' %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="{{ event.image.url }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}} </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <form action="{% url 'search_by_category' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" name="search" type="hidden"
+                                value="foodDrink" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
+                                    <h2>Food & Drink Events</h2>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+
+            {% for event in events %}
+            {% if event.art_category == 'foodDrink' %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="{{ event.image.url }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}} </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+<!-- <div class="shows-events-tabs">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -85,6 +611,7 @@
                                     <div class="col-lg-12">
                                         <div class="row">
                                             {% for event in events %}
+            {% if event.art_category == 'music' %}
                                             <div class="col-lg-12">
                                                 <div class="event-item" style="border-radius: 20px;">
                                                     <div class="row">
@@ -126,22 +653,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {% endfor %}
-                                            <!-- <div class="col-lg-12">
-                                                <div class="pagination">
-                                                    <ul>
-                                                        {% if events.has_previous %}
-                                                        <a href="?page=1">&laquo; first</a>
-                                                        <a href="?page={{ events.previous_page_number }}">previous</a>
-                                                        {% endif %}
-                                                        <span>Page {{ events.number }} of {{ events.paginator.num_pages }}</span>
-                                                        {% if events.has_next %}
-                                                        <a href="?page={{ events.next_page_number }}">next</a>
-                                                        <a href="?page={{ events.paginator.num_pages }}">last &raquo;</a>
-                                                        {% endif %}
-                                                    </ul>
-                                                </div>
-                                            </div> -->
+                                            {% endif %}
+            {% endfor %}
                                             <div class="col-lg-12">
                                                 <div class="pagination">
                                                     <ul>
@@ -257,7 +770,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 <style>

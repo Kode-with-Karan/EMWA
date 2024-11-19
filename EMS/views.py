@@ -17,7 +17,8 @@ from django.template.loader import render_to_string
 import base64
 from django.utils import timezone
 import requests
-
+from datetime import datetime, timedelta
+from django.db.models import Q
 
 # Encoding
 def encode_base64(data):
@@ -100,17 +101,43 @@ def event_list(request):
     # events = Event.objects.filter(user=request.user)
     events = EventData.objects.filter(category="public", place_info__icontains = str(region)).order_by('-pk')[:4]
     events_detail = EventData.objects.filter(category="public", place_info__icontains = str(region))[:4]
-    return render(request, 'events/home.html', {'events': events, 'events_detail':events_detail,'active_page': 'home'})
+
+        # Get the current date and time
+    today = datetime.now()
+
+    # Calculate the start of the weekend (Saturday) and end of the weekend (Sunday)
+    saturday = today + timedelta(days=(5 - today.weekday()))  # 5 = Saturday
+    saturday_start = datetime.combine(saturday.date(), datetime.min.time())
+
+    sunday = saturday + timedelta(days=1)  # Sunday
+    sunday_end = datetime.combine(sunday.date(), datetime.max.time())
+
+    # Filter events happening this weekend
+    weekend_events = EventData.objects.filter(
+        Q(start_date__range=(saturday_start, sunday_end))  # Assuming 'date' is the event date field
+    ).order_by('start_date')[:8]  # Get the top 8 events sorted by date
+
+    return render(request, 'events/home.html', {'events': events, 'weekend_events': weekend_events,'events_detail':events_detail, 'loc': region, 'active_page': 'home'})
 
 
 def event_show(request):
-    events = EventData.objects.filter(category="public").order_by('-pk')
+    events = EventData.objects.filter(category="public")
+         # Get the current date and time
+    today = datetime.now()
 
-    paginator = Paginator(events, 3)  # Show 10 items per page
+    # Calculate the start of the weekend (Saturday) and end of the weekend (Sunday)
+    saturday = today + timedelta(days=(5 - today.weekday()))  # 5 = Saturday
+    saturday_start = datetime.combine(saturday.date(), datetime.min.time())
 
-    page_number = request.GET.get('page')  # Get the page number from query parameters
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'events/event_show.html', {'events': page_obj, 'active_page': 'show'})
+    sunday = saturday + timedelta(days=1)  # Sunday
+    sunday_end = datetime.combine(sunday.date(), datetime.max.time())
+
+    # Filter events happening this weekend
+    weekend_events = EventData.objects.filter(
+        Q(start_date__range=(saturday_start, sunday_end))  # Assuming 'date' is the event date field
+    ).order_by('start_date')[:8]  # Get the top 8 events sorted by date
+
+    return render(request, 'events/event_show.html', {'events': events, 'weekend_events':weekend_events, 'active_page': 'show'})
 
 
 @login_required(login_url="login")
@@ -385,40 +412,79 @@ def event_create(request):
 #     return render(request, 'events/event_form.html', {'form': form,'active_page': 'create'})
 
 
+# @login_required(login_url="login")
+# def event_update(request, pk):
+#     event = get_object_or_404(EventData, pk=pk, user=request.user)
+#     image_forms = ImageForm()
+#     schedule_image_forms = ScheduleImageForm()
+#     sitting_image_forms = SeatingImageForm()
+
+#     existing_images = event.images.all()  # Assuming `images` is a related name for Image model
+#     existing_schedule_plans = event.sitting_plans.all()
+#     existing_sitting_plans = event.schedule_plans.all()
+
+    
+#     if request.method == 'POST':
+#         form = EventDataForm(request.POST, request.FILES, instance=event)
+#         if form.is_valid():
+#             updated_event = form.save(commit=False)
+#             updated_event.updated_user = request.user
+#             updated_event.save()
+
+#             # Update images if new ones are uploaded
+#             if 'image' in request.FILES:
+#                 existing_images.delete()
+#                 for image_file in request.FILES.getlist('image'):
+#                     Image.objects.create(event=updated_event, image=image_file)
+
+#             if 'sitting_plan' in request.FILES:
+#                 existing_sitting_plans.delete()
+#                 for image_file in request.FILES.getlist('sitting_plan'):
+#                     SeatingImage.objects.create(event=updated_event, image=image_file)
+
+#             if 'schedule_plan' in request.FILES:
+#                 existing_schedule_plans.delete()
+#                 for image_file in request.FILES.getlist('schedule_plan'):
+#                     ScheduleImage.objects.create(event=updated_event, image=image_file)
+
+
 @login_required(login_url="login")
 def event_update(request, pk):
     event = get_object_or_404(EventData, pk=pk, user=request.user)
-    image_forms = ImageForm()
-    schedule_image_forms = ScheduleImageForm()
-    sitting_image_forms = SeatingImageForm()
+    image_forms = ImageForm(request.POST, request.FILES, instance=event)
+    # Fetch related data for existing files
+    existing_images = event.images.all()
+    existing_schedule_plans = event.schedule_plans.all()
+    existing_sitting_plans = event.sitting_plans.all()
 
-    existing_images = event.images.all()  # Assuming `images` is a related name for Image model
-    existing_schedule_plans = event.sitting_plans.all()
-    existing_sitting_plans = event.schedule_plans.all()
-
-    
     if request.method == 'POST':
+        # Main form for event data
         form = EventDataForm(request.POST, request.FILES, instance=event)
+
+        # Process the form submission
         if form.is_valid():
             updated_event = form.save(commit=False)
             updated_event.updated_user = request.user
             updated_event.save()
 
-            # Update images if new ones are uploaded
+            # Handle images
             if 'image' in request.FILES:
-                existing_images.delete()
+                Image.objects.filter(event=updated_event).delete()
                 for image_file in request.FILES.getlist('image'):
                     Image.objects.create(event=updated_event, image=image_file)
 
+            # Handle sitting plans
             if 'sitting_plan' in request.FILES:
-                existing_sitting_plans.delete()
+                ScheduleImage.objects.filter(event=updated_event).delete()
                 for image_file in request.FILES.getlist('sitting_plan'):
                     SeatingImage.objects.create(event=updated_event, image=image_file)
 
+            # Handle schedule plans
             if 'schedule_plan' in request.FILES:
-                existing_schedule_plans.delete()
+                ScheduleImage.objects.filter(event=updated_event).delete()
                 for image_file in request.FILES.getlist('schedule_plan'):
                     ScheduleImage.objects.create(event=updated_event, image=image_file)
+
 
             subject = "Invitaion of "+event.name
             message = """<!DOCTYPE html>
@@ -633,18 +699,29 @@ def event_update(request, pk):
 
             return redirect('event_list')
     else:
+        # Initialize the main form for updating the event
         form = EventDataForm(instance=event)
 
     return render(request, 'events/event_form.html', {
         'form': form,
-        'image_forms': image_forms,
-        'schedule_image_forms': schedule_image_forms,
-        'sitting_image_forms': sitting_image_forms,
         'existing_images': existing_images,
-        'existing_sitting_plans': existing_sitting_plans,
         'existing_schedule_plans': existing_schedule_plans,
-        'active_page': 'create',
+        'existing_sitting_plans': existing_sitting_plans,
+        'active_page': 'update',
     })
+    # else:
+    #     form = EventDataForm(instance=event)
+
+    # return render(request, 'events/event_form.html', {
+    #     'form': form,
+    #     'image_forms': image_forms,
+    #     'schedule_image_forms': schedule_image_forms,
+    #     'sitting_image_forms': sitting_image_forms,
+    #     'existing_images': existing_images,
+    #     'existing_sitting_plans': existing_sitting_plans,
+    #     'existing_schedule_plans': existing_schedule_plans,
+    #     'active_page': 'create',
+    # })
 
 
 @login_required(login_url="login")
@@ -789,6 +866,19 @@ def search_private_event(request):
        }
        return render(request, 'events/event_show.html', context)
     return render(request, 'events/event_show.html')
+
+def search_by_category(request):
+    if request.method == 'POST':
+       data = request.POST['search']
+       events = EventData.objects.filter(art_category = data, category="public")
+       context = {
+           'events': events,
+           'cat_name':data,
+           'active_page': 'show'
+       }
+
+       return render(request, 'events/categorySearch.html', context)
+    return render(request, 'events/categorySearch.html')
 
 
 

@@ -30,9 +30,22 @@ class EventData(models.Model):
         ('private', 'Private'),
         ('public', 'Public'),
     ]
+
+    ART_CATEGORY_CHOICES = [
+        ('music', 'Music'),
+        ('nightlife', 'Nightlife'),
+        ('performingVisualArts', 'Performing & Visual Arts'),
+        ('holidays', 'Holidays'),
+        ('dating', 'Dating'),
+        ('hobbies', 'Hobbies'),
+        ('business', 'Business'),
+        ('foodDrink', 'Food & Drink'),
+        ('other', 'Other'),
+    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, blank=True)
+    art_category = models.CharField(max_length=20, choices=ART_CATEGORY_CHOICES, blank=True, default='other')
     image = models.ImageField(upload_to='event_images/',blank=True)
     description = models.TextField(blank=True)
     link = models.CharField(max_length=500,blank=True)

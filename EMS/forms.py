@@ -15,6 +15,25 @@ class ImageForm(forms.ModelForm):
         model = Image
         fields = ['image']
 
+    def __init__(self, *args, **kwargs):
+        # Capture the instance (used for updates)
+        self.instance = kwargs.get('instance', None)
+
+        super(ImageForm, self).__init__(*args, **kwargs)
+        
+
+        if self.instance and self.instance.pk:
+            # If it's an update and the instance has an image, modify the field
+            self.fields['image'].required = False
+            # print("-->"+str(self.fields['image'].required))
+            self.fields['image'].label = "Change Image (Optional)"
+            self.fields['image'].widget.attrs.update({
+                'placeholder': 'Leave empty to keep the current image'
+            })
+        else:
+            # If it's a new record, ensure image is required
+            self.fields['image'].required = True
+
 class SeatingImageForm(forms.ModelForm):
     sitting_plan = forms.ImageField()
 
@@ -33,7 +52,7 @@ class EventDataForm(forms.ModelForm):
 
     class Meta:
         model = EventData
-        fields = ['name', 'category', 'image', 'description', 'link', 'instructions', 'geast_list', 'place_info', 'start_date', 'end_date', 'start_time', 'end_time', 'sitting_plan', 'schedule_plan']
+        fields = ['name', 'category', 'art_category', 'image', 'description', 'link', 'instructions', 'geast_list', 'place_info', 'start_date', 'end_date', 'start_time', 'end_time', 'sitting_plan', 'schedule_plan']
         # fields = ['category', 'name', 'uid', 'description', 'job_category', 'scheduled_status', 'venue', 'start_date', 'end_date', 'location', 'points', 'maximum_attende', 'status']
         widgets = {
             'geast_list': forms.TextInput(attrs={'size': '10',}),
@@ -53,6 +72,8 @@ class EventDataForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EventDataForm, self).__init__(*args, **kwargs)
+
+
         
         self.fields['name'].label = ""
         self.fields['description'].label = ""

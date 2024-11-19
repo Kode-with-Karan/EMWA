@@ -1,6 +1,7 @@
 {% extends 'base/base.html' %}
 {% block title %}Home{% endblock title %}
 {% load custom_filters %}
+{% load static %}
 {% block content %}
 
 {% if messages %}
@@ -11,7 +12,22 @@
 {% endfor %}
 </div>
 {% endif %}
-<div class="page-heading-about">
+
+<!-- Carousel Container -->
+<div class="carousel">
+    <div class="slides">
+        {% for image in images %}
+        <div class="slide">
+            <img src="{{image.image.url}}" alt="Banner 1" height="500px">
+        </div>
+        {% endfor %}
+    </div>
+    <!-- Navigation Buttons -->
+    <button class="btn prev">❮</button>
+    <button class="btn next">❯</button>
+</div>
+
+<!-- <div class="page-heading-about">
 
     <div class="container">
         <div class="row">
@@ -32,9 +48,9 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-{% if images|length == 1 %}
+<!-- {% if images|length == 1 %}
 <div class="about-item">
     <div class="container" style="display: flex;">
         <div class="col-lg-6" style="margin: auto;">
@@ -65,19 +81,40 @@
         </div>
     </div>
 </div>
-{% endif %}
+{% endif %} -->
 
 <div id="DescSection" class="about-upcoming-shows">
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                <h2>Event Name</h2>
-                <h4>{{ event.name }}</h4>
-                <h2>Description</h2>
-                <p> {{ event.description }}</p>
-                <h4>Instructions</h4>
+                <span class="datetime">{{ event.start_date }} - {{ event.start_time }} </span><br>
+                <span id="timmer">{{ event.end_date }} - {{ event.end_time }} </span>
+                <h2>{{ event.name }}</h2>
+                <p> {{ event.instructions | linebreaksbr }}</p>
+                <div class="user_sec">
+                    <div class="user_content">
+                        <img src="{% static 'EMS/images/default.png' %}" alt="">
+                        <h5>by {{event.user}},</h5>
+                    </div>
+                    <div class="login_btn">
+                        <form class="form-inline ml-3" action="{% url 'search-event' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="input-group input-group-sm">
+                                <input class="form-control form-control-navbar" name="search" type="hidden"
+                                    value="{{ event.user }}" placeholder="Search" aria-label="Search">
+                                <div class="input-group-append">
+                                    <button style="background: transparent;border: none;outline: none; padding: 5px 15px !important;" type="submit">
+                                        <a style="color: white;border-radius: 9px;overflow: hidden;">All Events</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- <h4>Instructions</h4> -->
+                 <br>
                 <ul>
-                    <p>{{ event.instructions }}</p>
+                    <p>{{ event.instructions | linebreaksbr }}</p>
                 </ul>
             </div>
             <div class="col-lg-3">
