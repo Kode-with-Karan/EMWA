@@ -78,21 +78,21 @@ outline: none;background: green; color: white; border: none; border-radius: 20px
                         {% if user.is_authenticated %}
 
                         {% if request.resolver_match.url_name == "dashboard" %}
-                        <li style="padding-left: 0;padding-right: 0;"><a class="login_btn" style="color: white; padding-left: 10px; padding-right: 10px;">
+                        <li style="padding-left: 0;padding-right: 0;"><a class="login_btn" style="padding-left: 10px; padding-right: 10px;">
                                 <form action="{% url 'profile_detail' %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="main-dark-button"
-                                        style="background: none;padding: 0;border: none; color: white;">Profile
+                                    <button type="submit" class="main-dark-button login_btn"
+                                        style="background: none;padding: 0;border: none;">Profile
                                     </button>
                                 </form>
                             </a>
                         </li>
                         <span style="padding: 3px;"></span>
-                        <li style="padding-left: 0;padding-right: 0;"><a class="login_btn" style="color: white; padding-left: 10px; padding-right: 10px;">
+                        <li style="padding-left: 0;padding-right: 0;"><a class="login_btn" style="padding-left: 10px; padding-right: 10px;">
                                 <form action="{% url 'logout' %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="main-dark-button"
-                                        style="background: none;padding: 0;border: none; color: white;">Logout
+                                    <button type="submit" class="main-dark-button login_btn"
+                                        style="background: none;padding: 0;border: none;">Logout
                                     </button>
                                 </form>
                             </a>

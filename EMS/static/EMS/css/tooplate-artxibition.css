@@ -1912,7 +1912,8 @@ Shows Events Page
   background-repeat: no-repeat;
   padding: 110px 0px;
   text-align: center;
-  width: 94%;
+  /* width: 94%; */
+  width: auto;
   margin: auto;
   height: 70vh;
   border-radius: 30px;

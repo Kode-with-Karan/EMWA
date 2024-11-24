@@ -154,3 +154,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'pythoncodeworld@gmail.com'  # Your email address
 EMAIL_HOST_PASSWORD = 'dfjubpgxmhkijajq'       # Your email password or app password
 # cfsu ywro bgik pouc
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'

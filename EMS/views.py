@@ -547,9 +547,9 @@ def event_update(request, pk):
                     ScheduleImage.objects.create(event=event, image=image_file)
 
 
-            # Update or add new sponsors
-            Sponsor.objects.filter(event=event).delete()
-            print((sponsors))
+            # # Update or add new sponsors
+            # Sponsor.objects.filter(event=event).delete()
+            # print((sponsors))
             # print((sponsor_names, sponsor_links, sponsor_logos))
             # for name, link, logo in zip_longest(sponsor_names, sponsor_links, sponsor_logos, fillvalue=''):
             #     print("name"+str(name))
@@ -1147,6 +1147,8 @@ def event_detail(request, event_id):
     event_related = EventData.objects.filter(user=userData.id)[:3]
     comments = event.comments.filter(status = 'approve')
     hashtags = event.hashTags.split(" ")
+    
+    # print(event.event_details)
 
     if request.method == 'POST':
         form = CommentForm(request.POST, request.FILES)
