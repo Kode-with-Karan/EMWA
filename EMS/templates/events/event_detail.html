@@ -427,19 +427,23 @@
 
 
 
+{% if event.sponsorsWithLink.all or event.sponsorsWithImage.all or event.sponsorsWithName.all %}
+
 <div id="SponsorSection" class="also-like">
     <div class="container">
+        <h2>Sponsors... 
+        </h2>
+        {% if event.sponsorsWithLink.all %}
         <div class="row">
             <div class="col-lg-12">
-                <h2>Sponsors... <a href="#CommentSponsorSection"><i style="color: #40d621;"
-                            class="fa fa-plus-circle"></i></a>
-                </h2>
+                
+                <h3>Tier 1...</h3>
             </div>
-            <h3>Tier 1...</h3>
+            
             <div class="media_grid">
 
-                {% for sponsors in event.sponsors.all %}
-                {% if sponsors.link %}
+                {% for sponsors in event.sponsorsWithLink.all %}
+                
                 <div class="col-lg-4">
                     <div class="like-item" id="media_like">
                         <div class="thumb" id="canva_thumb">
@@ -451,17 +455,23 @@
                         </div>
                     </div>
                 </div>
-                {% endif %}
+
                 {% endfor %}
             </div>
-
-            <h3>Tier 2...</h3>
+        </div>
+        {% endif %}
+        {% if event.sponsorsWithImage.all %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Sponsors... 
+                </h2>
+                <h3>Tier 2...</h3>
+            </div>
+            
             <div class="media_grid">
 
-                {% for sponsors in event.sponsors.all %}
-                {% if not sponsors.link %}
-                {% if sponsors.logo %}
-
+                {% for sponsors in event.sponsorsWithImage.all %}
+                
                 <div class="col-lg-4">
                     <div class="like-item" id="media_like">
                         <div class="thumb" id="canva_thumb">
@@ -469,19 +479,22 @@
                         </div>
                     </div>
                 </div>
-                {% endif %}
-                {% endif %}
-                {% endfor %}
-                <br>
 
+                {% endfor %}
             </div>
-            <h3>Tier 3...</h3>
+        </div>
+        {% endif %}
+        {% if event.sponsorsWithName.all %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Tier 3...</h3>
+            </div>
+            
             <div class="media_grid">
 
-
-                {% for sponsors in event.sponsors.all %}
-                {% if sponsors.name %}
-                <div class="col-lg-4">
+                {% for sponsors in event.sponsorsWithName.all %}
+                
+                <div class="col-lg-12">
                     <div class="like-item" id="media_like">
                         <div class="thumb" id="canva_thumb">
                         </div>
@@ -491,17 +504,14 @@
                         </div>
                     </div>
                 </div>
-                {% endif %}
+
                 {% endfor %}
             </div>
-
         </div>
+        {% endif %}
     </div>
 </div>
-
-
-
-
+{% endif %}
 
 {% if showComment %}
 <div class="also-like">

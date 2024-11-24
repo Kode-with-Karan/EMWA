@@ -141,14 +141,27 @@ class Comment(models.Model):
         return f"Comment on {self.user.username}'s {self.event.name}"
 
 
-class Sponsor(models.Model):
-    event = models.ForeignKey(EventData, on_delete=models.CASCADE, related_name='sponsors')
-    name = models.CharField(max_length=100,blank=True,null=True)
-    logo = models.ImageField(upload_to='sponsors/logos/',blank=True,null=True)
-    link = models.URLField(blank=True,null=True)
+class SponsorWithImage(models.Model):
+    event = models.ForeignKey(EventData, on_delete=models.CASCADE, related_name='sponsorsWithImage')
+    logo = models.ImageField(upload_to='sponsorsWithImage/logos/')
+
+    def __str__(self):
+        return f"Sponsor for {self.event}"
+
+class SponsorWithName(models.Model):
+    event = models.ForeignKey(EventData, on_delete=models.CASCADE, related_name='sponsorsWithName')
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return f"Sponsor for {self.event.name}"
+    
+class SponsorWithLink(models.Model):
+    event = models.ForeignKey(EventData, on_delete=models.CASCADE, related_name='sponsorsWithLink')
+    logo = models.ImageField(upload_to='sponsorsWithLink/logos/')
+    link = models.URLField()
+
+    def __str__(self):
+        return f"Sponsor for {self.event.link}"
 
 
 class EventDetail(models.Model):

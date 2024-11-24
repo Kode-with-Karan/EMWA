@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import EventData,Comment,Image,SeatingImage,ScheduleImage, Sponsor, EventDetail,Guest,Profile
+from .models import EventData,Comment,Image,SeatingImage,ScheduleImage, SponsorWithImage,SponsorWithLink,SponsorWithName, EventDetail,Guest,Profile
 
 
 # admin.site.register(EventData)
@@ -12,8 +12,14 @@ admin.site.register(ScheduleImage)
 admin.site.register(SeatingImage)
 
 
-class SponsorInline(admin.TabularInline):
-    model = Sponsor
+class SponsorWithImageInline(admin.TabularInline):
+    model = SponsorWithImage
+    extra = 1  # Number of extra blank fields for new sponsors
+class SponsorWithLinkInline(admin.TabularInline):
+    model = SponsorWithLink
+    extra = 1  # Number of extra blank fields for new sponsors
+class SponsorWithNameInline(admin.TabularInline):
+    model = SponsorWithName
     extra = 1  # Number of extra blank fields for new sponsors
 
 class EventDetailInline(admin.TabularInline):
@@ -26,7 +32,7 @@ class GuestInline(admin.TabularInline):
 
 @admin.register(EventData)
 class EventDataAdmin(admin.ModelAdmin):
-    inlines = [SponsorInline, EventDetailInline,GuestInline]
+    inlines = [SponsorWithNameInline,SponsorWithImageInline,SponsorWithLinkInline, EventDetailInline,GuestInline]
     list_display = ('name', 'category', 'start_date', 'end_date', 'created_date')
     search_fields = ('name', 'category', 'art_category')
 

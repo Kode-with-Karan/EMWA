@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import modelformset_factory
 from django.forms import inlineformset_factory
-from .models import EventData, Sponsor, EventDetail, Guest
+from .models import EventData, SponsorWithName, SponsorWithLink,SponsorWithImage, ScheduleImage, EventDetail, Guest
 from .models import Profile
 
 class ProfileForm(forms.ModelForm):
@@ -36,9 +36,23 @@ GuestFormSet = inlineformset_factory(
     extra=1, can_delete=True
 )
 
-SponsorFormSet = inlineformset_factory(
-    EventData, Sponsor,
-    fields=('name', 'logo', 'link'),
+SponsorWithLinkFormSet = inlineformset_factory(
+    EventData, SponsorWithLink,
+    fields=['logo', 'link'],
+    extra=1,
+    can_delete=True
+)
+
+SponsorWithNameFormSet = inlineformset_factory(
+    EventData, SponsorWithName,
+    fields=['name'],
+    extra=1,
+    can_delete=True
+)
+
+SponsorWithImageFormSet = inlineformset_factory(
+    EventData, SponsorWithImage,
+    fields=['logo'],
     extra=1,
     can_delete=True
 )

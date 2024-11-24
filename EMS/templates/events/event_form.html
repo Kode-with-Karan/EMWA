@@ -171,14 +171,33 @@
 
                             </ul>
                         </div>
-                        <div id="sponsor-section" class="col-sm-12" style="display: none;">
-                            <h4>Sponsors</h4>
+                        <div id="sponsor-section" class="col-sm-12">
+                            <h4>Sponsors Tier 1</h4>
                             <div class="sponsor-group">
-                                <input type="text" name="sponsor_name" placeholder="Sponsor Name">
                                 <input type="url" name="sponsor_link" placeholder="Sponsor Link">
                                 <input type="file" name="sponsor_logo" accept="image/*">
                             </div>
-                            <button type="button" id="add-sponsor-btn">Add Another Sponsor</button>
+                            <div class="sponsor-group_fill">
+                            </div>
+                            <button type="button" id="add-sponsor-btn" class="main-dark-button" >Add Another Sponsor</button>
+                        </div>
+                        <div id="sponsor1-section" class="col-sm-12" >
+                            <h4>Sponsors Tier 2</h4>
+                            <div class="sponsor1-group">
+                                <input type="file" name="sponsor1_logo" accept="image/*">
+                            </div>
+                            <div class="sponsor-group_fill1">
+                            </div>
+                            <button type="button" id="add-sponsor1-btn" class="main-dark-button" >Add Another Sponsor</button>
+                        </div>
+                        <div id="sponsor2-section" class="col-sm-12" >
+                            <h4>Sponsors Tier 3</h4>
+                            <div class="sponsor2-group">
+                                <input type="text" name="sponsor2_name" placeholder="Sponsor Name">
+                            </div>
+                            <div class="sponsor-group_fill2">
+                            </div>
+                            <button type="button" id="add-sponsor2-btn" class="main-dark-button" >Add Another Sponsor</button>
                         </div>
                         <div id="detail-section" class="col-sm-12">
                             <h4>Event Details</h4>
@@ -302,7 +321,17 @@
 
     document.getElementById('add-sponsor-btn').addEventListener('click', function () {
         const sponsorGroup = document.querySelector('.sponsor-group').cloneNode(true);
-        document.getElementById('sponsor-section').appendChild(sponsorGroup);
+        document.querySelector('.sponsor-group_fill').appendChild(sponsorGroup);
+    });
+
+    document.getElementById('add-sponsor1-btn').addEventListener('click', function () {
+        const sponsor1Group = document.querySelector('.sponsor1-group').cloneNode(true);
+        document.querySelector('.sponsor-group_fill1').appendChild(sponsor1Group);
+    });
+
+    document.getElementById('add-sponsor2-btn').addEventListener('click', function () {
+        const sponsor2Group = document.querySelector('.sponsor2-group').cloneNode(true);
+        document.querySelector('.sponsor-group_fill2').appendChild(sponsor2Group);
     });
 
     document.getElementById('add-detail-btn').addEventListener('click', function () {

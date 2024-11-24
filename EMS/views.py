@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import EventData, Comment, Image, ScheduleImage, SeatingImage
+from .models import EventData, Comment, Image, ScheduleImage, SeatingImage,SponsorWithImage,SponsorWithLink,SponsorWithName
 from django.http import JsonResponse
 from .forms import RegistrationForm
 from .forms import EventDataForm
-from .forms import CommentForm, ImageForm, ScheduleImageForm, SeatingImageForm,Sponsor,EventDetail, Guest
+from .forms import CommentForm, ImageForm, ScheduleImageForm, SeatingImageForm,EventDetail, Guest
 from datetime import date
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -226,9 +226,12 @@ def event_create(request):
 
     if request.method == 'POST':
         form = EventDataForm(request.POST, request.FILES)
-        sponsor_names = request.POST.getlist('sponsor_name')
         sponsor_links = request.POST.getlist('sponsor_link')
         sponsor_logos = request.FILES.getlist('sponsor_logo')
+
+        sponsor1_logos = request.FILES.getlist('sponsor1_logo')
+
+        sponsor2_names = request.POST.getlist('sponsor2_name')
 
         detail_titles = request.POST.getlist('detail_title')
         detail_descriptions = request.POST.getlist('detail_description')
@@ -262,8 +265,15 @@ def event_create(request):
             for image_file in request.FILES.getlist('schedule_plan'):
                 ScheduleImage.objects.create(event=event, image=image_file)
 
-            for name, link, logo in zip(sponsor_names, sponsor_links, sponsor_logos):
-                Sponsor.objects.create(event=event, name=name, link=link, logo=logo)
+            for link, logo in zip(sponsor_links, sponsor_logos):
+                SponsorWithLink.objects.create(event=event, link=link, logo=logo)
+
+            for logo in sponsor1_logos:
+                # print(logo)
+                SponsorWithImage.objects.create(event=event,logo=logo)
+
+            for name in sponsor2_names:
+                SponsorWithName.objects.create(event=event, name=name)
 
             # Save Event Details
             for title, description in zip(detail_titles, detail_descriptions):
@@ -505,9 +515,12 @@ def event_update(request, pk):
 
     if request.method == 'POST':
         # Process the form data
-        sponsor_names = request.POST.getlist('sponsor_name')
         sponsor_links = request.POST.getlist('sponsor_link')
         sponsor_logos = request.FILES.getlist('sponsor_logo')
+
+        sponsor1_logos = request.FILES.getlist('sponsor1_logo')
+
+        sponsor2_names = request.POST.getlist('sponsor2_name')
 
         detail_titles = request.POST.getlist('detail_title')
         detail_descriptions = request.POST.getlist('detail_description')
@@ -547,24 +560,15 @@ def event_update(request, pk):
                     ScheduleImage.objects.create(event=event, image=image_file)
 
 
-            # # Update or add new sponsors
-            # Sponsor.objects.filter(event=event).delete()
-            # print((sponsors))
-            # print((sponsor_names, sponsor_links, sponsor_logos))
-            # for name, link, logo in zip_longest(sponsor_names, sponsor_links, sponsor_logos, fillvalue=''):
-            #     print("name"+str(name))
-            #     print("link"+str(link))
-            #     print("logo"+str(logo))
+            for link, logo in zip(sponsor_links, sponsor_logos):
+                SponsorWithLink.objects.create(event=event, link=link, logo=logo)
 
-            # if(sponsor_logos.__len__() == 0):
-            #     print(sponsor_links, sponsor_names)
-            #     for name, link in zip(sponsor_names, sponsor_links):
-            #         print(name, link)
-            #         Sponsor.objects.create(event=event, name=name, link=link)
-            # else:
-            #     for name, link, logo in zip(sponsor_names, sponsor_links, sponsor_logos):
-            #         print(name, link, logo)
-            #         Sponsor.objects.create(event=event, name=name, link=link, logo=logo)
+            for logo in sponsor1_logos:
+                # print(logo)
+                SponsorWithImage.objects.create(event=event,logo=logo)
+
+            for name in sponsor2_names:
+                SponsorWithName.objects.create(event=event, name=name)
 
             # Update event details
             EventDetail.objects.filter(event=event).delete()
