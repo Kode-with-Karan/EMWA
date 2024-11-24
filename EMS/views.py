@@ -201,20 +201,22 @@ def dashboard_view(request):
 
 @login_required(login_url="login")
 def comment_view(request):
-    userData = User.objects.get(username = request.user)
-    events = EventData.objects.filter(user=userData.id).order_by('-pk')
-    paginator = Paginator(events, 3)  # Show 10 items per page
+    # userData = User.objects.get(username = request.user)
+    # events = EventData.objects.filter(user=userData.id).order_by('-pk')
+    # paginator = Paginator(events, 3)  # Show 10 items per page
 
-    page_number = request.GET.get('page')  # Get the page number from query parameters
-    page_obj = paginator.get_page(page_number)
+    # page_number = request.GET.get('page')  # Get the page number from query parameters
+    # page_obj = paginator.get_page(page_number)
 
-    comments = Comment.objects.filter(user=request.user,status = 'deny').order_by('-pk')
-    cpaginator = Paginator(comments, 30)  # Show 10 items per page
+    comments = Comment.objects.filter(user=request.user).order_by('-pk')
+    # print(comments)
+    # cpaginator = Paginator(comments, 10)  # Show 10 items per page
 
-    cpage_number = request.GET.get('cpage')  # Get the page number from query parameters
-    cpage_obj = cpaginator.get_page(cpage_number)
+    # cpage_number = request.GET.get('cpage')  # Get the page number from query parameters
+    # cpage_obj = cpaginator.get_page(cpage_number)
+    # print(cpage_obj)
 
-    return render(request, 'events/comments.html', {'events': page_obj, 'comments':cpage_obj})
+    return render(request, 'events/comments.html', {'comments':comments})
 
 
 @login_required(login_url="login")

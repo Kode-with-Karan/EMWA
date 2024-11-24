@@ -297,7 +297,7 @@
 
 <div class="media_canva_showing" id="media_canva">
     <div class="media_canva_body">
-        <div class="close" id="close_media_canva">
+        <div class="close" id="close_media_canva" style="z-index: 100;">
             <i class="fa fa-times"></i>
         </div>
         <div class="also-like" style="background: transparent;">
@@ -357,7 +357,10 @@
                 {% if comment.image %}
                 <div class="col-xl-auto">
                     <div class="like-item">
-                        <div class="thumb">
+                        <div class="thumb" style="
+                        width: 300px;
+                        height: 300px;
+                    ">
                             <img src="{{ comment.image.url }}" alt="Comment image">
                             <div class="icons">
                                 <ul>
@@ -388,9 +391,12 @@
 
                 {% for comment in comments %}
                 {% if comment.video %}
-                <div class="col-lg-4">
+                <div class="col-xl-auto">
                     <div class="like-item">
-                        <div class="thumb">
+                        <div class="thumb" style="
+                        width: 300px;
+                        height: 300px;
+                    ">
                             <video src="{{ comment.video.url }}" alt="Comment image">
                                 <div class="icons">
                                     <ul>
@@ -444,7 +450,7 @@
 
                 {% for sponsors in event.sponsorsWithLink.all %}
                 
-                <div class="col-lg-4">
+                <div class="col-xl-auto">
                     <div class="like-item" id="media_like">
                         <div class="thumb" id="canva_thumb">
                             <img src="{{ sponsors.logo.url }}" alt="Comment image">
@@ -462,7 +468,7 @@
         {% endif %}
         {% if event.sponsorsWithImage.all %}
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xl-auto">
                 <h2>Sponsors... 
                 </h2>
                 <h3>Tier 2...</h3>
@@ -472,7 +478,7 @@
 
                 {% for sponsors in event.sponsorsWithImage.all %}
                 
-                <div class="col-lg-4">
+                <div class="col-xl-auto">
                     <div class="like-item" id="media_like">
                         <div class="thumb" id="canva_thumb">
                             <img src="{{ sponsors.logo.url }}" alt="Comment image">
@@ -494,7 +500,7 @@
 
                 {% for sponsors in event.sponsorsWithName.all %}
                 
-                <div class="col-lg-12">
+                <div class="col-xl-auto">
                     <div class="like-item" id="media_like">
                         <div class="thumb" id="canva_thumb">
                         </div>
