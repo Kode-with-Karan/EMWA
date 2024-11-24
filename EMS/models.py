@@ -9,7 +9,7 @@ class Profile(models.Model):
     nickname = models.CharField(max_length=50, blank=True)
     user_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     description = models.TextField(blank=True)
-    additional_info = models.TextField(blank=True)
+    # additional_info = models.TextField(blank=True)
     gender_choices = [
         ('male', 'Male'),
         ('female', 'Female'),

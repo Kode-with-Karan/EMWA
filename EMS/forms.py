@@ -10,7 +10,7 @@ from .models import Profile
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['name', 'nickname', 'user_image', 'description', 'additional_info', 'gender', 'age', 'city', 'contact_details']
+        fields = ['name', 'nickname', 'user_image', 'description', 'gender', 'age', 'city', 'contact_details']
 
     def __init__(self, *args, **kwargs):
         # Capture the instance (used for updates)
