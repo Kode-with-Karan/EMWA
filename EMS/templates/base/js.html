@@ -122,7 +122,7 @@
         const differenceInWeeks = Math.ceil(differenceInDays / 7);
         const differenceInMonths = Math.ceil(differenceInDays / 30);
 
-        if (differenceInDays < 0) {
+        if (differenceInDays <= 0) {
             // return `${formattedDate} is 1 day later`;
             return `<div class="main-live-button" style="width: fit-content;"><span>Live</span></div>`;
         } else if (differenceInDays === 1) {
