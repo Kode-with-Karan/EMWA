@@ -2,6 +2,9 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
+
+{{form.errors}}
+
 <div class="rent-venue-application">
     <div class="container">
         <div class="row">
@@ -22,13 +25,15 @@
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <fieldset>
-                                <label for="{{ form.art_category.id_for_label }}"> {{ form.art_category.label }} (Select the Event related) </label>
+                                <label for="{{ form.art_category.id_for_label }}"> {{ form.art_category.label }} (Select
+                                    the Event related) </label>
                                 {{ form.art_category }}
                             </fieldset>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <fieldset>
-                                <label for="{{ form.category.id_for_label }}"> {{ form.category.label }} (Public/private) </label>
+                                <label for="{{ form.category.id_for_label }}"> {{ form.category.label }}
+                                    (Public/private) </label>
                                 {{ form.category }}
                             </fieldset>
                         </div>
@@ -87,14 +92,14 @@
                         <div class="col-lg-12">
                             <fieldset>
                                 <label for="images">Upload Images (Multiple):</label>
-                                <input type="file" name="image" multiple >
+                                <input type="file" name="image" multiple>
                             </fieldset>
                         </div>
                         {% else %}
                         <div class="col-lg-12">
                             <fieldset>
                                 <label for="images">Upload Images (Multiple):</label>
-                                <input type="file" name="image" multiple  required>
+                                <input type="file" name="image" multiple required>
                             </fieldset>
                         </div>
                         {% endif %}
@@ -104,63 +109,141 @@
                                 {{ form.image }}
                             </fieldset>
                         </div> -->
-                        
-                        
-                        
+
+
+
                         <!-- <div class="col-md-6 col-sm-12">
                             <fieldset>
                                 {{ form.venue}}
                             </fieldset>
                         </div> -->
-                        
 
-                        
-                        
-                        
-                        <div class="col-md-6 col-sm-12">
+
+
+
+
+                        <div class="col-lg-12">
                             <fieldset>
                                 <div class="col-lg-12">
                                     <fieldset>
                                         <label for="sitting_plans">Upload Seating Plan (Multiple):</label>
-                                        <input type="file" name="sitting_plan" multiple >
+                                        <input type="file" name="sitting_plan" multiple>
                                     </fieldset>
                                 </div>
                             </fieldset>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-12">
                             <fieldset>
                                 <div class="col-lg-12">
                                     <fieldset>
                                         <label for="schedule_plans">Upload Schedule Plan (Multiple):</label>
-                                        <input type="file" name="schedule_plan" multiple >
+                                        <input type="file" name="schedule_plan" multiple>
                                     </fieldset>
                                 </div>
                             </fieldset>
                         </div>
-                        <div class="col-md-10 col-sm-12">
+                        <div class="col-sm-12">
+                            <fieldset>
+                                <label for="{{ form.hashTags.id_for_label }}"> hashTags </label>
+
+                                {{ form.hashTags }}
+                            </fieldset>
+                        </div>
+                        <div class="col-md-10 col-sm-12" style="display: none;">
                             <fieldset>
                                 <label for="{{ form.geast_list.id_for_label }}"> Guests lists </label>
 
                                 {{ form.geast_list }}
                             </fieldset>
                         </div>
-                        <div class="col-md-1 col-sm-12">
+                        <div class="col-md-1 col-sm-12" style="display: none;">
                             <fieldset>
-                                <a href="#id_geast_list" id="email_btn" class="main-dark-button" >Add</a>
+                                <a href="#id_geast_list" id="email_btn" class="main-dark-button">Add</a>
                             </fieldset>
                         </div>
-                        <div class="col-md-1 col-sm-12">
+                        <div class="col-md-1 col-sm-12" style="display: none;">
                             <fieldset>
-                                <a href="#id_geast_list" id="final_btn" class="main-dark-button" >Final</a>
+                                <a href="#id_geast_list" id="final_btn" class="main-dark-button">Final</a>
                             </fieldset>
                         </div>
-                        <div class="col-lg-12">
-                           <ul id="email_list">
+                        <div class="col-lg-12" style="display: none;">
+                            <ul id="email_list">
+
+                            </ul>
+                        </div>
+                        <div id="sponsor-section" class="col-sm-12" style="display: none;">
+                            <h4>Sponsors</h4>
+                            <div class="sponsor-group">
+                                <input type="text" name="sponsor_name" placeholder="Sponsor Name">
+                                <input type="url" name="sponsor_link" placeholder="Sponsor Link">
+                                <input type="file" name="sponsor_logo" accept="image/*">
+                            </div>
+                            <button type="button" id="add-sponsor-btn">Add Another Sponsor</button>
+                        </div>
+                        <div id="detail-section" class="col-sm-12">
+                            <h4>Event Details</h4>
+                            <div class="detail-group">
+                                <input type="text" name="detail_title" placeholder="Detail Title">
+                                <textarea name="detail_description" placeholder="Detail Description"></textarea>
+                            </div>
+                            <button type="button" class="main-dark-button" id="add-detail-btn">Add Another Detail</button>
+                            <br>
+                        </div>
+                        <!-- Guest List Section -->
+                        <div class="guest-form col-sm-12">
+                            <br>
+                            <h4>Guest List</h4>
+
+                            <!-- Select All Checkbox -->
                             
-                           </ul>
+                            <br>
+
+                            <div id="guest-fields">
+                                <div class="guest-field" style="display: flex;justify-content: space-around;">
+                                    <input class="col-md-3 col-sm-12" type="text" name="guest_name" placeholder="Guest Name">
+                                    <input class="col-md-3 col-sm-12" type="email" name="guest_email" placeholder="Guest Email">
+                                    <input class="col-md-3 col-sm-12" type="checkbox" name="guest_is_confirmed" value="True"> Confirmed
+                                </div>
+                            </div>
+                            <div id="sel_check_All">
+                                <p>Select All Guests</p>
+                                <input type="checkbox" id="select-all" onclick="toggleAllGuests()"> 
+
+                            </div>
+                            
+                            <button type="button" class="main-dark-button" onclick="addGuest()">Add Guest</button>
+                            <br>
                         </div>
+
+                        <!-- <div class="guest-form" class="col-sm-12">
+                            <h4>Guest List</h4>
+
+                            
+                            <input type="checkbox" id="select-all" onclick="toggleAllGuests()"> Select All Guests
+                            <br><br>
+
+                            <div id="guest-fields">
+                                <div class="guest-field">
+                                    <input type="text" name="guest_name" placeholder="Guest Name">
+                                    <input type="email" name="guest_email" placeholder="Guest Email">
+                                    <input type="checkbox" name="guest_is_confirmed" value="True"> Confirmed
+                                </div>
+                            </div>
+
+                            <button type="button" onclick="addGuest()">Add Guest</button>
+                        </div> -->
+                        <div class="col-md-6 col-sm-12">
+                            <fieldset>
+                                <br>
+                                <label for="{{ form.saving_mode.id_for_label }}"> {{ form.saving_mode.label }}
+                                    (Publish/Draft) </label>
+                                {{ form.saving_mode }}
+                            </fieldset>
+                        </div>
+
                         <div class="col-lg-12">
                             <fieldset>
+                                <br><br>
                                 <button type="submit" id="form-submit" class="main-dark-button">Save</button>
                             </fieldset>
                         </div>
@@ -177,16 +260,16 @@
 <script>
 
 
-    document.getElementById("email_btn").addEventListener('click', function(){
-        
-        document.getElementById("email_list").innerHTML += '<li>'+ document.getElementById("id_geast_list").value +' </li>'
+    document.getElementById("email_btn").addEventListener('click', function () {
+
+        document.getElementById("email_list").innerHTML += '<li>' + document.getElementById("id_geast_list").value + ' </li>'
         document.getElementById("id_geast_list").value = ""
     })
 
     let email_list = [];
-    document.getElementById("final_btn").addEventListener('click', function(){
-        
-        
+    document.getElementById("final_btn").addEventListener('click', function () {
+
+
         let emails = document.getElementById("email_list").getElementsByTagName("li")
         console.log(emails)
 
@@ -196,17 +279,17 @@
 
         document.getElementById("id_geast_list").value = email_list
         document.getElementById("email_list").innerHTML = ''
-        
+
     })
 
     document.addEventListener("DOMContentLoaded", function () {
         const startDateInput = document.getElementById("id_start_date");
         const endDateInput = document.getElementById("id_end_date");
-    
+
         // When the start date changes, update the minimum end date
         startDateInput.addEventListener("change", function () {
             const startDate = startDateInput.value;
-            
+
             // If a start date is selected, set it as the minimum for the end date
             if (startDate) {
                 endDateInput.min = startDate;
@@ -216,6 +299,40 @@
             }
         });
     });
+
+    document.getElementById('add-sponsor-btn').addEventListener('click', function () {
+        const sponsorGroup = document.querySelector('.sponsor-group').cloneNode(true);
+        document.getElementById('sponsor-section').appendChild(sponsorGroup);
+    });
+
+    document.getElementById('add-detail-btn').addEventListener('click', function () {
+        const detailGroup = document.querySelector('.detail-group').cloneNode(true);
+        // document.getElementById('detail-section').appendChild(detailGroup);
+        document.querySelector('.detail-group').appendChild(detailGroup);
+    });
+
+    function addGuest() {
+        const guestFields = document.getElementById("guest-fields");
+        const newGuest = document.createElement("div");
+        newGuest.classList.add("guest-field");
+        newGuest.style.display = "flex";
+        newGuest.style.justifyContent = "space-around";
+        newGuest.innerHTML = `
+            <input class="col-md-3 col-sm-12" type="text" name="guest_name" placeholder="Guest Name">
+            <input class="col-md-3 col-sm-12" type="email" name="guest_email" placeholder="Guest Email">
+            <input class="col-md-3 col-sm-12" type="checkbox" name="guest_is_confirmed" value="True"> Confirmed
+        `;
+        guestFields.appendChild(newGuest);
+    }
+
+    // JavaScript to toggle all guest checkboxes
+    function toggleAllGuests() {
+        const isChecked = document.getElementById("select-all").checked;
+        const guestCheckboxes = document.querySelectorAll('input[name="guest_is_confirmed"]');
+        guestCheckboxes.forEach((checkbox) => {
+            checkbox.checked = isChecked;
+        });
+    }
 </script>
 
 {% endblock content %}

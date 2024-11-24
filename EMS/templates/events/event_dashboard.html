@@ -20,77 +20,99 @@
 </div>
 
 <div class="shows-events-tabs">
-    <div class="container">
+    <br>
+    <div class="col-lg-8" class="main-dark-button">
+        <ul>
+            <li><a class="main-dark-button" href='{% url "dashboard" %}' >Events</a></li>
+            <li><a  href='{% url "comment" %}' >Comments</a></a></li>
+        </ul>
+        <hr>
+    </div>
+    <div class="">
         <div class="row">
             <div class="col-lg-12">
                 <div class="row" id="tabs">
+                    
                     <div class="col-lg-12">
-                        <div class="heading-tabs">
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <ul>
-                                        <li><a href='#tabs-1'>Events</a></li>
-                                        <li><a href='#tabs-2'>Comments</a></a></li>
-                                    </ul>
-                                </div>
-                                
+                        <div class="heading-tabs" style="display: none;">
+                            <div class="row container">
+                                <ul>
+                                    <li><a href='#tabs-1'  onclick="event_tab()">Events</a></li>
+                                    <li><a href='#tabs-2' onclick="comment_tab()">Comments</a></a></li>
+                                </ul>
+
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <section class='tabs-content mt-0'>
                             <article id='tabs-1'>
-                                <div class="shows-events-schedule">
-                                    <div class="container">
-                                        <div class="row">
+                                <div class="shows-events-schedule ">
+                                    <div class="container row col-lg-12">
+                                        <div class="row col-lg-4">
                                             <div class="col-lg-12">
                                                 <div class="section-heading">
                                                     <h2>Event Listing</h2>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12" >
+                                            <div class="col-lg-12">
                                                 <ul>
                                                     {% for event in events %}
-                                                    <li class="col-lg-12" style="border-radius: 20px;">
-                                                        <div class="row">
-                                                            <div class="col-lg-3">
+                                                    <li class="col-lg-12 dash_events" style="border-radius: 20px;">
+                                                        <div style="display: none;">{{event.id}}</div>
+                                                        <div class="column">
+                                                            <div class="col-lg-12">
+                                                                <img src="{{event.image.url}}" alt=""
+                                                                    style="width:100%;">
+                                                            </div>
+                                                            <div class="col-lg-12">
                                                                 <div class="title">
-                                                                    <h4>{{event.name}}</h4>
-                                                                    <span>{{event.category}}</span>
+                                                                    <h4 style="margin: 2px;">{{event.name}}</h4>
+                                                                    <span style="margin: 2px;">{{event.category}}</span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="time"><span style="width: 230px;"><i class="fa fa-clock-o"></i>
-                                                                        {{event.start_date}} - {{event.end_date}}<br>{{event.start_time}} -
+                                                            <!-- <div class="col-lg-4">
+                                                                <div class="time"><span style="width: 230px;"><i
+                                                                            class="fa fa-clock-o"></i>
+                                                                        {{event.start_date}} -
+                                                                        {{event.end_date}}<br>{{event.start_time}} -
                                                                         {{event.end_time}}</span></div>
-                                                            </div>
-                                                            <div class="col-lg-2">
+                                                            </div> -->
+                                                            <!-- <div class="col-lg-2">
                                                                 <div class="place"><span style="width: 230px;"><i
-                                                                            class="fa fa-map-marker"></i>{{event.venue}} <br>{{event.place_info}}
+                                                                            class="fa fa-map-marker"></i>{{event.venue}}
+                                                                        <br>{{event.place_info}}
                                                                     </span></div>
-                                                            </div>
+                                                            </div> -->
                                                             <!-- <a href="{% url 'event_update' event.pk %}">Edit</a>
                                                             <a href="{% url 'event_delete' event.pk %}">Delete</a> -->
-                                                            <div class="col-lg-1">
-                                                                <div class="main-dark-button">
-                                                                    <a style="color: white;border-radius: 10px;padding: 12px 4px;" href="{% url 'event_detail' event.id %}">View</a>
+                                                            <div style="display: flex;">
+                                                                <div class="col-lg-4">
+                                                                    <div class="main-dark-button">
+                                                                        <a style="color: white;border-radius: 10px;"
+                                                                            href="{% url 'event_detail' event.id %}">View</a>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-1">
-                                                                <div class="main-dark-button">
-                                                                    <a style="color: white;border-radius: 10px;" href="{% url 'event_update' event.pk %}">Edit</a>
+                                                                <div class="col-lg-4">
+                                                                    <div class="main-dark-button">
+                                                                        <a style="color: white;border-radius: 10px;"
+                                                                            href="{% url 'event_update' event.pk %}">Edit</a>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-1">
-                                                                <div class="main-dark-button" style="border-radius: 10px;overflow: hidden;width: fit-content;">
-                                                                    <a style="color: white; width: auto;">
-                                                                        <form action="{% url 'event_delete' event.pk %}" method="post">
-                                                                            {% csrf_token %}
-                                                                            <!-- <input type="submit" value="Delete"> -->
-                                                                            <button type="submit"
-                                                                                style="background: none;padding: 0;border: none;outline: none; color: white;">Delete</button>
-                                                                        </form>
-                                                                    </a>
+                                                                <div class="col-lg-4">
+                                                                    <div class="main-dark-button"
+                                                                        style="border-radius: 10px;overflow: hidden;width: fit-content;">
+                                                                        <a style="color: white; width: auto;">
+                                                                            <form
+                                                                                action="{% url 'event_delete' event.pk %}"
+                                                                                method="post">
+                                                                                {% csrf_token %}
+                                                                                <!-- <input type="submit" value="Delete"> -->
+                                                                                <button type="submit"
+                                                                                    style="background: none;padding: 0;border: none;outline: none; color: white;">Delete</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -103,17 +125,26 @@
                                                     <ul>
                                                         {% if events.has_previous %}
                                                         <li><a href="?page=1">&laquo; first</a></li>
-                                                        <li><a href="?page={{ events.previous_page_number }}">previous</li>
+                                                        <li><a href="?page={{ events.previous_page_number }}">previous
+                                                        </li>
                                                         {% endif %}
 
-                                                        <li class="active" ><a href="#"><span>Page {{ events.number }} of {{ events.paginator.num_pages }}</span></a></li>
-                                                        
+                                                        <li class="active"><a href="#"><span>Page {{ events.number }} of
+                                                                    {{ events.paginator.num_pages }}</span></a></li>
+
                                                         {% if events.has_next %}
-                                                        <li ><a href="?page={{ events.next_page_number }}">next</a></li>
-                                                        <li><a href="?page={{ events.paginator.num_pages }}">last &raquo;</a></li>
+                                                        <li><a href="?page={{ events.next_page_number }}">next</a></li>
+                                                        <li><a href="?page={{ events.paginator.num_pages }}">last
+                                                                &raquo;</a></li>
                                                         {% endif %}
                                                     </ul>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div>
+                                                <iframe id="dash_iframe" src="https://www.google.com/"
+                                                    frameborder="0"></iframe>
                                             </div>
                                         </div>
                                     </div>
@@ -126,6 +157,10 @@
                                             <div class="col-lg-12">
                                                 <div class="section-heading">
                                                     <h2>Comment Listing</h2>
+                                                    <div class="main-dark-button">
+                                                        <a style="color: white;border-radius: 10px;"
+                                                            onclick="approve_all()">Approve Selected</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
@@ -140,24 +175,33 @@
                                                                     <span>{{comment.text}}</span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-3">
                                                                 {% if comment.image %}
-                                                                <img style="width: 63%;" src="{{comment.image.url}}" alt="">
+                                                                <img style="width: 63%;" src="{{comment.image.url}}"
+                                                                    alt="">
                                                                 {% else %}
                                                                 <p>No image</p>
                                                                 {% endif %}
                                                             </div>
                                                             <div class="col-lg-3">
                                                                 {% if comment.video %}
-                                                                <video style="width: 63%;" src="{{comment.video.url}}"></video>
+                                                                <video style="width: 63%;"
+                                                                    src="{{comment.video.url}}"></video>
                                                                 {% else %}
                                                                 <p>No video</p>
                                                                 {% endif %}
                                                             </div>
+                                                            <div class="col-lg-1 check_approve">
+                                                                <label style="display: none;">{{comment.id}}</label>
+                                                                <input type="checkbox" name="check_approve">
+                                                            </div>
                                                             <div class="col-lg-1">
-                                                                <div class="main-dark-button" style="border-radius: 10px 0 0 10px;overflow: hidden;width: fit-content;">
+                                                                <div class="main-dark-button"
+                                                                    style="border-radius: 10px 0 0 10px;overflow: hidden;width: fit-content;">
                                                                     <a style="color: white; width: auto;">
-                                                                        <form action="{% url 'comment_update' comment.pk %}" method="post">
+                                                                        <form
+                                                                            action="{% url 'comment_update' comment.pk %}"
+                                                                            method="post">
                                                                             {% csrf_token %}
                                                                             <!-- <input type="submit" value="Delete"> -->
                                                                             <button type="submit"
@@ -166,10 +210,14 @@
                                                                     </a>
                                                                 </div>
                                                             </div>
+
                                                             <div class="col-lg-1">
-                                                                <div class="main-dark-button" style="border-radius: 0 10px 10px 0;overflow: hidden;width: fit-content;">
+                                                                <div class="main-dark-button"
+                                                                    style="border-radius: 0 10px 10px 0;overflow: hidden;width: fit-content;">
                                                                     <a style="color: white; width: auto;">
-                                                                        <form action="{% url 'comment_delete' comment.id %}" method="post">
+                                                                        <form
+                                                                            action="{% url 'comment_delete' comment.id %}"
+                                                                            method="post">
                                                                             {% csrf_token %}
                                                                             <!-- <input type="submit" value="Delete"> -->
                                                                             <button type="submit"
@@ -189,14 +237,19 @@
                                                     <ul>
                                                         {% if comments.has_previous %}
                                                         <li><a href="?cpage=1">&laquo; first</a></li>
-                                                        <li><a href="?cpage={{ comments.previous_page_number }}">previous</li>
+                                                        <li><a href="?cpage={{ comments.previous_page_number }}">previous
+                                                        </li>
                                                         {% endif %}
 
-                                                        <li class="active" ><a href="#"><span>Page {{ comments.number }} of {{ comments.paginator.num_pages }}</span></a></li>
-                                                        
+                                                        <li class="active"><a href="#"><span>Page {{ comments.number }}
+                                                                    of {{ comments.paginator.num_pages }}</span></a>
+                                                        </li>
+
                                                         {% if comments.has_next %}
-                                                        <li ><a href="?cpage={{ comments.next_page_number }}">next</a></li>
-                                                        <li><a href="?cpage={{ comments.paginator.num_pages }}">last &raquo;</a></li>
+                                                        <li><a href="?cpage={{ comments.next_page_number }}">next</a>
+                                                        </li>
+                                                        <li><a href="?cpage={{ comments.paginator.num_pages }}">last
+                                                                &raquo;</a></li>
                                                         {% endif %}
                                                     </ul>
                                                 </div>
@@ -235,5 +288,65 @@
             alertMessage.style.display = 'none';
         }
     }, 3000); // 3000 ms = 3 seconds
+</script>
+<!-- <script>
+    let event_tab_id = document.getElementById("tabs-1")
+    let comment_tab_id = document.getElementById("tabs-2")
+    function event_tab() {
+        comment_tab_id.style.display = "none"
+        event_tab_id.style.display = "block"
+    }
+    function comment_tab() {
+        event_tab_id.style.display = "none"
+        comment_tab_id.style.display = "block"
+
+    }
+</script> -->
+<script>
+    function approve_all(params) {
+        // let checkApprove = document.getElementsByClassName("check_approve")
+        // Array.prototype.forEach.call(checkApprove, function (box) {
+
+        //     if(box.getElementsByTagName("input")[0].checked){
+        //         console.log(box.getElementsByTagName("label")[0].innerHTML)
+
+        //     }
+        // });
+        // Make the POST request without data
+        
+            const form = document.getElementById('comment-update-form');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Get the URL from the data-url attribute
+                const url = this.getAttribute('data-url');
+
+                const formData = new FormData(this);
+
+                fetch(url, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('comment-text').textContent = data.comment_text;
+                            document.getElementById('comment-status').textContent = data.comment_status;
+                            alert('Comment updated successfully!');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+
+
+
+
+    }
 </script>
 {% endblock content %}

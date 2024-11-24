@@ -1,4 +1,170 @@
 {% load static %}
+<script>
+    function convertDateToISO(inputDate, year = new Date().getFullYear()) {
+        // Remove the period after the month abbreviation, if any
+        const cleanedDate = inputDate.replace('.', '');
+
+        // Parse the cleaned date with the specified year
+        const parsedDate = new Date(`${cleanedDate}, ${year}`);
+
+        // Format it as YYYY-MM-DD
+        const yearPart = parsedDate.getFullYear();
+        const monthPart = String(parsedDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const dayPart = String(parsedDate.getDate()).padStart(2, '0');
+
+        return `${yearPart}-${monthPart}-${dayPart}`;
+    }
+    // function convertToIST(input) {
+    // // Parse the input date string
+    //     const regex = /([A-Za-z]+\.?) (\d+), (\d+) - (\d+):(\d+) ([ap]\.m\.)/;
+    //     const match = input.match(regex);
+    //     if (!match) {
+    //         throw new Error("Invalid date format. Please provide a valid date.");
+    //     }
+
+    //     // Extract date components
+    //     const [_, month, day, year, hour, minute, period] = match;
+
+    //     // Map abbreviated months to their indices
+    //     const monthIndex = {
+    //         Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+    //         Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+    //     }[month.replace(".", "")];
+
+    //     // Convert hour to 24-hour format
+    //     let hours = parseInt(hour, 10);
+    //     if (period.toLowerCase() === "p.m." && hours !== 12) {
+    //         hours += 12;
+    //     } else if (period.toLowerCase() === "a.m." && hours === 12) {
+    //         hours = 0;
+    //     }
+
+    //     // Create a Date object
+    //     const date = new Date(year, monthIndex, day, hours, minute);
+
+    //     // Convert to IST (India Standard Time)
+    //     const istDate = new Date(date.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+
+    //     return istDate.toString();
+    // }
+
+    function convertToIST(input) {
+    // Parse the input date string
+    const regex = /([A-Za-z]+\.?) (\d+), (\d+) - (\d+)(?::(\d+))? ([ap]\.m\.)/;
+    const match = input.match(regex);
+    if (!match) {
+        throw new Error("Invalid date format. Please provide a valid date.");
+    }
+
+    // Extract date components
+    const [_, month, day, year, hour, minute = "0", period] = match;
+
+    // Map abbreviated months to their indices
+    const monthIndex = {
+        Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+        Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+    }[month.replace(".", "")];
+
+    // Convert hour to 24-hour format
+    let hours = parseInt(hour, 10);
+    if (period.toLowerCase() === "p.m." && hours !== 12) {
+        hours += 12;
+    } else if (period.toLowerCase() === "a.m." && hours === 12) {
+        hours = 0;
+    }
+
+    // Create a Date object
+    const date = new Date(year, monthIndex, day, hours, parseInt(minute, 10));
+
+    // Convert to IST (India Standard Time)
+    const istDate = new Date(date.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+
+    return istDate.toString();
+}
+
+    // Example usage:
+    const inputDate = "Nov. 23, 2024 - 10:55 p.m.";
+    // console.log("-->");
+    // console.log(convertToIST(inputDate));
+
+    function timeDifferenceFromNow(inputDate, end_inputDate) {
+        const currentDate = new Date();
+        const parsedDate = new Date(inputDate);
+        // console.log("->")
+        const end_parsedDate = new Date(end_inputDate);
+        // console.log("-->")
+
+        // Calculate the difference in milliseconds
+        const differenceInMilliseconds = parsedDate - currentDate;
+        const end_differenceInMilliseconds = end_parsedDate - currentDate;
+
+        // If the date is in the past
+        // console.log("--->")
+        // if (differenceInMilliseconds < 0) {
+        //                 // return (differenceInMilliseconds)
+        //     if (end_differenceInMilliseconds < 0) {
+        //         return "EXPIRED";
+        //     }
+        // }
+
+            if (end_differenceInMilliseconds < 0) {
+                return "EXPIRED";
+            }
+        
+
+        // Format the date as "Nov. 23,"
+        const options = { month: 'short', day: 'numeric' };
+        const formattedDate = parsedDate.toLocaleDateString('en-US', options).replace('.', '');
+
+        // Convert milliseconds to days
+        const differenceInDays = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+        // Calculate weeks and months approximately
+        const differenceInWeeks = Math.ceil(differenceInDays / 7);
+        const differenceInMonths = Math.ceil(differenceInDays / 30);
+
+        if (differenceInDays === 0) {
+            // return `${formattedDate} is 1 day later`;
+            return `<div class="main-live-button" style="width: fit-content;"><span>Live</span></div>`;
+        } else if (differenceInDays === 1) {
+            // return `${formattedDate} is 1 day later`;
+            return `1 day later`;
+        } else if (differenceInDays < 7) {
+            // return `${formattedDate} is ${differenceInDays} days later`;
+            return `${differenceInDays} days later`;
+        } else if (differenceInWeeks === 1) {
+            // return `${formattedDate} is 1 week later`;
+            return `1 week later`;
+        } else if (differenceInWeeks < 4) {
+            // return `${formattedDate} is ${differenceInWeeks} weeks later`;
+            return `${differenceInWeeks} weeks later`;
+        } else if (differenceInMonths === 1) {
+            // return `${formattedDate} is 1 month later`;
+            return `1 month later`;
+        } else {
+            // return `${formattedDate} is ${differenceInMonths} months later`;
+            return `${differenceInMonths} months later`;
+        }
+    }
+
+    let dates_field = document.getElementsByClassName("datetime")
+
+    
+    Array.prototype.forEach.call(dates_field, function (date) {
+        event_date = (date.innerHTML.split('<i class="fa fa-clock-o"></i> ')[1].split('<p ')[0].split('<div ')[0])
+        let end_dates_field = date.getElementsByTagName("p")[0]
+        end_event_date = (end_dates_field.innerHTML)
+        
+        console.log(event_date)
+        console.log(convertToIST(event_date))
+        console.log(end_event_date)
+        console.log(convertToIST(end_event_date))
+        date.innerHTML += "<br>"+timeDifferenceFromNow(convertToIST(event_date),convertToIST(end_event_date))
+    });
+
+
+
+</script>
 
 
 <script>
@@ -173,7 +339,66 @@
     // });
 
 </script>
+<script>
+    let dash_events = document.getElementsByClassName("dash_events");
+    let dash_iframe = document.getElementById("dash_iframe");
+    Array.prototype.forEach.call(dash_events, function (el) {
+        el.addEventListener('click', function () {
+            dash_iframe.src = window.location.host+"/evnets/"+el.getElementsByTagName("div")[0].innerHTML
+            console.log(el.getElementsByTagName("div")[0].innerHTML)
+            console.log(el.getElementsByTagName("div")[0].innerHTML)
+        })
+    })
+</script>
 
+<script>
+    const locationInput = document.getElementById("locationInput");
+    const suggestionsBox = document.getElementById("suggestions");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    const dropdownToggle = document.getElementById("dropdownToggle");
+
+    locationInput.addEventListener("input", async () => {
+        const query = locationInput.value.trim();
+
+        if (query.length < 2) {
+            suggestionsBox.innerHTML = ""; // Clear suggestions for short queries
+            return;
+        }
+
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`);
+        const results = await response.json();
+
+        suggestionsBox.innerHTML = ""; // Clear previous suggestions
+        results.slice(0, 5).forEach(result => {
+            const suggestionDiv = document.createElement("div");
+            suggestionDiv.textContent = result.display_name;
+            suggestionDiv.addEventListener("click", () => {
+                locationInput.value = result.display_name;
+                suggestionsBox.innerHTML = ""; // Clear suggestions
+            });
+            suggestionsBox.appendChild(suggestionDiv);
+        });
+    });
+
+
+
+</script>
+<script>
+    // const dropdownToggle = document.getElementById('dropdownToggle');
+const dropdownContainer = document.querySelector('.dropdown-container');
+
+// Toggle dropdown menu
+dropdownToggle.addEventListener('click', () => {
+    dropdownContainer.classList.toggle('active');
+});
+
+// Close dropdown when clicking outside
+window.addEventListener('click', (e) => {
+    if (!dropdownContainer.contains(e.target)) {
+        dropdownContainer.classList.remove('active');
+    }
+});
+</script>
 <!-- jQuery -->
 <script src="{% static 'EMS/js/main_js.js' %}"></script>
 <script src="{% static 'EMS/js/jquery-2.1.0.min.js' %}"></script>

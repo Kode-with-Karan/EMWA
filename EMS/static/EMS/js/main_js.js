@@ -42,17 +42,3 @@ document.querySelector('.prev').addEventListener('click', showPreviousSlide);
 // Automatically slide every 3 seconds
 setInterval(showNextSlide, 10000);
 
-const dropdownToggle = document.getElementById('dropdownToggle');
-const dropdownContainer = document.querySelector('.dropdown-container');
-
-// Toggle dropdown menu
-dropdownToggle.addEventListener('click', () => {
-    dropdownContainer.classList.toggle('active');
-});
-
-// Close dropdown when clicking outside
-window.addEventListener('click', (e) => {
-    if (!dropdownContainer.contains(e.target)) {
-        dropdownContainer.classList.remove('active');
-    }
-});

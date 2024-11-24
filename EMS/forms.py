@@ -2,6 +2,53 @@ from django import forms
 from .models import Event, EventData, Comment, Image
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import modelformset_factory
+from django.forms import inlineformset_factory
+from .models import EventData, Sponsor, EventDetail, Guest
+from .models import Profile
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['name', 'nickname', 'user_image', 'description', 'additional_info', 'gender', 'age', 'city', 'contact_details']
+
+    def __init__(self, *args, **kwargs):
+        # Capture the instance (used for updates)
+        self.instance = kwargs.get('instance', None)
+
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            print("helllo")
+            print(self.fields['name'].initial)
+            # If it's an update and the instance has an image, modify the field
+            self.fields['name'].initial = "hello"
+            print(self.fields['name'].initial)
+            # print("-->"+str(self.fields['image'].required))
+            self.fields['name'].widget.attrs.update({
+                'placeholder': 'Leave empty to keep the current image'
+            })
+
+
+
+GuestFormSet = inlineformset_factory(
+    EventData, Guest, 
+    fields=('name', 'email', 'is_confirmed'), 
+    extra=1, can_delete=True
+)
+
+SponsorFormSet = inlineformset_factory(
+    EventData, Sponsor,
+    fields=('name', 'logo', 'link'),
+    extra=1,
+    can_delete=True
+)
+
+EventDetailFormSet = inlineformset_factory(
+    EventData, EventDetail,
+    fields=('title', 'description'),
+    extra=1,
+    can_delete=True
+)
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -52,7 +99,7 @@ class EventDataForm(forms.ModelForm):
 
     class Meta:
         model = EventData
-        fields = ['name', 'category', 'art_category', 'image', 'description', 'link', 'instructions', 'geast_list', 'place_info', 'start_date', 'end_date', 'start_time', 'end_time', 'sitting_plan', 'schedule_plan']
+        fields = ['name', 'category', 'art_category', 'image', 'description', 'link', 'instructions', 'geast_list', 'place_info', 'start_date', 'end_date', 'start_time', 'end_time', 'sitting_plan', 'schedule_plan','hashTags','saving_mode']
         # fields = ['category', 'name', 'uid', 'description', 'job_category', 'scheduled_status', 'venue', 'start_date', 'end_date', 'location', 'points', 'maximum_attende', 'status']
         widgets = {
             'geast_list': forms.TextInput(attrs={'size': '10',}),
@@ -82,6 +129,8 @@ class EventDataForm(forms.ModelForm):
         # self.fields['venue'].label = ""
         self.fields['place_info'].label = ""
         self.fields['link'].label = ""
+        self.fields['hashTags'].label = ""
+        self.fields['saving_mode'].label = ""
         
         
         
@@ -103,9 +152,9 @@ class EventDataForm(forms.ModelForm):
         self.fields['link'].widget.attrs.update({
             'placeholder': 'Enter the ticket link'
         })
-        # self.fields['venue'].widget.attrs.update({
-        #     'placeholder': 'Enter name of venue.'
-        # })
+        self.fields['hashTags'].widget.attrs.update({
+            'placeholder': 'Enter name of hashTags'
+        })
 
 
 
@@ -145,3 +194,5 @@ class CommentForm(forms.ModelForm):
         self.fields['text'].widget.attrs.update({
             'placeholder': 'Comment!'
         })
+
+

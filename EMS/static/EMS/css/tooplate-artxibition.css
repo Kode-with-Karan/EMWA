@@ -1944,6 +1944,20 @@ Shows Events Page
   border-radius: 0 0 30px 30px;
 }
 
+.shows-events-tabs >div>ul>li>a{
+
+  border-radius: 10px;
+  color: white;
+  background-color: #40d621;
+  padding: 10px 20px;
+  margin: 0 10px;
+
+}
+.shows-events-tabs >div>ul{
+
+  display: flex;
+
+}
 .shows-events-tabs .heading-tabs {
   padding: 20px 0px;
   border-bottom: 1px dotted #d7dadc;
@@ -2967,4 +2981,73 @@ responsive
   .cal_card{
     flex-direction: column;
   }
+}
+
+label[for="desc_toggle"]>a::after {
+  /* Add your styles here */
+  content: "Read More >";
+}
+
+#desc_para{
+  max-height: 200px;
+  overflow: hidden;
+}
+#desc_toggle{
+  display: none;
+}
+#desc_toggle:checked ~ #desc_para{
+  max-height: fit-content;
+}
+#desc_toggle:checked ~ label[for="desc_toggle"]>a::after {
+  content: "Read Less >";
+}
+
+label[for="instr_toggle"]>a::after {
+  /* Add your styles here */
+  content: "Read More >";
+}
+#instr_para{
+  max-height: 200px;
+  overflow: hidden;
+}
+#instr_toggle{
+  display: none;
+}
+#instr_toggle:checked ~ #instr_para{
+  max-height: fit-content;
+}
+#instr_toggle:checked ~ label[for="instr_toggle"]>a::after {
+  /* Add your styles here */
+  content: "Read Less >";
+}
+
+#select-all{
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+
+}
+.guest-field > input[type="checkbox"]{
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+}
+
+#select-all{
+  width: 20px;
+}
+#sel_check_All>p{
+    display: inline;
+    top: -19px;
+    position: relative;
+}
+
+
+#tabs-1{
+  /* width: 35%; */
+}
+#dash_iframe{
+  display: block;
+  width: 60vw; 
+  height: 130vh; 
+  /* background-color:black; */
+  border-radius: 20px;
 }

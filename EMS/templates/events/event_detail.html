@@ -90,7 +90,9 @@
                 <span class="datetime">{{ event.start_date }} - {{ event.start_time }} </span><br>
                 <span id="timmer">{{ event.end_date }} - {{ event.end_time }} </span>
                 <h2>{{ event.name }}</h2>
-                <p> {{ event.instructions | linebreaksbr }}</p>
+                <input type="checkbox" name="desc_toggle" id="desc_toggle">
+                <p id="desc_para"> {{ event.description | linebreaksbr }}</p>
+                <label for="desc_toggle"><a></a></label>
                 <div class="user_sec">
                     <div class="user_content">
                         <img src="{% static 'EMS/images/default.png' %}" alt="">
@@ -103,7 +105,9 @@
                                 <input class="form-control form-control-navbar" name="search" type="hidden"
                                     value="{{ event.user }}" placeholder="Search" aria-label="Search">
                                 <div class="input-group-append">
-                                    <button style="background: transparent;border: none;outline: none; padding: 5px 15px !important;" type="submit">
+                                    <button
+                                        style="background: transparent;border: none;outline: none; padding: 5px 15px !important;"
+                                        type="submit">
                                         <a style="color: white;border-radius: 9px;overflow: hidden;">All Events</a>
                                     </button>
                                 </div>
@@ -112,9 +116,12 @@
                     </div>
                 </div>
                 <!-- <h4>Instructions</h4> -->
-                 <br>
+                <br>
                 <ul>
-                    <p>{{ event.instructions | linebreaksbr }}</p>
+                    <input type="checkbox" name="instr_toggle" id="instr_toggle">
+                    <p id="instr_para">{{ event.instructions | linebreaksbr }}</p>
+                    <label for="instr_toggle"><a></a></label>
+
                 </ul>
             </div>
             <div class="col-lg-3">
@@ -149,6 +156,20 @@
                                 </div>
                             </form> -->
                         </div>
+                    </div>
+                </div>
+                <br>
+                <div class="next-shows">
+                    <h4>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width: 20px;"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path d="M440.7 182.1l7.1-40c1.3-7.4-4.3-14.1-11.8-14.1h-74.8l14.6-81.9C377.1 38.8 371.5 32 364 32h-40.6a12 12 0 0 0 -11.8 9.9L296.2 128H197.5l14.6-81.9C213.5 38.8 207.8 32 200.4 32h-40.6a12 12 0 0 0 -11.8 9.9L132.5 128H53.4a12 12 0 0 0 -11.8 9.9l-7.1 40C33.2 185.2 38.8 192 46.3 192h74.8L98.2 320H19.1a12 12 0 0 0 -11.8 9.9l-7.1 40C-1.1 377.2 4.5 384 12 384h74.8L72.2 465.9C70.9 473.2 76.5 480 84 480h40.6a12 12 0 0 0 11.8-9.9L151.8 384h98.6l-14.6 81.9C234.5 473.2 240.2 480 247.7 480h40.6a12 12 0 0 0 11.8-9.9L315.5 384h79.1a12 12 0 0 0 11.8-9.9l7.1-40c1.3-7.4-4.3-14.1-11.8-14.1h-74.8l22.9-128h79.1a12 12 0 0 0 11.8-9.9zM261.9 320h-98.6l22.9-128h98.6l-22.9 128z"/>
+                    </svg> HashTags </h4>
+                    <div class="down-content">
+                            {% for tags in hashtags%}
+                            <a class="outline_login_btn" style="color: white;border-radius: 9px;overflow: hidden; margin: 5px 2px;"
+                                target="_blank">#{{tags}} </a>
+                            {% endfor %}
+
                     </div>
                 </div>
             </div>
@@ -399,6 +420,84 @@
     </div>
 </div>
 
+
+
+<div id="SponsorSection" class="also-like">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Sponsors... <a href="#CommentSponsorSection"><i style="color: #40d621;"
+                            class="fa fa-plus-circle"></i></a>
+                </h2>
+            </div>
+            <h3>Tier 1...</h3>
+            <div class="media_grid">
+
+                {% for sponsors in event.sponsors.all %}
+                {% if sponsors.link %}
+                <div class="col-lg-4">
+                    <div class="like-item" id="media_like">
+                        <div class="thumb" id="canva_thumb">
+                            <img src="{{ sponsors.logo.url }}" alt="Comment image">
+                        </div>
+                        <div class="down-content">
+                            <span id="media_cont_span">Sponser Link</span>
+                            <p id="media_cont_p"> {{sponsors.link}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <h3>Tier 2...</h3>
+            <div class="media_grid">
+
+                {% for sponsors in event.sponsors.all %}
+                {% if not sponsors.link %}
+                {% if sponsors.logo %}
+
+                <div class="col-lg-4">
+                    <div class="like-item" id="media_like">
+                        <div class="thumb" id="canva_thumb">
+                            <img src="{{ sponsors.logo.url }}" alt="Comment image">
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                <br>
+
+            </div>
+            <h3>Tier 3...</h3>
+            <div class="media_grid">
+
+
+                {% for sponsors in event.sponsors.all %}
+                {% if sponsors.name %}
+                <div class="col-lg-4">
+                    <div class="like-item" id="media_like">
+                        <div class="thumb" id="canva_thumb">
+                        </div>
+                        <div class="down-content">
+                            <span id="media_cont_span">Sponser Name</span>
+                            <p id="media_cont_p"> {{sponsors.name}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
 {% if showComment %}
 <div class="also-like">
     <div class="container">
@@ -605,12 +704,9 @@
 
     let sdatetime = (data.innerHTML.split('<span')[0].split("-"))
 
-    // const targetDate = new Date(sdatetime[0]+sdatetime[1]);
-    console.log(sdatetime)
     targetDateString = (sdatetime[0] + sdatetime[1]).replace("  ", " ").replace("p.m.", "PM").replace("a.m.", "AM")
     const targetDate1 = new Date(targetDateString);
 
-    console.log('hnn yaha tak to poncha hai')
     // Get the current date and time
     const currentDate = new Date();
 
@@ -649,48 +745,87 @@
         // Start the countdown when the window loads
         window.onload = startCountdown;
     } else {
-        console.log("The date and time have not been reached yet.");
+        // console.log("The date and time have not been reached yet.");
     }
 
 
 </script>
-<!-- 
+
 <script>
-    // Target date and time in 12-hour format
-    const targetDateString = "Nov. 9, 2024 4:30 PM";
-    const targetDate = new Date(targetDateString);
+    function convertDateToISO(inputDate, year = new Date().getFullYear()) {
+        // Remove the period after the month abbreviation, if any
+        const cleanedDate = inputDate.replace('.', '');
 
-    function startCountdown() {
-        const timerElement = document.getElementById("timmer");
-        const messageElement = document.getElementById("message");
+        // Parse the cleaned date with the specified year
+        const parsedDate = new Date(`${cleanedDate}, ${year}`);
 
-        const countdownInterval = setInterval(() => {
-            const currentDate = new Date();
-            const distance = targetDate - currentDate;
+        // Format it as YYYY-MM-DD
+        const yearPart = parsedDate.getFullYear();
+        const monthPart = String(parsedDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const dayPart = String(parsedDate.getDate()).padStart(2, '0');
 
-            // Calculate days, hours, minutes, and seconds
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            // Display the result in the timer element
-            timerElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-            // If the countdown is finished, display a message
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                timerElement.innerHTML = "EXPIRED";
-                messageElement.innerHTML = "The date and time have been reached.";
-            }
-        }, 1000); // Update every second
+        return `${yearPart}-${monthPart}-${dayPart}`;
     }
+    function timeDifferenceFromNow(inputDate) {
+        const currentDate = new Date();
+        const parsedDate = new Date(inputDate);
 
-    // Start the countdown when the window loads
-    window.onload = startCountdown;
-</script> -->
 
-<script>
+        // Calculate the difference in milliseconds
+        const differenceInMilliseconds = parsedDate - currentDate;
+
+        let comment_media_section = document.getElementById("CommentMediaSection");
+        let comment_section = document.getElementById("CommentSection");
+        comment_media_section.style.display = "none";
+        comment_section.style.display = "none";
+
+        // If the date is in the past
+        // console.log("hnn hnn bhiya yaha uper")
+        if (differenceInMilliseconds < 0) {
+            // console.log("hnn hnn bhiya")
+            comment_media_section.style.display = "block";
+            comment_section.style.display = "block";
+            return "The date has already passed.";
+        }
+
+        // Format the date as "Nov. 23,"
+        const options = { month: 'short', day: 'numeric' };
+        const formattedDate = parsedDate.toLocaleDateString('en-US', options).replace('.', '');
+
+        // Convert milliseconds to days
+        const differenceInDays = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+        // Calculate weeks and months approximately
+        const differenceInWeeks = Math.ceil(differenceInDays / 7);
+        const differenceInMonths = Math.ceil(differenceInDays / 30);
+
+
+        if (differenceInDays === 1) {
+            // return `${formattedDate} is 1 day later`;
+            comment_media_section.style.display = "block";
+            comment_section.style.display = "block";
+            return `1 day later`;
+        } else if (differenceInDays < 7) {
+            // return `${formattedDate} is ${differenceInDays} days later`;
+            return `${differenceInDays} days later`;
+        } else if (differenceInWeeks === 1) {
+            // return `${formattedDate} is 1 week later`;
+            return `1 week later`;
+        } else if (differenceInWeeks < 4) {
+            // return `${formattedDate} is ${differenceInWeeks} weeks later`;
+            return `${differenceInWeeks} weeks later`;
+        } else if (differenceInMonths === 1) {
+            // return `${formattedDate} is 1 month later`;
+            return `1 month later`;
+        } else {
+            // return `${formattedDate} is ${differenceInMonths} months later`;
+            return `${differenceInMonths} months later`;
+        }
+    }
+    
+    let dates_field = document.getElementsByClassName("datetime")[0]
+    event_date = (dates_field.innerHTML.split(',')[0])
+    timeDifferenceFromNow(convertDateToISO(event_date));
 
     function likeComment(commentId) {
         fetch(`/like_comment/${commentId}/`)

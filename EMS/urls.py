@@ -14,11 +14,15 @@ urlpatterns = [
     path('search_event/', views.search_event, name='search-event'),
     path('search_private_event/', views.search_private_event, name='search_private_event'),
     path('search_by_category/', views.search_by_category, name='search_by_category'),
+    path('search_by_time_and_live/', views.search_by_time_and_live, name='search_by_time_and_live'),
     path('calendar/', views.calendar_view, name='calendar'),
     path('dashboard/', views.dashboard_view, name='dashboard'),
+    path('comment/', views.comment_view, name='comment'),
     path('download/<str:filename>/', views.download_file, name='download_file'),
     path('like_comment/<int:comment_id>/', views.like_comment, name='like_comment'),
     path('heart_comment/<int:comment_id>/', views.heart_comment, name='heart_comment'),
     path('api/events/', views.search_place, name='search_place'),
+    path('profile/register/', views.profile_register, name='profile_register'),
+    path('profile_detail/', views.profile_detail, name='profile_detail'),
 ]
 

@@ -3,8 +3,25 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profiles')  # ForeignKey relationship
+    name = models.CharField(max_length=100)
+    nickname = models.CharField(max_length=50, blank=True)
+    user_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+    description = models.TextField(blank=True)
+    additional_info = models.TextField(blank=True)
+    gender_choices = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
+    ]
+    gender = models.CharField(max_length=10, choices=gender_choices, blank=True)
+    age = models.IntegerField(blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True)
+    contact_details = models.CharField(max_length=200, blank=True)
 
-
+    def __str__(self):
+        return f"Profile of {self.name} ({self.user.username})"
 
 class Event(models.Model):
     CATEGORY_CHOICES = [
@@ -42,6 +59,11 @@ class EventData(models.Model):
         ('foodDrink', 'Food & Drink'),
         ('other', 'Other'),
     ]
+    SAVING_MODE_CHOICES = [
+        ('draft', 'Draft'),
+        ('publish', 'Publish'),
+
+    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, blank=True)
@@ -65,6 +87,9 @@ class EventData(models.Model):
     updated_date = models.DateField(auto_now_add=True)
     sitting_plan = models.ImageField(upload_to='sitting_plan_files/', blank=True)
     schedule_plan = models.ImageField(upload_to='schedule_plan_files/', blank=True)
+    hashTags = models.CharField(max_length=100, blank=True)
+    saving_mode = models.CharField(max_length=20, choices=SAVING_MODE_CHOICES, default='draft')
+
 
     def __str__(self):
         return self.name
@@ -115,3 +140,31 @@ class Comment(models.Model):
     def __str__(self):
         return f"Comment on {self.user.username}'s {self.event.name}"
 
+
+class Sponsor(models.Model):
+    event = models.ForeignKey(EventData, on_delete=models.CASCADE, related_name='sponsors')
+    name = models.CharField(max_length=100,blank=True,null=True)
+    logo = models.ImageField(upload_to='sponsors/logos/',blank=True,null=True)
+    link = models.URLField(blank=True,null=True)
+
+    def __str__(self):
+        return f"Sponsor for {self.event.name}"
+
+
+class EventDetail(models.Model):
+    event = models.ForeignKey(EventData, on_delete=models.CASCADE, related_name='details')
+    title = models.CharField(max_length=100,blank=True,null=True)
+    description = models.TextField(blank=True,null=True)
+
+    def __str__(self):
+        return f"Event details for {self.event.name}"
+
+
+class Guest(models.Model):
+    event = models.ForeignKey(EventData, on_delete=models.CASCADE, related_name='guests')
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    is_confirmed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.name} - {self.email}"

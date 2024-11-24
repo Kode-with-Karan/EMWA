@@ -4,7 +4,8 @@
 {% block content %}
 <!-- ***** About Us Page ***** -->
 <div class="page-heading-shows-events">
-    <div class="container" style="background: rgb(247 247 247 / 10%);backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(10px);border-radius: 10px;display: flex;align-items: center;justify-content: center;overflow: hidden;padding: 10px;">
+    <div class="container"
+        style="background: rgb(247 247 247 / 10%);backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(10px);border-radius: 10px;display: flex;align-items: center;justify-content: center;overflow: hidden;padding: 10px;">
         <div class="row">
             <div class="col-lg-12">
                 <h2>Our Shows & Events</h2>
@@ -14,6 +15,9 @@
     </div>
 </div>
 
+{% if live %}
+<div id="live_note" style="display: none;"></div>
+{% endif %}
 
 <!-- *** Venues & Tickets ***-->
 <div class="venue-tickets">
@@ -24,7 +28,7 @@
                     <h2>{{cat_name}} Events</h2>
                 </div>
             </div>
-            
+
             {% for event in events %}
             <div class="col-lg-3">
                 <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
@@ -37,7 +41,9 @@
                             <h4>{{event.name|name_shorter}}</h4>
                             <!-- <div class="main-live-button" ><span>Live</span></div> -->
                             <ul>
-                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}} </li>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}}<p style="display: none;">{{event.end_date}} - {{event.end_time}}</p>
+                                </li>
+
                                 <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
                             </ul>
                             <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
@@ -56,7 +62,7 @@
 </div>
 
 <style>
-    .main-live-button{
+    .main-live-button {
         /* display: inline-block; */
         font-size: 14px;
         padding: 3px 9px;
@@ -68,7 +74,8 @@
         transition: all .3s;
         border-radius: 5px;
     }
-    .main-live-button>span{
+
+    .main-live-button>span {
         color: white;
     }
 </style>
@@ -77,12 +84,12 @@
 
     let datetime = document.getElementsByClassName("datetime");
 
-    Array.prototype.forEach.call(datetime, function(data){
+    Array.prototype.forEach.call(datetime, function (data) {
         let sdatetime = (data.innerHTML.split('<br>')[0].split('\n')[0].split("-"))
         // let sdatetime = (data.innerHTML.split('<i class="fa fa-clock-o"></i>')[1].split('<span')[0].split("-"))
 
         // const targetDate = new Date(sdatetime[0]+sdatetime[1]);
-        targetDateString = (sdatetime[0]+sdatetime[1]).replace("  ", " ").replace("p.m.","PM").replace("a.m.","AM")
+        targetDateString = (sdatetime[0] + sdatetime[1]).replace("  ", " ").replace("p.m.", "PM").replace("a.m.", "AM")
         const targetDate = new Date(targetDateString);
 
         // Get the current date and time
@@ -95,6 +102,60 @@
             console.log("The date and time have not been reached yet.");
         }
     })
+
+</script>
+<!-- <script>
+
+    // let datetime = document.getElementsByClassName("datetime");
+
+    Array.prototype.forEach.call(datetime, function (data) {
+
+
+        let sdatetime = (data.innerHTML.split('<i class="fa fa-clock-o"></i>')[1].split('<span')[0].split("-"))
+
+        // const targetDate = new Date(sdatetime[0]+sdatetime[1]);
+        targetDateString = (sdatetime[0] + sdatetime[1]).replace("  ", " ").replace("p.m.", "PM").replace("a.m.", "AM")
+        const targetDate = new Date(targetDateString);
+
+        // Get the current date and time
+        const currentDate = new Date();
+
+        if (currentDate >= targetDate) {
+            console.log("The date and time have been reached.");
+            data.innerHTML += '<div class="main-live-button" style="width: fit-content;"><span>Live</span></div>'
+
+        } else {
+            // console.log("The date and time have not been reached yet.");
+            let islive = document.getElementById("live_note")
+            if (islive != null) {
+                // console.log(islive)
+                // // (data.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none')
+                // console.log(data.parentNode.parentNode.parentNode.parentNode.parentNode)
+            } else {
+                console.log("nahi hai")
+            }
+
+        }
+    })
+
+</script> -->
+<script>
+    let islive = document.getElementById("live_note")
+    if (islive != null) {
+        console.log(islive)
+        setTimeout(() => {
+        Array.prototype.forEach.call(datetime, function (data) {
+
+            console.log("-->")
+            console.log()
+            if (data.innerHTML.split("<br>")[1] == 'EXPIRED') {
+                data.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none'
+            }
+        })
+
+    }, 50);
+    }
+
 
 </script>
 {% endblock content %}

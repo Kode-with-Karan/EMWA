@@ -13,7 +13,36 @@
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><!-- *** Subscribe *** -->
+                        <li>
+                            <form id="subscribe" class="nav_search_bar" action="{% url 'search_private_event' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="row" style="align-items: center;flex-wrap: nowrap;width: 100%;">
+                                    <div class="col-sm-5">
+                                        <fieldset>
+                                            <input style="outline: none; border: 1px solid green; border-radius: 20px 0 0 20px; padding: 8px;
+" id="email" name="search" type="search" placeholder="Search via Secret Code"
+                                                aria-label="Search">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <fieldset>
+                                            <input type="text" style="outline: none; border: 1px solid green; border-radius: 0 20px 20px 0; padding: 8px;
+" id="locationInput" name="location" placeholder="Enter location"
+                                            value="{{ request.GET.location }}" autocomplete="off" />
+                                        <div id="suggestions" class="suggestions"></div>                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-0">
+                                        <fieldset>
+                                            <button type="submit" id="form-submit" style=" z-index: 100;position: relative;right: -16px;
+outline: none;background: green; color: white; border: none; border-radius: 20px; padding: 7px 12px;"
+                                                class="main-dark-button"><i class="fa fa-search"></i></button>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </li>
+                        <!-- <li>
                             <form id="subscribe" action="{% url 'search_private_event' %}" method="POST">
                                 {% csrf_token %}
                                 <div class="row" style="align-items: center;flex-wrap: nowrap;width: 100%;">
@@ -24,6 +53,12 @@
                                                 aria-label="Search">
                                         </fieldset>
                                     </div>
+                                    <div class="col-sm-8">
+                                        <fieldset>
+                                            <input type="text" id="locationInput" name="location" placeholder="Enter location"
+                                            value="{{ request.GET.location }}" autocomplete="off" />
+                                        <div id="suggestions" class="suggestions"></div>                                        </fieldset>
+                                    </div>
                                     <div class="col-lg-0">
                                         <fieldset>
                                             <button type="submit" id="form-submit" style="outline: none;background: green; color: white; border: none; border-radius: 20px; padding: 7px 12px;"
@@ -33,9 +68,9 @@
                                 </div>
                                 
                             </form>
-                        </li>
+                        </li> -->
                         <li><a href="{% url 'event_list' %}" class="{% if active_page == 'home' %}active{% endif %}">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="{% if active_page == 'about' %}active{% endif %}">About Us</a></li>
+                        <!-- <li><a href="{% url 'about' %}" class="{% if active_page == 'about' %}active{% endif %}">About Us</a></li> -->
                         <li><a href="{% url 'event_show' %}" class="{% if active_page == 'show' %}active{% endif %}">All Events</a></li>
                         <li><a href="{% url 'calendar' %}" class="{% if active_page == 'calendar' %}active{% endif %}">Event Calendar</a></li>
                         <li><a href="{% url 'event_create' %}" class="{% if active_page == 'create' %}active{% endif %}">Create Event</a></li>
@@ -70,4 +105,36 @@
     </div>
 </header>
 <hr>
+<!-- <script>
+    const locationInput = document.getElementById("locationInput");
+    const suggestionsBox = document.getElementById("suggestions");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    const dropdownToggle = document.getElementById("dropdownToggle");
+
+    locationInput.addEventListener("input", async () => {
+        const query = locationInput.value.trim();
+
+        if (query.length < 2) {
+            suggestionsBox.innerHTML = ""; // Clear suggestions for short queries
+            return;
+        }
+
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`);
+        const results = await response.json();
+
+        suggestionsBox.innerHTML = ""; // Clear previous suggestions
+        results.slice(0, 5).forEach(result => {
+            const suggestionDiv = document.createElement("div");
+            suggestionDiv.textContent = result.display_name;
+            suggestionDiv.addEventListener("click", () => {
+                locationInput.value = result.display_name;
+                suggestionsBox.innerHTML = ""; // Clear suggestions
+            });
+            suggestionsBox.appendChild(suggestionDiv);
+        });
+    });
+
+
+
+</script> -->
 <!-- ***** Header Area End ***** -->
