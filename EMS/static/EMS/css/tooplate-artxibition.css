@@ -3057,3 +3057,9 @@ label[for="instr_toggle"]>a::after {
   /* background-color:black; */
   border-radius: 20px;
 }
+
+@media (max-width: 992px) {
+  #dash_iframe {
+      display: none;
+  }
+}
