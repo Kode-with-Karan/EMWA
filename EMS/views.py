@@ -143,7 +143,7 @@ def event_list(request):
 
         # events = Event.objects.filter(user=request.user)
         events = EventData.objects.filter(category="public", place_info__icontains = str(profile_location)).order_by('-pk')[:4]
-        events_detail = EventData.objects.filter(category="public", place_info__icontains = str(profile_location))[:4]
+        events_detail = EventData.objects.filter(category="public")[:4]
         weekend_events = EventData.objects.filter(
         Q(start_date__range=(saturday_start, sunday_end)), place_info__icontains = str(profile_location) ,category="public" # Assuming 'date' is the event date field
     ).order_by('start_date')[:8] 
@@ -151,7 +151,7 @@ def event_list(request):
         print(e)
         profile_location = region
         events = EventData.objects.filter(category="public", place_info__icontains = str(region)).order_by('-pk')[:4]
-        events_detail = EventData.objects.filter(category="public", place_info__icontains = str(region))[:4]
+        events_detail = EventData.objects.filter(category="public")[:4]
         weekend_events = EventData.objects.filter(
         Q(start_date__range=(saturday_start, sunday_end)), place_info__icontains = str(region) ,category="public", # Assuming 'date' is the event date field
     ).order_by('start_date')[:8] 
@@ -1270,6 +1270,14 @@ def search_place(request):
     
     if location:
         events = events.filter(place_info__icontains=location)
+
+    return render(request, 'events/categorySearch.html', {'events' : events})
+
+def search_tags(request, tag):
+    events = EventData.objects.all()
+    
+    if tag:
+        events = events.filter(hashTags__icontains=tag)
 
     return render(request, 'events/categorySearch.html', {'events' : events})
 

@@ -231,5 +231,17 @@
     .nav_search_bar>div:nth-child(2)>div>fieldset>input{
         width: 124%;
     }
+    .category {
+        text-align: center;
+        width: 49px;
+      }
     
+      .category .icon {
+        width: 62px;
+        height: 62px;
+      }
+      .category {
+        text-align: center;
+        width: 49px;
+    }
 }

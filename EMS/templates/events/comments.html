@@ -81,7 +81,7 @@
                                                                 <p>No image</p>
                                                                 {% endif %}
                                                             </div>
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-3">
                                                                 {% if comment.video %}
                                                                 <video style="width: 63%;"
                                                                     src="{{comment.video.url}}"></video>
@@ -93,7 +93,13 @@
                                                                 <label style="display: none;">{{comment.id}}</label>
                                                                 <input type="checkbox" name="check_approve">
                                                             </div> -->
-                                                            <div class="col-lg-1">
+                                                            <div class="col-lg-3">
+                                                                <div style="display: flex
+                                                                ;
+                                                                    flex-direction: row;
+                                                                    justify-content: center;">
+
+                                                                
                                                                 <div class="main-dark-button"
                                                                     style="border-radius: 10px 0 0 10px;overflow: hidden;width: fit-content;">
                                                                     <a style="color: white; width: auto;" href="{% url 'comment_update' comment.pk%}"> Approve
@@ -112,9 +118,7 @@
                                                                         
                                                                     </a>
                                                                 </div>
-                                                            </div>
-
-                                                            <div class="col-lg-1">
+                                                            
                                                                 <div class="main-dark-button"
                                                                     style="border-radius: 0 10px 10px 0;overflow: hidden;width: fit-content;">
                                                                     <a style="color: white; width: auto;">
@@ -128,6 +132,7 @@
                                                                         </form>
                                                                     </a>
                                                                 </div>
+                                                            </div>
                                                             </div>
                                                         </div>
                                                     </li>

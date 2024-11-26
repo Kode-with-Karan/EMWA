@@ -11,6 +11,7 @@ urlpatterns = [
     path('delete/<int:pk>/', views.event_delete, name='event_delete'),
     path('comment_delete/<int:pk>/', views.comment_delete, name='comment_delete'),
     path('event/<int:event_id>/', views.event_detail, name='event_detail'),
+    path('search_tags/<str:tag>/', views.search_tags, name='search_tags'),
     path('search_event/', views.search_event, name='search-event'),
     path('search_private_event/', views.search_private_event, name='search_private_event'),
     path('search_by_category/', views.search_by_category, name='search_by_category'),
