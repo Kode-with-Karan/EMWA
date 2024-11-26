@@ -1,5 +1,21 @@
 {% extends 'base/base.html' %}
 {% block title %}Home{% endblock title %}
+{% block link %}
+<style>
+.shortcuts>ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    position: absolute;
+    z-index: 1;
+    top: 181px;
+}
+
+</style>
+{% endblock %}
 {% load custom_filters %}
 {% load static %}
 {% block content %}
