@@ -324,7 +324,7 @@
 <hr>
 
 <div>
-    <ul style="display: flex; width: 80%; margin: auto;">
+    <ul style="display: flex; width: 80%; margin: auto; overflow: auto;">
         <li style="padding: 20px;">
             <form action="{% url 'search_by_time_and_live' %}" method="POST">
                 {% csrf_token %}
