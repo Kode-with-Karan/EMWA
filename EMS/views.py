@@ -142,18 +142,18 @@ def event_list(request):
             profile_location = region
 
         # events = Event.objects.filter(user=request.user)
-        events = EventData.objects.filter(category="public", place_info__icontains = str(profile_location)).order_by('-pk')[:4]
-        events_detail = EventData.objects.filter(category="public")[:4]
+        events = EventData.objects.filter(category="public",saving_mode="publish", place_info__icontains = str(profile_location)).order_by('-pk')[:4]
+        events_detail = EventData.objects.filter(category="public",saving_mode="publish")[:4]
         weekend_events = EventData.objects.filter(
-        Q(start_date__range=(saturday_start, sunday_end)), place_info__icontains = str(profile_location) ,category="public" # Assuming 'date' is the event date field
+        Q(start_date__range=(saturday_start, sunday_end)), place_info__icontains = str(profile_location) ,category="public",saving_mode="publish" # Assuming 'date' is the event date field
     ).order_by('start_date')[:8] 
     except Exception as e:
         print(e)
         profile_location = region
-        events = EventData.objects.filter(category="public", place_info__icontains = str(region)).order_by('-pk')[:4]
-        events_detail = EventData.objects.filter(category="public")[:4]
+        events = EventData.objects.filter(category="public",saving_mode="publish", place_info__icontains = str(region)).order_by('-pk')[:4]
+        events_detail = EventData.objects.filter(category="public",saving_mode="publish")[:4]
         weekend_events = EventData.objects.filter(
-        Q(start_date__range=(saturday_start, sunday_end)), place_info__icontains = str(region) ,category="public", # Assuming 'date' is the event date field
+        Q(start_date__range=(saturday_start, sunday_end)), place_info__icontains = str(region) ,category="public",saving_mode="publish", # Assuming 'date' is the event date field
     ).order_by('start_date')[:8] 
 
 
@@ -163,7 +163,7 @@ def event_list(request):
 
 
 def event_show(request):
-    events = EventData.objects.filter(category="public")
+    events = EventData.objects.filter(category="public",saving_mode="publish")
          # Get the current date and time
     today = datetime.now()
 
@@ -1227,7 +1227,7 @@ def search_event(request):
 
 
 
-    # events = EventData.objects.filter(category="public").order_by('-pk')
+    # events = EventData.objects.filter(category="public",saving_mode="publish").order_by('-pk')
 
     # paginator = Paginator(events, 3)  # Show 10 items per page
 
@@ -1251,7 +1251,7 @@ def search_private_event(request):
 def search_by_category(request):
     if request.method == 'POST':
        data = request.POST['search']
-       events = EventData.objects.filter(art_category = data, category="public")
+       events = EventData.objects.filter(art_category = data, category="public",saving_mode="publish")
        context = {
            'events': events,
            'cat_name':data,
@@ -1269,7 +1269,7 @@ def search_place(request):
     events = EventData.objects.all()
     
     if location:
-        events = events.filter(place_info__icontains=location)
+        events = events.filter(place_info__icontains=location,category="public",saving_mode="publish")
 
     return render(request, 'events/categorySearch.html', {'events' : events})
 
@@ -1277,7 +1277,7 @@ def search_tags(request, tag):
     events = EventData.objects.all()
     
     if tag:
-        events = events.filter(hashTags__icontains=tag)
+        events = events.filter(hashTags__icontains=tag,category="public",saving_mode="publish")
 
     return render(request, 'events/categorySearch.html', {'events' : events})
 
@@ -1305,7 +1305,7 @@ def search_tags(request, tag):
 
 def search_by_time_and_live(request):
 
-    events = EventData.objects.filter(category="public")
+    events = EventData.objects.filter(category="public",saving_mode="publish")
     # Current date and time
     # now = datetime.now()
     current_datetime = now()
