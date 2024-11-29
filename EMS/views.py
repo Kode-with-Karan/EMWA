@@ -569,8 +569,10 @@ def event_update(request, pk):
                 # print(logo)
                 SponsorWithImage.objects.create(event=event,logo=logo)
 
+            
             for name in sponsor2_names:
-                SponsorWithName.objects.create(event=event, name=name)
+                if(name.__len__() != 0):
+                    SponsorWithName.objects.create(event=event, name=name)
 
             # Update event details
             EventDetail.objects.filter(event=event).delete()

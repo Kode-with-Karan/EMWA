@@ -418,10 +418,13 @@
                 <div class="col-xl-auto">
                     <div class="like-item">
                         <div class="thumb" style="
-                        width: 300px;
-                        height: 300px;
+                        width: 150px;
+                        height: 150px;
                     ">
-                            <img src="{{ comment.image.url }}" alt="Comment image" style="border-radius: 20px;">
+                            <img src="{{ comment.image.url }}" alt="Comment image" style="border-radius: 20px;width: 100%;
+                            aspect-ratio: 1/1;
+                            object-fit: cover;
+                            border-radius: 10px; ">
                             <div class="icons">
                                 <ul>
                                     <li><a onclick="likeComment('{{ comment.id }}')"><i class="fa fa-thumbs-up"></i>
@@ -431,7 +434,7 @@
                                             <span id="heart-count-{{ comment.id }}">{{ comment.heart_count }}</span>
                                         </a>
                                     </li>
-                                    <li> &nbsp; &nbsp;
+                                    <li> &nbsp;
                                     </li>
                                     <li><a href="{% url 'download_file' event.image.name|replace_slash  %}"><i
                                                 class="fa fa-download"></i></a>
@@ -454,10 +457,14 @@
                 <div class="col-xl-auto">
                     <div class="like-item">
                         <div class="thumb" style="
-                        width: 300px;
-                        height: 300px;
+                        width: 150px;
+                        height: 150px;
                     ">
-                            <video src="{{ comment.video.url }}" alt="Comment image" style="border-radius: 20px;">
+                            <video src="{{ comment.video.url }}" alt="Comment image" style="border-radius: 20px;width: 100%;
+                            aspect-ratio: 1/1;
+                            object-fit: cover;
+                            border-radius: 10px; ">
+                            </video>
                                 <div class="icons">
                                     <ul>
                                         <li><a onclick="likeComment('{{ comment.id }}')"><i class="fa fa-thumbs-up"></i>
@@ -468,7 +475,7 @@
                                                 <span id="heart-count-{{ comment.id }}">{{ comment.heart_count }}</span>
                                             </a>
                                         </li>
-                                        <li> &nbsp; &nbsp;
+                                        <li> &nbsp;
                                         </li>
                                         <li><a href="{% url 'download_file' event.image.name|replace_slash  %}"><i
                                                     class="fa fa-download"></i></a>
@@ -512,13 +519,25 @@
                 
                 <div class="col-xl-auto">
                     <div class="like-item" id="media_like">
-                        <div class="thumb" id="canva_thumb">
-                            <img src="{{ sponsors.logo.url }}" alt="Comment image">
+                        <div class="thumb" id="canva_thumb" style="
+                        width: 150px;
+                        height: 150px;
+                    ">
+                            <img src="{{ sponsors.logo.url }}" alt="Comment image" style="border-radius: 20px;width: 100%;
+                            aspect-ratio: 1/1;
+                            object-fit: cover;
+                            border-radius: 10px; ">
                         </div>
-                        <div class="down-content">
+                        <div class="icons">
+                            <ul>
+                                <li><a class="login_btn" href="{{sponsors.link}}">Link</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- <div class="down-content">
                             <span id="media_cont_span">Sponser Link</span>
                             <p id="media_cont_p"> {{sponsors.link}}</p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -540,8 +559,14 @@
                 
                 <div class="col-xl-auto">
                     <div class="like-item" id="media_like">
-                        <div class="thumb" id="canva_thumb">
-                            <img src="{{ sponsors.logo.url }}" alt="Comment image">
+                        <div class="thumb" id="canva_thumb" style="
+                        width: 150px;
+                        height: 150px;
+                    ">
+                            <img src="{{ sponsors.logo.url }}" alt="Comment image" style="border-radius: 20px;width: 100%;
+                            aspect-ratio: 1/1;
+                            object-fit: cover;
+                            border-radius: 10px;" >
                         </div>
                     </div>
                 </div>

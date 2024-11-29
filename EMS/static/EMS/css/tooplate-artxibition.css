@@ -1727,7 +1727,7 @@ About Us Page
 
 .also-like .thumb .icons {
   position: absolute;
-  bottom: -32px;
+  bottom: -27px;
   right: 20px;
 }
 
@@ -3084,11 +3084,22 @@ responsive
   }
 
   .media_grid {
-    display: grid;
+    /* display: grid;
     grid-template-columns: 1fr 1fr;
-    /* Defines two equal-width columns */
     gap: 10px;
-    justify-content: center;
+    justify-content: center; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 images per row */
+    gap: 10px;
+    /* Spacing between images */
+    padding: 10px;
+  }
+  .media_grid>div{
+    width: 100%; /* Adjust to fill the container */
+    aspect-ratio: 1/1; /* Force square images */
+    object-fit: cover; /* Crop and center the images */
+    border-radius: 10px; 
   }
 
 
@@ -3257,4 +3268,3 @@ label[for="instr_toggle"]>a::after {
     display: none;
   }
 }
-
