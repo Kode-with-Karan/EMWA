@@ -72,7 +72,7 @@ outline: none;background: green; color: white; border: none; border-radius: 20px
                         <li><a href="{% url 'event_list' %}" class="{% if active_page == 'home' %}active{% endif %}">Home</a></li>
                         <!-- <li><a href="{% url 'about' %}" class="{% if active_page == 'about' %}active{% endif %}">About Us</a></li> -->
                         <li><a href="{% url 'event_show' %}" class="{% if active_page == 'show' %}active{% endif %}">All Events</a></li>
-                        <li><a href="{% url 'calendar' %}" class="{% if active_page == 'calendar' %}active{% endif %}">Event Calendar</a></li>
+                        <!-- <li><a href="{% url 'calendar' %}" class="{% if active_page == 'calendar' %}active{% endif %}">Event Calendar</a></li> -->
                         <li><a href="{% url 'event_create' %}" class="{% if active_page == 'create' %}active{% endif %}">Create Event</a></li>
 
                         {% if user.is_authenticated %}

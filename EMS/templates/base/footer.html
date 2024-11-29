@@ -1,125 +1,44 @@
 {% load static %}
 
 <!-- *** Footer *** -->
+
+
 <footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="address">
-                    <h4>Welcome to Huppsi.com — <br>
-                        Your Eco-Friendly Event Companion!</h4>
-                    <span>At Huppsi, we believe in celebrating life's moments without compromising the environment. That's why we've created a platform where you can plan, share, and enjoy events without the need to cut down trees for paper schedules or leaflets. Everything you need is right at your fingertips.</span>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="address">
-                    <h4>What We Offer</h4>
-                    <br><br>
-                    <ul>
-                        <li>> Create Public or Personal Events</li>
-                        <li>> Send Invitations</li>
-                        <li>> Media Sharing</li>
-                        <li>> Comments and Feedback</li>
-                        <li>> Seating Plan or Event Map</li>
-                        <li>> Environmental Impact</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="links">
-                    <h4>Useful Links</h4>
-                    <br><br>
-                    <ul>
-                        <li><a href="{% url 'event_list' %}" class="active">Home</a></li>
-                        <!-- <li><a href="{% url 'about' %}">About Us</a></li> -->
-                        <li><a href="{% url 'event_show' %}">Shows & Events</a></li>
-                        <li><a href="{% url 'calendar' %}">Event Calendar</a></li>
-                        <li><a href="{% url 'event_create' %}">Create Event</a></li>
-
-                        {% if user.is_authenticated %}
-
-                        {% if request.resolver_match.url_name == "dashboard" %}
-                        <li><a class="login_btn" style="color: white;">
-                                <form action="{% url 'logout' %}" method="post">
-                                    {% csrf_token %}
-                                    <button type="submit" class="main-dark-button"
-                                        style="background: none;padding: 0;border: none; color: white;">Logout
-                                    </button>
-                                </form>
-                            </a></li>
-
-
-                        {% else %}
-                        <li><a class="login_btn" href="{% url 'dashboard' %}">DashBoard</a></li>
-                        {% endif %}
-                        {% else %}
-                        <li><a class="login_btn" href="{% url 'login' %}">Login</a></li>
-                        {% endif %}
-
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-12 mt-5">
-                <div class="address">
-                    <h4>Our Mission</h4>
-                    <span>Our mission is to revolutionize event planning and promotion by making it more sustainable and accessible. We aim to provide a space where organizers and attendees can connect, share information, and create unforgettable experiences—all while minimizing environmental impact.</span>
-                </div>
-            </div>
-            <!-- <div class="col-lg-4">
-                <div class="hours">
-                    <h4>Open Hours</h4>
-                    <ul>
-                        <li>Mon to Fri: 10:00 AM to 8:00 PM</li>
-                        <li>Sat - Sun: 11:00 AM to 4:00 PM</li>
-                        <li>Holidays: Closed</li>
-                    </ul>
-                </div>
-            </div> -->
-            <div class="col-lg-12">
-                <div class="under-footer">
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-6">
-                            <p>Place</p>
-                        </div>
-                        <div class="col-lg-6 col-sm-6">
-                            <p class="copyright">Copyright 2021 Karan
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="sub-footer">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="logo">
-                                <img style="width: 87px;" src="{% static 'EMS/images/logo.png' %}" alt="">
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sub-footer">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="logo">
+                                    <img style="width: 87px;" src="{% static 'EMS/images/logo.png' %}" alt="">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="menu">
-                                <ul>
-                                    <li><a href="{% url 'event_list' %}" class="active">Home</a></li>
-                                    <li><a href="{% url 'about' %}">About Us</a></li>
-                                    <li><a href="{% url 'event_show' %}">Shows & Events</a></li>
-                                    <li><a href="{% url 'calendar' %}">Event Calendar</a></li>
-                                    <li><a href="{% url 'event_create' %}">Create Event</a></li>
-                                </ul>
+                            <div class="col-lg-6">
+                                <div class="menu">
+                                    <ul>
+                                        <li><a href="{% url 'event_list' %}" class="active">Home</a></li>
+                                        <li><a href="{% url 'about' %}">About Us</a></li>
+                                        <li><a href="{% url 'event_show' %}">Shows & Events</a></li>
+                                        <li><a href="{% url 'calendar' %}">Event Calendar</a></li>
+                                        <li><a href="{% url 'event_create' %}">Create Event</a></li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="social-links">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                </ul>
+                            <div class="col-lg-3">
+                                <div class="social-links">
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </footer>

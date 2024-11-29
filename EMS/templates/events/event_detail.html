@@ -112,15 +112,15 @@
         <div class="row">
             <div class="col-lg-9">
                 <h2>{{ event.name }}</h2>
-                <h5 style="margin-bottom: 5px;"><i class="fa fa-clock-o"></i> Timming </h5>
+                <h5 style="margin-bottom: 5px;"><i class="fa fa-clock-o"></i> Date </h5>
                 <span class="datetime">{{ event.start_date }} - {{ event.start_time }} </span><br>
                 <span id="timmer">{{ event.end_date }} - {{ event.end_time }} </span>
-                <h5 style="margin: 5px 0;"><i class="fa fa-map-marker"></i> Location </h5>
-                    <ul>
+                <h5 style="margin: 5px 0;"><i class="fa fa-map-marker"></i> {{ event.place_info }} </h5>
+                    <!-- <ul>
                         <li>
-                            {{ event.place_info }}
+                            
                         </li>
-                    </ul>
+                    </ul> -->
                 <input type="checkbox" name="desc_toggle" id="desc_toggle">
                 <h5 style="margin: 5px 0;">Description </h5>
                 <p id="desc_para"> {{ event.description | linebreaksbr }}</p>
@@ -162,7 +162,7 @@
                 <br>
                 <p>{{ detail.description | linebreaksbr }}</p>
                 {% endfor %}
-                <div class="user_sec">
+                <!-- <div class="user_sec">
                     <div class="user_content">
                         <img src="{% static 'EMS/images/default.png' %}" alt="">
                         <h5>by {{event.user}},</h5>
@@ -183,7 +183,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-lg-3">
                 <!-- <div class="next-shows">
@@ -226,7 +226,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width: 20px;"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                         <path d="M440.7 182.1l7.1-40c1.3-7.4-4.3-14.1-11.8-14.1h-74.8l14.6-81.9C377.1 38.8 371.5 32 364 32h-40.6a12 12 0 0 0 -11.8 9.9L296.2 128H197.5l14.6-81.9C213.5 38.8 207.8 32 200.4 32h-40.6a12 12 0 0 0 -11.8 9.9L132.5 128H53.4a12 12 0 0 0 -11.8 9.9l-7.1 40C33.2 185.2 38.8 192 46.3 192h74.8L98.2 320H19.1a12 12 0 0 0 -11.8 9.9l-7.1 40C-1.1 377.2 4.5 384 12 384h74.8L72.2 465.9C70.9 473.2 76.5 480 84 480h40.6a12 12 0 0 0 11.8-9.9L151.8 384h98.6l-14.6 81.9C234.5 473.2 240.2 480 247.7 480h40.6a12 12 0 0 0 11.8-9.9L315.5 384h79.1a12 12 0 0 0 11.8-9.9l7.1-40c1.3-7.4-4.3-14.1-11.8-14.1h-74.8l22.9-128h79.1a12 12 0 0 0 11.8-9.9zM261.9 320h-98.6l22.9-128h98.6l-22.9 128z"/>
                     </svg> HashTags </h4>
-                    <div class="down-content">
+                    <div class="down-content" style="display: flex;flex-wrap: wrap;">
                             {% for tag in hashtags%}
                             
                             <a class="outline_login_btn" {% if tag %} href="{% url 'search_tags' tag %}" {% endif %}style="color: white;border-radius: 9px;overflow: hidden; margin: 5px 2px;"
