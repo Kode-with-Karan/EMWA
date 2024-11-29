@@ -1283,6 +1283,10 @@ def search_tags(request, tag):
 
     return render(request, 'events/categorySearch.html', {'events' : events})
 
+def search_private_event_page(request):
+
+    return render(request, 'events/privateSearch.html')
+
 
 
 # def search_place(request):
@@ -1393,3 +1397,6 @@ def search_by_time_and_live(request):
 
         return render(request, 'events/categorySearch.html', context)
     return render(request, 'events/categorySearch.html')
+
+
+

@@ -1,0 +1,186 @@
+{% extends 'base/base.html' %}
+{% block title %}Home{% endblock title %}
+{% load custom_filters %}
+{% block content %}
+<!-- ***** About Us Page ***** -->
+<div class="page-heading-shows-events">
+    <div class="container"
+        style="background: rgb(247 247 247 / 10%);backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(10px);border-radius: 10px;display: flex;align-items: center;justify-content: center;overflow: hidden;padding: 10px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Our Shows & Events</h2>
+                <span>Check out upcoming and past shows & events.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if live %}
+<div id="live_note" style="display: none;"></div>
+{% endif %}
+
+
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;padding: 20px 0px;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>{{cat_name}} Events</h2>
+                </div>
+            </div>
+
+            {% for event in events %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="/media/{{ event.image }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} -
+                                    {{event.start_time}}<p style="display: none;">{{event.end_date}} -
+                                        {{event.end_time}}</p>
+                                </li>
+
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="col-7" style="margin: auto;">
+                <form id="subscribe" class="nav_search_bar" action="{% url 'search_private_event' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row" style="align-items: center;flex-wrap: nowrap;width: 100%;">
+                        <div class="col-sm-8">
+                            <fieldset>
+                                <input style="outline: none; border: 1px solid green; border-radius: 20px; padding: 8px;width: 100%;
+                " id="email" name="search" type="search" placeholder="Search via Secret Code" aria-label="Search">
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-0">
+                            <fieldset>
+                                <button type="submit" id="form-submit" style=" z-index: 100;position: relative;right: -16px;
+                outline: none;background: green; color: white; border: none; border-radius: 20px; padding: 7px 12px;"
+                                    class="main-dark-button"><i class="fa fa-search"></i></button>
+                            </fieldset>
+                        </div>
+                    </div>
+            
+                </form>
+            </div>
+            <br> <br>
+
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .main-live-button {
+        /* display: inline-block; */
+        font-size: 14px;
+        padding: 3px 9px;
+        background-color: red;
+        color: #2a2a2a;
+        text-align: center;
+        font-weight: 500;
+        text-transform: capitalize;
+        transition: all .3s;
+        border-radius: 5px;
+    }
+
+    .main-live-button>span {
+        color: white;
+    }
+</style>
+
+<script>
+
+    let datetime = document.getElementsByClassName("datetime");
+
+    Array.prototype.forEach.call(datetime, function (data) {
+        let sdatetime = (data.innerHTML.split('<br>')[0].split('\n')[0].split("-"))
+        // let sdatetime = (data.innerHTML.split('<i class="fa fa-clock-o"></i>')[1].split('<span')[0].split("-"))
+
+        // const targetDate = new Date(sdatetime[0]+sdatetime[1]);
+        targetDateString = (sdatetime[0] + sdatetime[1]).replace("  ", " ").replace("p.m.", "PM").replace("a.m.", "AM")
+        const targetDate = new Date(targetDateString);
+
+        // Get the current date and time
+        const currentDate = new Date();
+
+        if (currentDate >= targetDate) {
+            console.log("The date and time have been reached.");
+            data.innerHTML += '<div class="main-live-button" style="margin: 20px 0;position: absolute;top: -1px;right: 44px;"><span>Live</span></div>'
+        } else {
+            console.log("The date and time have not been reached yet.");
+        }
+    })
+
+</script>
+<!-- <script>
+
+    // let datetime = document.getElementsByClassName("datetime");
+
+    Array.prototype.forEach.call(datetime, function (data) {
+
+
+        let sdatetime = (data.innerHTML.split('<i class="fa fa-clock-o"></i>')[1].split('<span')[0].split("-"))
+
+        // const targetDate = new Date(sdatetime[0]+sdatetime[1]);
+        targetDateString = (sdatetime[0] + sdatetime[1]).replace("  ", " ").replace("p.m.", "PM").replace("a.m.", "AM")
+        const targetDate = new Date(targetDateString);
+
+        // Get the current date and time
+        const currentDate = new Date();
+
+        if (currentDate >= targetDate) {
+            console.log("The date and time have been reached.");
+            data.innerHTML += '<div class="main-live-button" style="width: fit-content;"><span>Live</span></div>'
+
+        } else {
+            // console.log("The date and time have not been reached yet.");
+            let islive = document.getElementById("live_note")
+            if (islive != null) {
+                // console.log(islive)
+                // // (data.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none')
+                // console.log(data.parentNode.parentNode.parentNode.parentNode.parentNode)
+            } else {
+                console.log("nahi hai")
+            }
+
+        }
+    })
+
+</script> -->
+<script>
+    let islive = document.getElementById("live_note")
+    if (islive != null) {
+        console.log(islive)
+        setTimeout(() => {
+            Array.prototype.forEach.call(datetime, function (data) {
+
+                console.log("-->")
+                console.log()
+                if (data.innerHTML.split("<br>")[1] == 'EXPIRED') {
+                    data.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none'
+                }
+            })
+
+        }, 50);
+    }
+
+
+</script>
+{% endblock content %}

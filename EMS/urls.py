@@ -14,6 +14,7 @@ urlpatterns = [
     path('search_tags/<str:tag>/', views.search_tags, name='search_tags'),
     path('search_event/', views.search_event, name='search-event'),
     path('search_private_event/', views.search_private_event, name='search_private_event'),
+    path('search_private_event_page/', views.search_private_event_page, name='search_private_event_page'),
     path('search_by_category/', views.search_by_category, name='search_by_category'),
     path('search_by_time_and_live/', views.search_by_time_and_live, name='search_by_time_and_live'),
     path('calendar/', views.calendar_view, name='calendar'),

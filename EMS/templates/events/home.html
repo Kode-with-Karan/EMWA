@@ -19,6 +19,12 @@
     <button class="btn next">❯</button>
 </div>
 
+<br>
+<div style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-around;">
+<a class="login_btn" href="{% url 'search_private_event_page' %}">Private Events</a>
+<a class="login_btn" href="{% url 'event_create' %}">Create Event</a>
+</div>
+
 <div class="categories">
 
     <form action="{% url 'search_by_category' %}" method="POST">
