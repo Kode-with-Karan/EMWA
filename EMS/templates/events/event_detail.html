@@ -36,6 +36,7 @@
         <li><a href="#MediaSection">Media</a></li>
         <li><a href="#ScheduleSection">Schedule</a></li>
         <li><a href="#MapSection">Map</a></li>
+        <li><a href="#SponsorsSection">Sponsors</a></li>
     </ul>
 </div>
 <div class="carousel">
@@ -297,7 +298,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2>Seating Plan</h2>
+                <h2>{{event.sitting_plan_name}}</h2>
             </div>
 
             {% for sitting_plan in sitting_plans %}
@@ -326,7 +327,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2>Schedule Plan</h2>
+                <h2>{{event.schedule_plan_name}}</h2>
             </div>
 
             {% for schedule_plan in schedule_plans %}
@@ -502,7 +503,7 @@
 
 {% if event.sponsorsWithLink.all or event.sponsorsWithImage.all or event.sponsorsWithName.all %}
 
-<div id="SponsorSection" class="also-like">
+<div id="SponsorsSection" class="also-like">
     <div class="container">
         <h2>Sponsors... 
         </h2>

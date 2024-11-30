@@ -85,14 +85,25 @@ class EventData(models.Model):
     updated_user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='updated_user')
     created_date = models.DateField(auto_now_add=True)
     updated_date = models.DateField(auto_now_add=True)
-    sitting_plan = models.ImageField(upload_to='sitting_plan_files/', blank=True)
-    schedule_plan = models.ImageField(upload_to='schedule_plan_files/', blank=True)
+    sitting_plan_name = models.CharField(max_length=500,blank=True)
+    sitting_plan = models.ImageField(upload_to='sitting_plan_files/', blank=True, default='Seating Plan')
+    schedule_plan_name = models.CharField(max_length=500,blank=True)
+    schedule_plan = models.ImageField(upload_to='schedule_plan_files/', blank=True, default='Schedule Plan')
     hashTags = models.CharField(max_length=100, blank=True)
     saving_mode = models.CharField(max_length=20, choices=SAVING_MODE_CHOICES, default='draft')
 
+    def save(self, *args, **kwargs):
+        # Set default name if not provided
+        if not self.sitting_plan_name:
+            self.sitting_plan_name = "Seating Plan"
+        if not self.schedule_plan_name:
+            self.schedule_plan_name = "Schedule Plan"
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
+
+
 
 
 class Image(models.Model):

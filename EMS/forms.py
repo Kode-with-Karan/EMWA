@@ -113,7 +113,7 @@ class EventDataForm(forms.ModelForm):
 
     class Meta:
         model = EventData
-        fields = ['name', 'category', 'art_category', 'image', 'description', 'link', 'instructions', 'geast_list', 'place_info', 'start_date', 'end_date', 'start_time', 'end_time', 'sitting_plan', 'schedule_plan','hashTags','saving_mode']
+        fields = ['name', 'category', 'art_category', 'image', 'description', 'link', 'instructions', 'geast_list', 'place_info', 'start_date', 'end_date', 'start_time', 'end_time', 'sitting_plan', 'schedule_plan','hashTags', 'schedule_plan_name', 'sitting_plan_name','saving_mode']
         # fields = ['category', 'name', 'uid', 'description', 'job_category', 'scheduled_status', 'venue', 'start_date', 'end_date', 'location', 'points', 'maximum_attende', 'status']
         widgets = {
             'geast_list': forms.TextInput(attrs={'size': '10',}),
@@ -168,6 +168,12 @@ class EventDataForm(forms.ModelForm):
         })
         self.fields['hashTags'].widget.attrs.update({
             'placeholder': 'Enter name of hashTags'
+        })
+        self.fields['sitting_plan_name'].widget.attrs.update({
+            'placeholder': 'Seating Plan'
+        })
+        self.fields['schedule_plan_name'].widget.attrs.update({
+            'placeholder': 'Schedule Plan'
         })
 
 

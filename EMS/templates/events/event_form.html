@@ -135,7 +135,9 @@
                             <fieldset>
                                 <div class="col-lg-12">
                                     <fieldset>
-                                        <label for="sitting_plans">Upload Seating Plan (Multiple):</label>
+                                        {{ form.sitting_plan_name}}
+                                        <!-- <label for="sitting_plans">Upload Seating Plan (Multiple):</label> -->
+                                         <!-- <input type="text" id="sitting_plan_name"> -->
                                         <input type="file" name="sitting_plan" multiple>
                                     </fieldset>
                                 </div>
@@ -145,7 +147,8 @@
                             <fieldset>
                                 <div class="col-lg-12">
                                     <fieldset>
-                                        <label for="schedule_plans">Upload Schedule Plan (Multiple):</label>
+                                        {{ form.schedule_plan_name}}
+                                        <!-- <label for="schedule_plans">Upload Schedule Plan (Multiple):</label> -->
                                         <input type="file" name="schedule_plan" multiple>
                                     </fieldset>
                                 </div>

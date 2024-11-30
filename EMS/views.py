@@ -275,7 +275,8 @@ def event_create(request):
                 SponsorWithImage.objects.create(event=event,logo=logo)
 
             for name in sponsor2_names:
-                SponsorWithName.objects.create(event=event, name=name)
+                if(name.__len__() != 0):
+                    SponsorWithName.objects.create(event=event, name=name)
 
             # Save Event Details
             for title, description in zip(detail_titles, detail_descriptions):
@@ -554,7 +555,7 @@ def event_update(request, pk):
             if 'sitting_plan' in request.FILES:
                 SeatingImage.objects.filter(event=event).delete()
                 for image_file in request.FILES.getlist('sitting_plan'):
-                    SeatingImage.objects.create(event=event, image=image_file)
+                    SeatingImage.objects.create(event=event, image=image_file, name = "hello")
 
             if 'schedule_plan' in request.FILES:
                 ScheduleImage.objects.filter(event=event).delete()
