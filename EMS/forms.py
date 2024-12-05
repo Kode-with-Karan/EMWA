@@ -32,7 +32,7 @@ class ProfileForm(forms.ModelForm):
 
 GuestFormSet = inlineformset_factory(
     EventData, Guest, 
-    fields=('name', 'email', 'is_confirmed'), 
+    fields=('name', 'email', 'confirm'), 
     extra=1, can_delete=True
 )
 

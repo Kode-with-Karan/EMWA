@@ -34,8 +34,8 @@
     <ul>
         <li><a href="#DescSection">Info</a></li>
         <li><a href="#MediaSection">Media</a></li>
-        <li><a href="#ScheduleSection">Schedule</a></li>
-        <li><a href="#MapSection">Map</a></li>
+        <li><a href="#ScheduleSection">{% if event.schedule_plan_name %}  {{event.schedule_plan_name}} {% else %} Schedule {% endif %}</a></li>
+        <li><a href="#MapSection">{% if event.sitting_plan_name %}  {{event.sitting_plan_name}} {% else %} Map {% endif %}</a></li>
         <li><a href="#SponsorsSection">Sponsors</a></li>
     </ul>
 </div>

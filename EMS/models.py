@@ -66,7 +66,7 @@ class EventData(models.Model):
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, blank=True)
+    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, blank=True, default='public')
     art_category = models.CharField(max_length=20, choices=ART_CATEGORY_CHOICES, blank=True, default='other')
     image = models.ImageField(upload_to='event_images/',blank=True)
     description = models.TextField(blank=True)
@@ -185,10 +185,17 @@ class EventDetail(models.Model):
 
 
 class Guest(models.Model):
+
+    CONFIRM_CHOICES = [
+        ('confirm', 'Confirm'),
+        ('not_confirm', 'Not Confirm'),
+
+    ]
+
     event = models.ForeignKey(EventData, on_delete=models.CASCADE, related_name='guests')
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    is_confirmed = models.BooleanField(default=False)
+    confirm = models.CharField( max_length=100 , choices=CONFIRM_CHOICES, blank=True, default='confirm')
 
     def __str__(self):
         return f"{self.name} - {self.email}"

@@ -5,6 +5,7 @@
 
 {{form.errors}}
 
+
 <div class="rent-venue-application">
     <div class="container">
         <div class="row">
@@ -80,7 +81,8 @@
                                 <input type="text" name="detail_title" placeholder="Detail Title">
                                 <textarea name="detail_description" placeholder="Detail Description"></textarea>
                             </div>
-                            <button type="button" class="main-dark-button" id="add-detail-btn">Add Another Detail</button>
+                            <button type="button" class="main-dark-button" id="add-detail-btn">Add Another
+                                Detail</button>
                             <br>
                         </div>
                         <div class="col-lg-12">
@@ -137,7 +139,7 @@
                                     <fieldset>
                                         {{ form.sitting_plan_name}}
                                         <!-- <label for="sitting_plans">Upload Seating Plan (Multiple):</label> -->
-                                         <!-- <input type="text" id="sitting_plan_name"> -->
+                                        <!-- <input type="text" id="sitting_plan_name"> -->
                                         <input type="file" name="sitting_plan" multiple>
                                     </fieldset>
                                 </div>
@@ -191,49 +193,76 @@
                             </div>
                             <div class="sponsor-group_fill">
                             </div>
-                            <button type="button" id="add-sponsor-btn" class="main-dark-button" >Add Another Sponsor</button>
+                            <button type="button" id="add-sponsor-btn" class="main-dark-button">Add Another
+                                Sponsor</button>
                         </div>
-                        <div id="sponsor1-section" class="col-sm-12" >
+                        <div id="sponsor1-section" class="col-sm-12">
                             <h4>Sponsors Tier 2</h4>
                             <div class="sponsor1-group">
                                 <input type="file" name="sponsor1_logo" accept="image/*">
                             </div>
                             <div class="sponsor-group_fill1">
                             </div>
-                            <button type="button" id="add-sponsor1-btn" class="main-dark-button" >Add Another Sponsor</button>
+                            <button type="button" id="add-sponsor1-btn" class="main-dark-button">Add Another
+                                Sponsor</button>
                         </div>
-                        <div id="sponsor2-section" class="col-sm-12" >
+                        <div id="sponsor2-section" class="col-sm-12">
                             <h4>Sponsors Tier 3</h4>
                             <div class="sponsor2-group">
                                 <input type="text" name="sponsor2_name" placeholder="Sponsor Name">
                             </div>
                             <div class="sponsor-group_fill2">
                             </div>
-                            <button type="button" id="add-sponsor2-btn" class="main-dark-button" >Add Another Sponsor</button>
+                            <button type="button" id="add-sponsor2-btn" class="main-dark-button">Add Another
+                                Sponsor</button>
                         </div>
-                        
+
                         <!-- Guest List Section -->
                         <div class="guest-form col-sm-12">
                             <br>
                             <h4>Guest List</h4>
 
                             <!-- Select All Checkbox -->
-                            
+
                             <br>
 
                             <div id="guest-fields">
+                                
+                                {% if guests %}
+                                <!-- {% for guest in guests %}
+                                {{guest.confirm}}
+                                {% endfor %} -->
+                                {% for guest in guests %}
                                 <div class="guest-field" style="display: flex;justify-content: space-around;">
-                                    <input class="col-md-3 col-sm-12" type="text" name="guest_name" placeholder="Guest Name">
-                                    <input class="col-md-3 col-sm-12" type="email" name="guest_email" placeholder="Guest Email">
-                                    <input class="col-md-3 col-sm-12" type="checkbox" name="guest_is_confirmed" value="True"> Confirmed
+                                    <input class="col-md-3 col-sm-12" type="text" name="guest_name"
+                                        value="{{ guest.name }}" placeholder="Guest Name">
+                                    <input class="col-md-3 col-sm-12" type="email" name="guest_email"
+                                        value="{{ guest.email }}" placeholder="Guest Email">
+                                        <select class="col-md-3 col-sm-12" name="guest_is_confirm">
+                                            <option value="confirm" {% if guest.confirm == 'confirm' %}selected{% endif %}>Confirm</option>
+                                            <option value="not_confirm" {% if guest.confirm == 'not_confirm' %}selected{% endif %} >Not Confirm</option>
+                                        </select>
                                 </div>
+                                {% endfor %}
+                                {% else %}
+                                <div class="guest-field" style="display: flex;justify-content: space-around;">
+                                    <input class="col-md-3 col-sm-12" type="text" name="guest_name"
+                                        placeholder="Guest Name">
+                                    <input class="col-md-3 col-sm-12" type="email" name="guest_email"
+                                        placeholder="Guest Email">
+                                    <select class="col-md-3 col-sm-12" name="guest_is_confirm">
+                                        <option value="confirm" selected>Confirm</option>
+                                        <option value="not_confirm">Not Confirm</option>
+                                    </select>
+                                </div>
+                                {% endif %}
                             </div>
-                            <div id="sel_check_All">
+                            <!-- <div id="sel_check_All">
                                 <p>Select All Guests</p>
-                                <input type="checkbox" id="select-all" onclick="toggleAllGuests()"> 
+                                <input type="checkbox" id="select-all" onclick="toggleAllGuests()">
 
-                            </div>
-                            
+                            </div> -->
+
                             <button type="button" class="main-dark-button" onclick="addGuest()">Add Guest</button>
                             <br>
                         </div>
@@ -280,7 +309,11 @@
     </div>
 </div>
 
+
+
+
 <script>
+
 
 
     document.getElementById("email_btn").addEventListener('click', function () {
@@ -325,21 +358,37 @@
 
     document.getElementById('add-sponsor-btn').addEventListener('click', function () {
         const sponsorGroup = document.querySelector('.sponsor-group').cloneNode(true);
+        const inputs = sponsorGroup.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.value = '';  // Clear the value for each input/textarea
+        });
         document.querySelector('.sponsor-group_fill').appendChild(sponsorGroup);
     });
 
     document.getElementById('add-sponsor1-btn').addEventListener('click', function () {
         const sponsor1Group = document.querySelector('.sponsor1-group').cloneNode(true);
+        const inputs = sponsor1Group.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.value = '';  // Clear the value for each input/textarea
+        });
         document.querySelector('.sponsor-group_fill1').appendChild(sponsor1Group);
     });
 
     document.getElementById('add-sponsor2-btn').addEventListener('click', function () {
         const sponsor2Group = document.querySelector('.sponsor2-group').cloneNode(true);
+        const inputs = sponsor2Group.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.value = '';  // Clear the value for each input/textarea
+        });
         document.querySelector('.sponsor-group_fill2').appendChild(sponsor2Group);
     });
 
     document.getElementById('add-detail-btn').addEventListener('click', function () {
         const detailGroup = document.querySelector('.detail-group').cloneNode(true);
+        const inputs = detailGroup.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.value = '';  // Clear the value for each input/textarea
+        });
         // document.getElementById('detail-section').appendChild(detailGroup);
         document.querySelector('.detail-group').appendChild(detailGroup);
     });
@@ -353,7 +402,10 @@
         newGuest.innerHTML = `
             <input class="col-md-3 col-sm-12" type="text" name="guest_name" placeholder="Guest Name">
             <input class="col-md-3 col-sm-12" type="email" name="guest_email" placeholder="Guest Email">
-            <input class="col-md-3 col-sm-12" type="checkbox" name="guest_is_confirmed" value="True"> Confirmed
+            <select class="col-md-3 col-sm-12" name="guest_is_confirm">
+                                            <option value="confirm" selected>Confirm</option>
+                                            <option value="not_confirm">Not Confirm</option>
+                                        </select>
         `;
         guestFields.appendChild(newGuest);
     }

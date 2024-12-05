@@ -256,11 +256,18 @@
             let content = el.getElementsByClassName("down-content")[0]
             try {
                 let element = thumb.getElementsByTagName("img")[0]
-                canva_thumb.innerHTML += '<img style="height: 64vh;width: 100vw;" src="' + thumb.getElementsByTagName("img")[0].getAttribute("src") + '" id = "media_img" alt="Comment image">'
+                canva_thumb.innerHTML += '<img src="' + thumb.getElementsByTagName("img")[0].getAttribute("src") + '" id = "media_img" alt="Comment image">'
             } catch (error) {
                 canva_thumb.innerHTML += '<video style="height: 64vh;width: 100vw;" src="' + thumb.getElementsByTagName("video")[0].getAttribute("src") + '" id = "media_video" controls alt="Comment video">'
 
             }
+            // try {
+            //     let element = thumb.getElementsByTagName("img")[0]
+            //     canva_thumb.innerHTML += '<img style="height: 64vh;width: 100vw;" src="' + thumb.getElementsByTagName("img")[0].getAttribute("src") + '" id = "media_img" alt="Comment image">'
+            // } catch (error) {
+            //     canva_thumb.innerHTML += '<video style="height: 64vh;width: 100vw;" src="' + thumb.getElementsByTagName("video")[0].getAttribute("src") + '" id = "media_video" controls alt="Comment video">'
+
+            // }
 
             console.log(content.getElementsByTagName("span")[0].innerHTML)
             media_cont_span.innerHTML = content.getElementsByTagName("span")[0].innerHTML

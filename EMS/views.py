@@ -240,11 +240,11 @@ def event_create(request):
 
         guest_names = request.POST.getlist('guest_name')
         guest_emails = request.POST.getlist('guest_email')
-        guest_confirmed = request.POST.getlist('guest_is_confirmed') 
+        guest_confirmed = request.POST.getlist('guest_is_confirm') 
 
         email_list = ""
         for name, email, confirmed in zip(guest_names, guest_emails, guest_confirmed):
-                if(confirmed):
+                if(confirmed == "confirm"):
                     email_list = email+","+email_list
                 
         
@@ -283,7 +283,8 @@ def event_create(request):
                 EventDetail.objects.create(event=event, title=title, description=description)
 
             for name, email, confirmed in zip(guest_names, guest_emails, guest_confirmed):
-                Guest.objects.create(event=event, name=name, email=email, is_confirmed=bool(confirmed))
+
+                Guest.objects.create(event=event, name=name, email=email, confirm=confirmed)
 
             
 
@@ -502,7 +503,7 @@ def event_create(request):
     else:
         form = EventDataForm()
         
-    return render(request, 'events/event_form.html', {'form': form,'image_form': image_forms,'sitting_image_forms': sitting_image_forms,'schedule_image_forms': schedule_image_forms,'active_page': 'create'})
+    return render(request, 'events/event_form.html', {'form': form,'image_form': image_forms,'sitting_image_forms': sitting_image_forms,'schedule_image_forms': schedule_image_forms,'active_page': 'create','guests': '' })
 
 
 @login_required(login_url="login")
@@ -515,6 +516,8 @@ def event_update(request, pk):
     image_forms = ImageForm()
     schedule_image_forms = ScheduleImageForm()
     sitting_image_forms = SeatingImageForm()
+
+    guests = Guest.objects.filter(event=event)
 
     if request.method == 'POST':
         # Process the form data
@@ -530,13 +533,17 @@ def event_update(request, pk):
 
         guest_names = request.POST.getlist('guest_name')
         guest_emails = request.POST.getlist('guest_email')
-        guest_confirmed = request.POST.getlist('guest_is_confirmed')
+        guest_confirmed = request.POST.getlist('guest_is_confirm')
        
+        print("-->")
+        print(guest_names, guest_emails, guest_confirmed)
 
         email_list = ""
         for name, email, confirmed in zip(guest_names, guest_emails, guest_confirmed):
-                if(confirmed):
+                if(confirmed == "confirm"):
                     email_list = email+","+email_list
+
+        
 
         if form.is_valid():
             event = form.save(commit=False)
@@ -555,7 +562,7 @@ def event_update(request, pk):
             if 'sitting_plan' in request.FILES:
                 SeatingImage.objects.filter(event=event).delete()
                 for image_file in request.FILES.getlist('sitting_plan'):
-                    SeatingImage.objects.create(event=event, image=image_file, name = "hello")
+                    SeatingImage.objects.create(event=event, image=image_file)
 
             if 'schedule_plan' in request.FILES:
                 ScheduleImage.objects.filter(event=event).delete()
@@ -580,10 +587,14 @@ def event_update(request, pk):
             for title, description in zip(detail_titles, detail_descriptions):
                 EventDetail.objects.create(event=event, title=title, description=description)
 
+            print("ye vala -->")
+            print(guest_names, guest_emails, guest_confirmed)
             # Update guest list
             Guest.objects.filter(event=event).delete()
             for name, email, confirmed in zip(guest_names, guest_emails, guest_confirmed):
-                Guest.objects.create(event=event, name=name, email=email, is_confirmed=bool(confirmed))
+                print("or ye vala -->")
+                print(guest_names, guest_emails, guest_confirmed)
+                Guest.objects.create(event=event, name=name, email=email, confirm=confirmed)
 
 
             subject = "Invitaion of "+event.name
@@ -808,7 +819,8 @@ def event_update(request, pk):
         'sitting_image_forms': sitting_image_forms,
         'schedule_image_forms': schedule_image_forms,
         'active_page': 'update',
-        'event': event
+        'event': event,
+        'guests': guests 
     })
 
 # @login_required(login_url="login")
