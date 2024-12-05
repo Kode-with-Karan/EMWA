@@ -1,0 +1,250 @@
+/* Carousel container */
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+/* Carousel slides */
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Individual slide */
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.slide img {
+    width: 100%;
+    display: block;
+}
+
+/* Navigation buttons */
+.btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+    width: 45px;
+    height: 45px;
+}
+
+.btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+
+
+.categories {
+    width: 80%;
+    margin: 40px auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.category {
+    text-align: center;
+    width: 100px;
+}
+
+.category .icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 10px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.category .icon img {
+    width: 40px;
+    height: 40px;
+}
+
+.category:hover .icon {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.category .label {
+    font-size: 14px;
+    color: #333;
+    /* font-weight: bold; */
+}
+
+
+.dropdown-container {
+    position: relative;
+    margin: auto;
+    display: flex;
+    width: 80%;
+}
+
+.dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* width: 250px; */
+}
+
+.dropdown-toggle:hover {
+    border-color: #bbb;
+}
+
+.dropdown-toggle i {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 5px;
+    padding: 0;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 10;
+}
+
+.dropdown-menu li {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f5f5f5;
+}
+
+.dropdown-menu li i {
+    font-size: 16px;
+    color: #007bff;
+    margin-right: 10px;
+}
+
+/* Active state for dropdown */
+.dropdown-container.active .dropdown-menu {
+    display: block;
+}
+
+.user_sec{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: rgb(243, 243, 243);
+}
+.user_content{
+    display: flex;
+    align-items: center;
+}
+.user_content>img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+#suggestions{
+    position: absolute;
+    background: white;
+    z-index: 10;
+    width: 32vw;
+}
+#homesuggestions{
+    position: absolute;
+    background: white;
+    z-index: 10;
+    width: 32vw;
+}
+#homesuggestions>div{
+    padding: 10px 5px;
+}
+#suggestions>div{
+    padding: 10px 5px;
+}
+#suggestions>div:hover{
+    background: rgb(231, 231, 231);
+}
+
+.nav_search_bar>div:nth-child(1)>div>fieldset>input{
+    width: 185px;
+}
+/* .nav_search_bar>div:nth-child(2)>div>fieldset>input{
+    width: 182px;
+} */
+.nav_search_bar>div:nth-child(2)>div>fieldset>input {
+    width: 224px;
+}
+
+@media (max-width: 1200px) {
+
+    .nav_search_bar>div:nth-child(2)>div>fieldset>input{
+        width: 116%;
+    }
+    
+}
+@media (max-width: 500px) {
+
+    .nav_search_bar>div:nth-child(2)>div>fieldset>input{
+        width: 124%;
+    }
+    .category {
+        text-align: center;
+        width: 49px;
+      }
+    
+      .category .icon {
+        width: 62px;
+        height: 62px;
+      }
+      .category {
+        text-align: center;
+        width: 49px;
+    }
+}
