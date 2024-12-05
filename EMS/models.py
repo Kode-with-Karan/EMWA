@@ -49,14 +49,15 @@ class EventData(models.Model):
     ]
 
     ART_CATEGORY_CHOICES = [
-        ('music', 'Music'),
-        ('nightlife', 'Nightlife'),
-        ('performingVisualArts', 'Performing & Visual Arts'),
-        ('holidays', 'Holidays'),
-        ('dating', 'Dating'),
-        ('hobbies', 'Hobbies'),
-        ('business', 'Business'),
-        ('foodDrink', 'Food & Drink'),
+        ('Entertainment', 'Entertainment'),
+        ('Festivals_and_Fairs', 'Festivals and Fairs'),
+        ('Sporting', 'Sporting'),
+        ('Cultural', 'Cultural '),
+        ('business', 'Business and Corporate'),
+        ('Community', 'Community'),
+        ('Educational', 'Educational '),
+        ('Health_and_Wellness', 'Health and Wellness'),
+        ('Political', 'Political'),
         ('other', 'Other'),
     ]
     SAVING_MODE_CHOICES = [

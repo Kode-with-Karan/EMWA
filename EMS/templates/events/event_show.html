@@ -22,13 +22,12 @@
         </div>
     </div>
 </div>
-
 <div class="categories">
 
     <form action="{% url 'search_by_category' %}" method="POST">
         {% csrf_token %}
         <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" name="search" type="hidden" value="music"
+            <input class="form-control form-control-navbar" name="search" type="hidden" value="Political"
                 placeholder="Search" aria-label="Search">
             <div class="input-group-append">
                 <button style="background: transparent;border: none;outline: none;" type="submit">
@@ -40,7 +39,7 @@
                                     fill="#504264"></path>
                             </svg>
                         </div>
-                        <div class="label">Music</div>
+                        <div class="label">Political</div>
                     </div>
                 </button>
             </div>
@@ -49,7 +48,7 @@
     <form action="{% url 'search_by_category' %}" method="POST">
         {% csrf_token %}
         <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" name="search" type="hidden" value="nightlife"
+            <input class="form-control form-control-navbar" name="search" type="hidden" value="Festivals_and_Fairs"
                 placeholder="Search" aria-label="Search">
             <div class="input-group-append">
                 <button style="background: transparent;border: none;outline: none;" type="submit">
@@ -61,7 +60,7 @@
                                     fill="#504264"></path>
                             </svg>
                         </div>
-                        <div class="label">Nightlife</div>
+                        <div class="label">Festivals and Fairs </div>
                     </div>
                 </button>
             </div>
@@ -71,7 +70,7 @@
     <form action="{% url 'search_by_category' %}" method="POST">
         {% csrf_token %}
         <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" name="search" type="hidden" value="holidays"
+            <input class="form-control form-control-navbar" name="search" type="hidden" value="Cultural"
                 placeholder="Search" aria-label="Search">
             <div class="input-group-append">
                 <button style="background: transparent;border: none;outline: none;" type="submit">
@@ -83,7 +82,7 @@
                                     fill="#504264"></path>
                             </svg>
                         </div>
-                        <div class="label">Holidays</div>
+                        <div class="label">Cultural </div>
                     </div>
                 </button>
             </div>
@@ -92,7 +91,7 @@
     <form action="{% url 'search_by_category' %}" method="POST">
         {% csrf_token %}
         <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" name="search" type="hidden" value="dating"
+            <input class="form-control form-control-navbar" name="search" type="hidden" value="Community"
                 placeholder="Search" aria-label="Search">
             <div class="input-group-append">
                 <button style="background: transparent;border: none;outline: none;" type="submit">
@@ -104,7 +103,7 @@
                                     fill="#504264"></path>
                             </svg>
                         </div>
-                        <div class="label">Dating</div>
+                        <div class="label">Community</div>
                     </div>
                 </button>
             </div>
@@ -113,7 +112,7 @@
     <form action="{% url 'search_by_category' %}" method="POST">
         {% csrf_token %}
         <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" name="search" type="hidden" value="hobbies"
+            <input class="form-control form-control-navbar" name="search" type="hidden" value="Sporting"
                 placeholder="Search" aria-label="Search">
             <div class="input-group-append">
                 <button style="background: transparent;border: none;outline: none;" type="submit">
@@ -125,7 +124,7 @@
                                     fill="#504264"></path>
                             </svg>
                         </div>
-                        <div class="label">Hobbies</div>
+                        <div class="label">Sporting</div>
                     </div>
                 </button>
             </div>
@@ -146,7 +145,7 @@
                                     fill="#504264"></path>
                             </svg>
                         </div>
-                        <div class="label">Business</div>
+                        <div class="label">Business and Corporate</div>
                     </div>
                 </button>
             </div>
@@ -155,7 +154,7 @@
     <form action="{% url 'search_by_category' %}" method="POST">
         {% csrf_token %}
         <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" name="search" type="hidden" value="foodDrink"
+            <input class="form-control form-control-navbar" name="search" type="hidden" value="Health_and_Wellness "
                 placeholder="Search" aria-label="Search">
             <div class="input-group-append">
                 <button style="background: transparent;border: none;outline: none;" type="submit">
@@ -167,7 +166,7 @@
                                     fill="#504264"></path>
                             </svg>
                         </div>
-                        <div class="label">Food & Drink</div>
+                        <div class="label">Health and Wellness </div>
                     </div>
                 </button>
             </div>
@@ -176,7 +175,7 @@
     <form action="{% url 'search_by_category' %}" method="POST">
         {% csrf_token %}
         <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" name="search" type="hidden" value="performingVisualArts"
+            <input class="form-control form-control-navbar" name="search" type="hidden" value="Entertainment"
                 placeholder="Search" aria-label="Search">
             <div class="input-group-append">
                 <button style="background: transparent;border: none;outline: none;" type="submit">
@@ -194,14 +193,13 @@
                                     fill="#504264"></path>
                             </svg>
                         </div>
-                        <div class="label">Performing & Visual Arts</div>
+                        <div class="label">Entertainment</div>
                     </div>
                 </button>
             </div>
         </div>
     </form>
 </div>
-
 <!-- *** Venues & Tickets ***-->
 <div class="venue-tickets" >
     <div class="container-fluid">
@@ -297,10 +295,10 @@
                         {% csrf_token %}
                         <div class="input-group input-group-sm">
                             <input class="form-control form-control-navbar" name="search" type="hidden"
-                                value="music" placeholder="Search" aria-label="Search">
+                                value="Political" placeholder="Search" aria-label="Search">
                             <div class="input-group-append">
                                 <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
-                                    <h2>Musical Events</h2>
+                                    <h2>Political Events</h2>
                                 </button>
                             </div>
                         </div>
@@ -310,7 +308,7 @@
             </div>
 
             {% for event in events %}
-            {% if event.art_category == 'music' %}
+            {% if event.art_category == 'Political' %}
             <div class="col-lg-3">
                 <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
                     <div class="thumb" style="border-radius: 5px; overflow: hidden;">
@@ -353,10 +351,10 @@
                         {% csrf_token %}
                         <div class="input-group input-group-sm">
                             <input class="form-control form-control-navbar" name="search" type="hidden"
-                                value="nightlife" placeholder="Search" aria-label="Search">
+                                value="Festivals_and_Fairs" placeholder="Search" aria-label="Search">
                             <div class="input-group-append">
                                 <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
-                                    <h2>Nightlife Events</h2>
+                                    <h2>Festivals and Fairs Events</h2>
                                 </button>
                             </div>
                         </div>
@@ -365,66 +363,8 @@
             </div>
 
             {% for event in events %}
-            {% if event.art_category == 'nightlife' %}
+            {% if event.art_category == 'Festivals_and_Fairs' %}
 
-            <div class="col-lg-3">
-                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
-                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
-                        <img src="{{ event.image.url }}" alt="" height="200px">
-                    </div>
-                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
-                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
-                        <div class="right-content">
-                            <h4>{{event.name|name_shorter}}</h4>
-                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
-                            <ul>
-                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}}
-                                    <p style="display: none;">{{event.end_date}} - {{event.end_time}}</p>
-                                </li>
-                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
-                            </ul>
-                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
-                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
-                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            {% endfor %}
-
-
-        </div>
-    </div>
-</div>
-
-
-
-<!-- *** Venues & Tickets ***-->
-<div class="venue-tickets">
-    <div class="container-fluid">
-        <div class="row" style="width: 90%;margin: auto;">
-            <div class="col-lg-12">
-                <div class="section-heading">
-                    <form action="{% url 'search_by_category' %}" method="POST">
-                        {% csrf_token %}
-                        <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" name="search" type="hidden"
-                                value="performingVisualArts" placeholder="Search" aria-label="Search">
-                            <div class="input-group-append">
-                                <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
-                                    <h2>Performing & Visual Arts Events</h2>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                    
-                </div>
-            </div>
-
-            {% for event in events %}
-            {% if event.art_category == 'performingVisualArts' %}
             <div class="col-lg-3">
                 <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
                     <div class="thumb" style="border-radius: 5px; overflow: hidden;">
@@ -469,10 +409,10 @@
                         {% csrf_token %}
                         <div class="input-group input-group-sm">
                             <input class="form-control form-control-navbar" name="search" type="hidden"
-                                value="holidays" placeholder="Search" aria-label="Search">
+                                value="Cultural" placeholder="Search" aria-label="Search">
                             <div class="input-group-append">
                                 <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
-                                    <h2>Holidays Events</h2>
+                                    <h2>Cultural Events</h2>
                                 </button>
                             </div>
                         </div>
@@ -482,7 +422,7 @@
             </div>
 
             {% for event in events %}
-            {% if event.art_category == 'holidays' %}
+            {% if event.art_category == 'Cultural' %}
             <div class="col-lg-3">
                 <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
                     <div class="thumb" style="border-radius: 5px; overflow: hidden;">
@@ -527,10 +467,10 @@
                         {% csrf_token %}
                         <div class="input-group input-group-sm">
                             <input class="form-control form-control-navbar" name="search" type="hidden"
-                                value="dating" placeholder="Search" aria-label="Search">
+                                value="Community" placeholder="Search" aria-label="Search">
                             <div class="input-group-append">
                                 <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
-                                    <h2>Dating Events</h2>
+                                    <h2>Community Events</h2>
                                 </button>
                             </div>
                         </div>
@@ -540,7 +480,7 @@
             </div>
 
             {% for event in events %}
-            {% if event.art_category == 'dating' %}
+            {% if event.art_category == 'Community' %}
             <div class="col-lg-3">
                 <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
                     <div class="thumb" style="border-radius: 5px; overflow: hidden;">
@@ -572,6 +512,9 @@
         </div>
     </div>
 </div>
+
+
+
 <!-- *** Venues & Tickets ***-->
 <div class="venue-tickets">
     <div class="container-fluid">
@@ -582,10 +525,10 @@
                         {% csrf_token %}
                         <div class="input-group input-group-sm">
                             <input class="form-control form-control-navbar" name="search" type="hidden"
-                                value="hobbies" placeholder="Search" aria-label="Search">
+                                value="Sporting" placeholder="Search" aria-label="Search">
                             <div class="input-group-append">
                                 <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
-                                    <h2>Hobbies Events</h2>
+                                    <h2>Sporting Events</h2>
                                 </button>
                             </div>
                         </div>
@@ -595,7 +538,7 @@
             </div>
 
             {% for event in events %}
-            {% if event.art_category == 'hobbies' %}
+            {% if event.art_category == 'Sporting' %}
             <div class="col-lg-3">
                 <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
                     <div class="thumb" style="border-radius: 5px; overflow: hidden;">
@@ -650,6 +593,7 @@
             </div>
 
             {% for event in events %}
+            <!-- {{event.art_category}} -->
             {% if event.art_category == 'business' %}
             <div class="col-lg-3">
                 <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
@@ -692,10 +636,10 @@
                         {% csrf_token %}
                         <div class="input-group input-group-sm">
                             <input class="form-control form-control-navbar" name="search" type="hidden"
-                                value="foodDrink" placeholder="Search" aria-label="Search">
+                                value="Health_and_Wellness" placeholder="Search" aria-label="Search">
                             <div class="input-group-append">
                                 <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
-                                    <h2>Food & Drink Events</h2>
+                                    <h2>Health and Wellness Events</h2>
                                 </button>
                             </div>
                         </div>
@@ -705,7 +649,7 @@
             </div>
 
             {% for event in events %}
-            {% if event.art_category == 'foodDrink' %}
+            {% if event.art_category == 'Health_and_Wellness' %}
             <div class="col-lg-3">
                 <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
                     <div class="thumb" style="border-radius: 5px; overflow: hidden;">
@@ -737,6 +681,118 @@
         </div>
     </div>
 </div>
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <form action="{% url 'search_by_category' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" name="search" type="hidden"
+                                value="Entertainment" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
+                                    <h2>Entertainment Events</h2>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+
+            {% for event in events %}
+            {% if event.art_category == 'Entertainment' %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="{{ event.image.url }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}}
+                                    <p style="display: none;">{{event.end_date}} - {{event.end_time}}</p>
+                                </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+<!-- *** Venues & Tickets ***-->
+<div class="venue-tickets">
+    <div class="container-fluid">
+        <div class="row" style="width: 90%;margin: auto;">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <form action="{% url 'search_by_category' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" name="search" type="hidden"
+                                value="Educational" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button style="background: transparent;border: none;outline: none; text-decoration: underline;" type="submit">
+                                    <h2>Educational Events</h2>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+
+            {% for event in events %}
+            {% if event.art_category == 'Educational' %}
+            <div class="col-lg-3">
+                <div class="venue-item" style="border-radius: 10px; overflow: hidden;">
+                    <div class="thumb" style="border-radius: 5px; overflow: hidden;">
+                        <img src="{{ event.image.url }}" alt="" height="200px">
+                    </div>
+                    <!-- <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;height: 238px;"> -->
+                    <div class="down-content" style="border-radius: 0 0 9px 9px; overflow: hidden;">
+                        <div class="right-content">
+                            <h4>{{event.name|name_shorter}}</h4>
+                            <!-- <div class="main-live-button" ><span>Live</span></div> -->
+                            <ul>
+                                <li class="datetime"><i class="fa fa-clock-o"></i> {{event.start_date}} - {{event.start_time}}
+                                    <p style="display: none;">{{event.end_date}} - {{event.end_time}}</p>
+                                </li>
+                                <li><i class="fa fa-map-marker"></i>{{event.place_info}}</li>
+                            </ul>
+                            <!-- <div class="main-white-button" style="margin: 20px 0;position: absolute;bottom: 0;"> -->
+                            <div class="main-white-button" style="margin: 20px 0;bottom: 0;">
+                                <a href="{% url 'event_detail' event.id %}" class="login_btn">Event Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
 
 <!-- <div class="shows-events-tabs">
     <div class="container">
